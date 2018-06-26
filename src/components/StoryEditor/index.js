@@ -4,30 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import ContentBlock from 'components/ContentBlock';
+import BlockButton from 'components/BlockButton';
 
 // --- styled components
-const Container = styled.div`
-  /* */
-`;
-
-const AddButton = styled.a`
-  display: block;
+const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 3px;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #360a80;
-  text-align: center;
-  text-decoration: none;
-
-  :hover,
-  :focus {
-    background-color: #360ccc;
-  }
 `;
 
 // --- components
@@ -82,7 +63,7 @@ class StoryEditor extends React.Component<Props, State> {
 
   render() {
     return (
-      <Container {...this.props}>
+      <React.Fragment>
         {this.state.stories.map((story) => (
           <ContentBlock
             key={story.time}
@@ -94,15 +75,14 @@ class StoryEditor extends React.Component<Props, State> {
         ))}
 
         <AddButton
+          text="+"
           href=""
           onClick={(ev) => {
             ev.preventDefault();
             this.addBlock();
           }}
-        >
-          +
-        </AddButton>
-      </Container>
+        />
+      </React.Fragment>
     );
   }
 }

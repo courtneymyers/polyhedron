@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
+import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
 
 // --- styled components
@@ -12,16 +13,23 @@ const Container = styled.div`
   border: 1px solid #ccbee4;
 `;
 
+const Handle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 1.75rem;
+  background-color: #ccbee4;
+`;
+
+const SubtractButton = styled(BlockButton)`
+  /* */
+`;
+
 const Fields = styled.fieldset`
   flex-grow: 1;
   margin: 0;
   padding: 0;
   border: 0;
-`;
-
-const Handle = styled.div`
-  flex-basis: 1.25rem;
-  background-color: #ccbee4;
 `;
 
 // --- components
@@ -34,7 +42,15 @@ type Props = {
 
 const ContentBlock = (props: Props) => (
   <Container {...props}>
-    <Handle />
+    <Handle>
+      <SubtractButton
+        text="–"
+        href=""
+        onClick={(ev) => {
+          ev.preventDefault();
+        }}
+      />
+    </Handle>
     <Fields>
       {/* TODO: user, tags */}
       <Field type="text" label="Title" text={props.title} />
