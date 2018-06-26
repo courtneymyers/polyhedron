@@ -3,7 +3,7 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
-import StoryEditor from 'components/StoryEditor';
+import ArticleEditor from 'components/ArticleEditor';
 import BlockLibrary from 'components/BlockLibrary';
 
 // --- global stylesheet
@@ -74,8 +74,8 @@ const App = (props: Props) => (
 
     <Main>
       <LeftPanel>
-        <SubHeading>Story Editor</SubHeading>
-        <StoryEditor />
+        <SubHeading>Article Editor</SubHeading>
+        <ArticleEditor />
       </LeftPanel>
 
       <RightPanel>

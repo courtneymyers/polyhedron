@@ -14,18 +14,16 @@ const AddButton = styled(BlockButton)`
 // --- components
 type Props = {};
 
-type Story = {
-  time: number,
-  title: string,
-  desc: string,
-  body: string,
-};
-
 type State = {
-  blocks: Array<Story>,
+  blocks: Array<{
+    time: number,
+    title: string,
+    desc: string,
+    body: string,
+  }>,
 };
 
-class StoryEditor extends React.Component<Props, State> {
+class ArticleEditor extends React.Component<Props, State> {
   addBlock: () => void;
   removeBlock: (number) => void;
 
@@ -89,4 +87,4 @@ class StoryEditor extends React.Component<Props, State> {
   }
 }
 
-export default StoryEditor;
+export default ArticleEditor;
