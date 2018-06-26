@@ -13,6 +13,14 @@ const Container = styled.div`
   border: 1px solid #ccbee4;
 `;
 
+const Fields = styled.fieldset`
+  order: 2;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+`;
+
 const Handle = styled.div`
   display: flex;
   align-items: center;
@@ -23,13 +31,6 @@ const Handle = styled.div`
 
 const RemoveButton = styled(BlockButton)`
   /* */
-`;
-
-const Fields = styled.fieldset`
-  flex-grow: 1;
-  margin: 0;
-  padding: 0;
-  border: 0;
 `;
 
 // --- components
@@ -43,6 +44,13 @@ type Props = {
 
 const ContentBlock = (props: Props) => (
   <Container {...props}>
+    <Fields>
+      {/* TODO: user, tags */}
+      <Field type="text" label="Title" text={props.title} />
+      <Field type="text" label="Description" text={props.desc} />
+      <Field type="textarea" label="Body" text={props.body} />
+    </Fields>
+
     <Handle>
       <RemoveButton
         text="–"
@@ -53,12 +61,6 @@ const ContentBlock = (props: Props) => (
         }}
       />
     </Handle>
-    <Fields>
-      {/* TODO: user, tags */}
-      <Field type="text" label="Title" text={props.title} />
-      <Field type="text" label="Description" text={props.desc} />
-      <Field type="textarea" label="Body" text={props.body} />
-    </Fields>
   </Container>
 );
 
