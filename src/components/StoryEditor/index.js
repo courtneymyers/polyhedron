@@ -34,7 +34,6 @@ const AddButton = styled.a`
 type Props = {};
 
 type Story = {
-  id: number,
   time: number,
   title: string,
   desc: string,
@@ -55,7 +54,6 @@ class StoryEditor extends React.Component<Props, State> {
       blocks: 1,
       stories: [
         {
-          id: 1,
           time: new Date().getTime(),
           title: '',
           desc: '',
@@ -67,7 +65,6 @@ class StoryEditor extends React.Component<Props, State> {
     this.addBlock = () => {
       this.setState((prevState) => {
         const newBlock = {
-          id: ++prevState.blocks,
           time: new Date().getTime(),
           title: '',
           desc: '',
@@ -76,7 +73,7 @@ class StoryEditor extends React.Component<Props, State> {
 
         return {
           ...prevState,
-          blocks: newBlock.id,
+          blocks: ++prevState.blocks,
           stories: prevState.stories.concat(newBlock),
         };
       });
@@ -88,8 +85,7 @@ class StoryEditor extends React.Component<Props, State> {
       <Container {...this.props}>
         {this.state.stories.map((story) => (
           <ContentBlock
-            key={story.id}
-            id={story.id}
+            key={story.time}
             time={story.time}
             title={story.title}
             desc={story.desc}

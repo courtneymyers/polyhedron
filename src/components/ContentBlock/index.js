@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
-import TextField from 'components/TextField';
+import Field from 'components/Field';
 
 // --- styled components
 const Container = styled.div`
@@ -26,7 +26,6 @@ const Handle = styled.div`
 
 // --- components
 type Props = {
-  id: number,
   time: number,
   title: string,
   desc: string,
@@ -38,9 +37,9 @@ const ContentBlock = (props: Props) => (
     <Handle />
     <Fields>
       {/* TODO: user, tags */}
-      <TextField label="Title" text={props.title} />
-      <TextField label="Description" text={props.desc} />
-      <TextField label="Body" text={props.body} />
+      <Field type="text" label="Title" text={props.title} />
+      <Field type="text" label="Description" text={props.desc} />
+      <Field type="textarea" label="Body" text={props.body} />
     </Fields>
   </Container>
 );

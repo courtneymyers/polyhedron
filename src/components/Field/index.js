@@ -26,22 +26,32 @@ const Input = styled.input`
   font-size: 0.875rem;
 `;
 
+const Textarea = Input.withComponent('textarea');
+
 // --- components
 type Props = {
+  type: 'text' | 'textarea',
   label: string,
   text: string,
 };
 
-const TextField = (props: Props) => {
+const Field = (props: Props) => {
   /* prettier-ignore */
   const field = `field-${props.label.split(' ').join('-').toLowerCase()}`;
 
   return (
     <Container {...props}>
       <Label htmlFor={field}>{props.label}</Label>
-      <Input id={field} type="text" defaultValue={props.text} />
+
+      {props.type === 'text' && (
+        <Input id={field} type="text" defaultValue={props.text} />
+      )}
+
+      {props.type === 'textarea' && (
+        <Textarea id={field} rows={5} defaultValue={props.text} />
+      )}
     </Container>
   );
 };
 
-export default TextField;
+export default Field;
