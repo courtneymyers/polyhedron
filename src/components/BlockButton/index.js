@@ -16,6 +16,7 @@ const Button = styled.a`
   background-color: #360a80;
   text-align: center;
   text-decoration: none;
+  user-select: none;
 
   :hover,
   :focus {

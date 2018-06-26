@@ -43,7 +43,7 @@ type Props = {
 const BlockLibrary = (props: Props) => (
   <Container {...props}>
     {props.blocks.map((block) => (
-      <Block>
+      <Block key={block.time}>
         <Title>{block.title}</Title>
       </Block>
     ))}
