@@ -22,8 +22,7 @@ type Story = {
 };
 
 type State = {
-  blocks: number,
-  stories: Array<Story>,
+  blocks: Array<Story>,
 };
 
 class StoryEditor extends React.Component<Props, State> {
@@ -33,8 +32,7 @@ class StoryEditor extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      blocks: 1,
-      stories: [
+      blocks: [
         {
           time: new Date().getTime(),
           title: '',
@@ -47,8 +45,7 @@ class StoryEditor extends React.Component<Props, State> {
     this.addBlock = () => {
       this.setState((prevState) => ({
         ...prevState,
-        blocks: ++prevState.blocks,
-        stories: prevState.stories.concat({
+        blocks: prevState.blocks.concat({
           time: new Date().getTime(),
           title: '',
           desc: '',
@@ -60,8 +57,7 @@ class StoryEditor extends React.Component<Props, State> {
     this.removeBlock = (createdAt) => {
       this.setState((prevState) => ({
         ...prevState,
-        blocks: --prevState.blocks,
-        stories: prevState.stories.filter((block) => block.time !== createdAt),
+        blocks: prevState.blocks.filter((block) => block.time !== createdAt),
       }));
     };
   }
@@ -69,13 +65,13 @@ class StoryEditor extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        {this.state.stories.map((story) => (
+        {this.state.blocks.map((block) => (
           <Block
-            key={story.time}
-            time={story.time}
-            title={story.title}
-            desc={story.desc}
-            body={story.body}
+            key={block.time}
+            time={block.time}
+            title={block.title}
+            desc={block.desc}
+            body={block.body}
             removeBlock={(createdAt) => this.removeBlock(createdAt)}
           />
         ))}
