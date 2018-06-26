@@ -15,6 +15,7 @@ const Label = styled.label`
   border-bottom: none;
   font-size: 0.75rem;
   font-weight: bold;
+  color: #360a80;
   background-color: #e2ddef;
 `;
 

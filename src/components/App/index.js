@@ -27,12 +27,12 @@ const Container = styled.div`
 const Header = styled.header`
   padding: 1rem;
   background-color: #360a80;
+`;
 
-  h1 {
-    margin: 0;
-    font-size: 1.375rem;
-    color: #fff;
-  }
+const Heading = styled.h1`
+  margin: 0;
+  font-size: 1.375rem;
+  color: #fff;
 `;
 
 const Main = styled.main`
@@ -42,17 +42,19 @@ const Main = styled.main`
 `;
 
 const Panel = styled.section`
-  padding: 0.5rem;
+  padding: 1rem;
+`;
 
-  h2 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-  }
+const SubHeading = styled.h2`
+  margin: 0;
+  border-bottom: 1px solid #ccbee4;
+  font-size: 1.125rem;
+  color: #360a80;
 `;
 
 const LeftPanel = Panel.extend`
   flex-grow: 1;
+  border-right: 1px solid #ccbee4;
   background-color: #edeaf3;
 `;
 
@@ -67,17 +69,17 @@ type Props = {};
 const App = (props: Props) => (
   <Container {...props}>
     <Header>
-      <h1>Polyhedron</h1>
+      <Heading>Polyhedron</Heading>
     </Header>
 
     <Main>
       <LeftPanel>
-        <h2>Story Editor</h2>
+        <SubHeading>Story Editor</SubHeading>
         <StoryEditor />
       </LeftPanel>
 
       <RightPanel>
-        <h2>Content Library</h2>
+        <SubHeading>Block Library</SubHeading>
         <ContentLibrary />
       </RightPanel>
     </Main>
