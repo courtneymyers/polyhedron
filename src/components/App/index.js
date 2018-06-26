@@ -4,7 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import StoryEditor from 'components/StoryEditor';
-import ContentLibrary from 'components/ContentLibrary';
+import BlockLibrary from 'components/BlockLibrary';
 
 // --- global stylesheet
 injectGlobal`
@@ -80,7 +80,7 @@ const App = (props: Props) => (
 
       <RightPanel>
         <SubHeading>Block Library</SubHeading>
-        <ContentLibrary />
+        <BlockLibrary />
       </RightPanel>
     </Main>
   </Container>

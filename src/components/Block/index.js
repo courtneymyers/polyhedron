@@ -42,7 +42,7 @@ type Props = {
   removeBlock: (number) => void,
 };
 
-const ContentBlock = (props: Props) => (
+const Block = (props: Props) => (
   <Container {...props}>
     <Fields>
       {/* TODO: user, tags */}
@@ -64,4 +64,4 @@ const ContentBlock = (props: Props) => (
   </Container>
 );
 
-export default ContentBlock;
+export default Block;

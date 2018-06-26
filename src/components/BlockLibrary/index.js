@@ -11,10 +11,10 @@ const Container = styled.div`
 // --- components
 type Props = {};
 
-const ContentLibrary = (props: Props) => (
+const BlockLibrary = (props: Props) => (
   <Container {...props}>
     {/* /////////////////////////////////////////////////////////////////////*/}
   </Container>
 );
 
-export default ContentLibrary;
+export default BlockLibrary;

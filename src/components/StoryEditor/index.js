@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
-import ContentBlock from 'components/ContentBlock';
+import Block from 'components/Block';
 import BlockButton from 'components/BlockButton';
 
 // --- styled components
@@ -70,7 +70,7 @@ class StoryEditor extends React.Component<Props, State> {
     return (
       <React.Fragment>
         {this.state.stories.map((story) => (
-          <ContentBlock
+          <Block
             key={story.time}
             time={story.time}
             title={story.title}
