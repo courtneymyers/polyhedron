@@ -37,7 +37,8 @@ const Header = styled.header`
 
 const Main = styled.main`
   display: flex;
-  border: 1px solid #eee;
+  border: 1px solid #ccbee4;
+  border-top: none;
 `;
 
 const Panel = styled.section`
@@ -52,11 +53,12 @@ const Panel = styled.section`
 
 const LeftPanel = Panel.extend`
   flex-grow: 1;
+  background-color: #edeaf3;
 `;
 
 const RightPanel = Panel.extend`
   flex-basis: 20rem;
-  background-color: #eee;
+  background-color: #e2ddef;
 `;
 
 // --- components

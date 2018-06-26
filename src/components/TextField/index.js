@@ -9,15 +9,19 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 0.8125rem;
+  display: block;
+  padding: 0.25rem 0.3125rem 0.125rem;
+  border: 1px solid #ccbee4;
+  border-bottom: none;
+  font-size: 0.75rem;
   font-weight: bold;
+  background-color: #e2ddef;
 `;
 
 const Input = styled.input`
   box-sizing: border-box;
-  margin-top: 0.125rem;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #ccbee4;
   width: 100%;
   font-size: 0.875rem;
 `;
@@ -25,15 +29,19 @@ const Input = styled.input`
 // --- components
 type Props = {
   label: string,
+  text: string,
 };
 
-const TextField = (props: Props) => (
-  <Container {...props}>
-    <Label>
-      {props.label}
-      <Input type="text" />
-    </Label>
-  </Container>
-);
+const TextField = (props: Props) => {
+  /* prettier-ignore */
+  const field = `field-${props.label.split(' ').join('-').toLowerCase()}`;
+
+  return (
+    <Container {...props}>
+      <Label htmlFor={field}>{props.label}</Label>
+      <Input id={field} type="text" defaultValue={props.text} />
+    </Container>
+  );
+};
 
 export default TextField;

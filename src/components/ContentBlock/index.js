@@ -6,24 +6,44 @@ import styled from 'styled-components';
 import TextField from 'components/TextField';
 
 // --- styled components
-const Container = styled.fieldset`
+const Container = styled.div`
+  display: flex;
+  margin-top: 1.25rem;
+  border: 1px solid #ccbee4;
+`;
+
+const Fields = styled.fieldset`
+  flex-grow: 1;
   margin: 0;
   padding: 0;
-  border: 1px solid #eee;
+  border: 0;
+`;
+
+const Handle = styled.div`
+  flex-basis: 1.25rem;
+  background-color: #ccbee4;
 `;
 
 // --- components
-type Props = {};
+type Props = {
+  id: number,
+  title: string,
+  desc: string,
+  body: string,
+};
 
 const ContentBlock = (props: Props) => (
   <Container {...props}>
-    <TextField label="Title" />
-    {/* <TextField label="Id" /> */}
-    {/* <TextField label="User" /> */}
-    {/* <TextField label="Time" /> */}
-    <TextField label="Description" />
-    <TextField label="Body" />
-    {/* tags */}
+    <Handle />
+    <Fields>
+      <TextField label="Title" text={props.title} />
+      {/* <TextField label="Id" /> */}
+      {/* <TextField label="User" /> */}
+      {/* <TextField label="Time" /> */}
+      <TextField label="Description" text={props.desc} />
+      <TextField label="Body" text={props.body} />
+      {/* tags */}
+    </Fields>
   </Container>
 );
 
