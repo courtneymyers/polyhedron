@@ -21,7 +21,7 @@ const Handle = styled.div`
   background-color: #ccbee4;
 `;
 
-const SubtractButton = styled(BlockButton)`
+const RemoveButton = styled(BlockButton)`
   /* */
 `;
 
@@ -38,16 +38,18 @@ type Props = {
   title: string,
   desc: string,
   body: string,
+  removeBlock: (number) => void,
 };
 
 const ContentBlock = (props: Props) => (
   <Container {...props}>
     <Handle>
-      <SubtractButton
+      <RemoveButton
         text="–"
         href=""
         onClick={(ev) => {
           ev.preventDefault();
+          props.removeBlock(props.time);
         }}
       />
     </Handle>
