@@ -27,6 +27,7 @@ const Handle = styled.div`
 // --- components
 type Props = {
   id: number,
+  time: number,
   title: string,
   desc: string,
   body: string,
@@ -36,13 +37,10 @@ const ContentBlock = (props: Props) => (
   <Container {...props}>
     <Handle />
     <Fields>
+      {/* TODO: user, tags */}
       <TextField label="Title" text={props.title} />
-      {/* <TextField label="Id" /> */}
-      {/* <TextField label="User" /> */}
-      {/* <TextField label="Time" /> */}
       <TextField label="Description" text={props.desc} />
       <TextField label="Body" text={props.body} />
-      {/* tags */}
     </Fields>
   </Container>
 );

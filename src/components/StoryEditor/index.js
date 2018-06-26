@@ -35,6 +35,7 @@ type Props = {};
 
 type Story = {
   id: number,
+  time: number,
   title: string,
   desc: string,
   body: string,
@@ -55,6 +56,7 @@ class StoryEditor extends React.Component<Props, State> {
       stories: [
         {
           id: 1,
+          time: new Date().getTime(),
           title: '',
           desc: '',
           body: '',
@@ -66,6 +68,7 @@ class StoryEditor extends React.Component<Props, State> {
       this.setState((prevState) => {
         const newBlock = {
           id: ++prevState.blocks,
+          time: new Date().getTime(),
           title: '',
           desc: '',
           body: '',
@@ -87,6 +90,7 @@ class StoryEditor extends React.Component<Props, State> {
           <ContentBlock
             key={story.id}
             id={story.id}
+            time={story.time}
             title={story.title}
             desc={story.desc}
             body={story.body}
