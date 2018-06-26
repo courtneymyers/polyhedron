@@ -1,8 +1,12 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
+// components
+import App from 'components/App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const rootElement: any = document.getElementById('root');
+
+ReactDOM.render(<App />, rootElement);
+unregister();
