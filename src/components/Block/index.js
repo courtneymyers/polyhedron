@@ -9,7 +9,7 @@ import Field from 'components/Field';
 // --- styled components
 const Container = styled.div`
   display: flex;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
   border: 1px solid #ccbee4;
 `;
 

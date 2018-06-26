@@ -46,7 +46,8 @@ const Panel = styled.section`
 `;
 
 const SubHeading = styled.h2`
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 1rem;
   border-bottom: 1px solid #ccbee4;
   font-size: 1.125rem;
   color: #360a80;
@@ -80,7 +81,7 @@ const App = (props: Props) => (
 
       <RightPanel>
         <SubHeading>Block Library</SubHeading>
-        <BlockLibrary />
+        <BlockLibrary blocks={[]} />
       </RightPanel>
     </Main>
   </Container>
