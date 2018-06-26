@@ -19,6 +19,7 @@ const Fields = styled.fieldset`
   margin: 0;
   padding: 0;
   border: 0;
+  background-color: #e2ddef;
 `;
 
 const Handle = styled.div`

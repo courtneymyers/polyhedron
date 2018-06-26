@@ -16,7 +16,7 @@ const Label = styled.label`
   font-size: 0.75rem;
   font-weight: bold;
   color: #360a80;
-  background-color: #e2ddef;
+  background-color: #edeaf3;
 `;
 
 const Input = styled.input`
