@@ -13,6 +13,7 @@ const AddButton = styled(BlockButton)`
 
 // --- components
 type Props = {
+  // context props
   blocks: Array<{
     time: number,
     title: string,

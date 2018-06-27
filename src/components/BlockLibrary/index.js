@@ -51,6 +51,7 @@ const Title = Paragraph.extend`
 
 // --- components
 type Props = {
+  // connected props (via context)
   blocks: Array<{
     time: number,
     title: string,
