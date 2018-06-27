@@ -57,6 +57,7 @@ type Props = {
     desc: string,
     body: string,
   }>,
+  removeBlock: (number) => void,
 };
 
 const BlockLibrary = (props: Props) => (
@@ -69,6 +70,7 @@ const BlockLibrary = (props: Props) => (
             href=""
             onClick={(ev) => {
               ev.preventDefault();
+              props.removeBlock(block.time);
             }}
           />
         </Handle>
