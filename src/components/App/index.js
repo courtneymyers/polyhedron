@@ -3,6 +3,7 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
+import BlockButton from 'components/BlockButton';
 import ArticleLibrary from 'components/ArticleLibrary';
 import ArticleEditor from 'components/ArticleEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
@@ -26,13 +27,30 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
+  display: flex;
   padding: 1rem;
   background-color: #360a80;
 `;
 
+const ToggleButton = styled(BlockButton)`
+  margin-right: 0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  background-color: #60449a;
+
+  :hover,
+  :focus {
+    background-color: #60449a;
+  }
+`;
+
 const Heading = styled.h1`
-  margin: 0;
-  font-size: 1.375rem;
+  margin-top: 0.1875rem;
+  margin-bottom: 0;
+  font-size: 1.3125rem;
+  font-weight: normal;
   color: #fff;
 `;
 
@@ -74,31 +92,64 @@ const RightPanel = Panel.extend`
 // --- components
 type Props = {};
 
-const App = (props: Props) => (
-  <Container {...props}>
-    <Header>
-      <Heading>Polyhedron</Heading>
-    </Header>
+type State = {
+  articleLibraryShown: boolean,
+};
 
-    <Main>
-      {/*
-      <LeftPanel>
-        <SubHeading>Article Library</SubHeading>
-        <ArticleLibrary />
-      </LeftPanel>
-      */}
+class App extends React.Component<Props, State> {
+  toggleArticleLibrary: () => void;
+  hideArticleLibrary: () => void;
 
-      <MiddlePanel>
-        <SubHeading>Article Editor</SubHeading>
-        <ArticleEditor />
-      </MiddlePanel>
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      articleLibraryShown: false,
+    };
 
-      <RightPanel>
-        <SubHeading>Block Library</SubHeading>
-        <BlockLibrary />
-      </RightPanel>
-    </Main>
-  </Container>
-);
+    this.toggleArticleLibrary = () => {
+      this.setState((prevState) => ({
+        articleLibraryShown: !prevState.articleLibraryShown,
+      }));
+    };
+  }
+
+  render() {
+    return (
+      <Container {...this.props}>
+        <Header>
+          <ToggleButton
+            text="☰"
+            href=""
+            title="Toggle Article Library"
+            onClick={(ev) => {
+              ev.preventDefault();
+              this.toggleArticleLibrary();
+            }}
+          />
+          <Heading>Polyhedron</Heading>
+        </Header>
+
+        <Main>
+          {this.state.articleLibraryShown && (
+            <LeftPanel>
+              <SubHeading>Article Library</SubHeading>
+              <ArticleLibrary />
+            </LeftPanel>
+          )}
+
+          <MiddlePanel>
+            <SubHeading>Article Editor</SubHeading>
+            <ArticleEditor />
+          </MiddlePanel>
+
+          <RightPanel>
+            <SubHeading>Block Library</SubHeading>
+            <BlockLibrary />
+          </RightPanel>
+        </Main>
+      </Container>
+    );
+  }
+}
 
 export default App;
