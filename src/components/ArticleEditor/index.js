@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
-import Block from 'components/Block';
+import Block from 'components/Block/container.js';
 import BlockButton from 'components/BlockButton';
 
 // --- styled components

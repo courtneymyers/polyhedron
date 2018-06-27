@@ -34,22 +34,35 @@ type Props = {
   type: 'text' | 'textarea',
   label: string,
   text: string,
+  updateText: (string) => void,
 };
 
 const Field = (props: Props) => {
-  /* prettier-ignore */
-  const field = `field-${props.label.split(' ').join('-').toLowerCase()}`;
+  const field = `field-${props.label
+    .split(' ')
+    .join('-')
+    .toLowerCase()}`;
 
   return (
     <Container {...props}>
       <Label htmlFor={field}>{props.label}</Label>
 
       {props.type === 'text' && (
-        <Input id={field} type="text" defaultValue={props.text} />
+        <Input
+          type="text"
+          id={field}
+          value={props.text}
+          onChange={(ev) => props.updateText(ev.target.value)}
+        />
       )}
 
       {props.type === 'textarea' && (
-        <Textarea id={field} rows={5} defaultValue={props.text} />
+        <Textarea
+          rows={5}
+          id={field}
+          value={props.text}
+          onChange={(ev) => props.updateText(ev.target.value)}
+        />
       )}
     </Container>
   );

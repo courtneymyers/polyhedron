@@ -18,6 +18,7 @@ const Block = styled.div`
   display: flex;
   margin-top: 0.5rem;
   border: 1px solid #ccbee4;
+  border-radius: 3px;
   background-color: white;
 `;
 
@@ -51,7 +52,7 @@ const Title = Paragraph.extend`
 
 // --- components
 type Props = {
-  // connected props (via context)
+  // context props
   blocks: Array<{
     time: number,
     title: string,
@@ -76,7 +77,7 @@ const BlockLibrary = (props: Props) => (
           />
         </Handle>
         <Text>
-          <Title>{block.title}</Title>
+          <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
         </Text>
       </Block>
     ))}
