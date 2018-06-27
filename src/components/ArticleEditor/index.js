@@ -12,79 +12,40 @@ const AddButton = styled(BlockButton)`
 `;
 
 // --- components
-type Props = {};
-
-type State = {
+type Props = {
+  // context props
   blocks: Array<{
     time: number,
     title: string,
     desc: string,
     body: string,
   }>,
+  addBlock: () => void,
+  removeBlock: (number) => void,
 };
 
-class ArticleEditor extends React.Component<Props, State> {
-  addBlock: () => void;
-  removeBlock: (number) => void;
+const ArticleEditor = (props: Props) => (
+  <React.Fragment>
+    {props.blocks.map((block) => (
+      <Block
+        key={block.time}
+        time={block.time}
+        title={block.title}
+        desc={block.desc}
+        body={block.body}
+        removeBlock={(createdAt) => props.removeBlock(createdAt)}
+      />
+    ))}
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      blocks: [
-        {
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        },
-      ],
-    };
-
-    this.addBlock = () => {
-      this.setState((prevState) => ({
-        ...prevState,
-        blocks: prevState.blocks.concat({
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        }),
-      }));
-    };
-
-    this.removeBlock = (createdAt) => {
-      this.setState((prevState) => ({
-        ...prevState,
-        blocks: prevState.blocks.filter((block) => block.time !== createdAt),
-      }));
-    };
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        {this.state.blocks.map((block) => (
-          <Block
-            key={block.time}
-            time={block.time}
-            title={block.title}
-            desc={block.desc}
-            body={block.body}
-            removeBlock={(createdAt) => this.removeBlock(createdAt)}
-          />
-        ))}
-
-        <AddButton
-          text="+"
-          href=""
-          onClick={(ev) => {
-            ev.preventDefault();
-            this.addBlock();
-          }}
-        />
-      </React.Fragment>
-    );
-  }
-}
+    <AddButton
+      text="+"
+      href=""
+      onClick={(ev) => {
+        ev.preventDefault();
+        props.addBlock();
+      }}
+    />
+  </React.Fragment>
+);
 
 export default ArticleEditor;

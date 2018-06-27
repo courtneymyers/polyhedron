@@ -3,8 +3,8 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
-import ArticleEditor from 'components/ArticleEditor';
-import BlockLibrary from 'components/BlockLibrary';
+import ArticleEditor from 'components/ArticleEditor/container.js';
+import BlockLibrary from 'components/BlockLibrary/container.js';
 
 // --- global stylesheet
 injectGlobal`
@@ -81,7 +81,7 @@ const App = (props: Props) => (
 
       <RightPanel>
         <SubHeading>Block Library</SubHeading>
-        <BlockLibrary blocks={[]} />
+        <BlockLibrary />
       </RightPanel>
     </Main>
   </Container>

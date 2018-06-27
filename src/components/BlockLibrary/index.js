@@ -51,12 +51,14 @@ const Title = Paragraph.extend`
 
 // --- components
 type Props = {
+  // connected props (via context)
   blocks: Array<{
     time: number,
     title: string,
     desc: string,
     body: string,
   }>,
+  removeBlock: (number) => void,
 };
 
 const BlockLibrary = (props: Props) => (
@@ -69,6 +71,7 @@ const BlockLibrary = (props: Props) => (
             href=""
             onClick={(ev) => {
               ev.preventDefault();
+              props.removeBlock(block.time);
             }}
           />
         </Handle>
