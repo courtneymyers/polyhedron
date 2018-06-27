@@ -3,7 +3,7 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
-import ArticleEditor from 'components/ArticleEditor';
+import ArticleEditor from 'components/ArticleEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary';
 
 // --- global stylesheet

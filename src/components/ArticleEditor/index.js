@@ -12,65 +12,31 @@ const AddButton = styled(BlockButton)`
 `;
 
 // --- components
-type Props = {};
-
-type State = {
+type Props = {
   blocks: Array<{
     time: number,
     title: string,
     desc: string,
     body: string,
   }>,
+  addBlock: () => void,
+  removeBlock: (number) => void,
 };
 
+type State = {};
+
 class ArticleEditor extends React.Component<Props, State> {
-  addBlock: () => void;
-  removeBlock: (number) => void;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      blocks: [
-        {
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        },
-      ],
-    };
-
-    this.addBlock = () => {
-      this.setState((prevState) => ({
-        ...prevState,
-        blocks: prevState.blocks.concat({
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        }),
-      }));
-    };
-
-    this.removeBlock = (createdAt) => {
-      this.setState((prevState) => ({
-        ...prevState,
-        blocks: prevState.blocks.filter((block) => block.time !== createdAt),
-      }));
-    };
-  }
-
   render() {
     return (
       <React.Fragment>
-        {this.state.blocks.map((block) => (
+        {this.props.blocks.map((block) => (
           <Block
             key={block.time}
             time={block.time}
             title={block.title}
             desc={block.desc}
             body={block.body}
-            removeBlock={(createdAt) => this.removeBlock(createdAt)}
+            removeBlock={(createdAt) => this.props.removeBlock(createdAt)}
           />
         ))}
 
@@ -79,7 +45,7 @@ class ArticleEditor extends React.Component<Props, State> {
           href=""
           onClick={(ev) => {
             ev.preventDefault();
-            this.addBlock();
+            this.props.addBlock();
           }}
         />
       </React.Fragment>
