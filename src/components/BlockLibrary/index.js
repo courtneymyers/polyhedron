@@ -33,6 +33,8 @@ const Handle = styled.div`
 const Text = styled.div`
   flex-grow: 1;
   padding: 0.5rem;
+  user-select: none;
+  cursor: move;
 `;
 
 const Paragraph = styled.p`
@@ -51,6 +53,48 @@ const Title = Paragraph.extend`
 `;
 
 // --- components
+class BlockText extends React.Component<
+  { title: string, desc: string },
+  { infoShown: boolean },
+> {
+  showInfo: () => void;
+  hideInfo: () => void;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      infoShown: false,
+    };
+
+    this.showInfo = () => {
+      // only show info if description is set
+      if (!this.props.desc) return;
+      this.setState((prevState) => ({
+        infoShown: true,
+      }));
+    };
+
+    this.hideInfo = () => {
+      this.setState((prevState) => ({
+        infoShown: false,
+      }));
+    };
+  }
+
+  render() {
+    return (
+      <Text
+        onMouseEnter={(ev) => this.showInfo()}
+        onMouseLeave={(ev) => this.hideInfo()}
+      >
+        <Title>{this.props.title === '' ? '\u00A0' : this.props.title}</Title>
+
+        {this.state.infoShown && <Paragraph>{this.props.desc}</Paragraph>}
+      </Text>
+    );
+  }
+}
+
 type Props = {
   // context props
   blocks: Array<{
@@ -63,7 +107,7 @@ type Props = {
 };
 
 const BlockLibrary = (props: Props) => (
-  <Container {...props}>
+  <Container {...this.props}>
     {props.blocks.map((block) => (
       <Block key={block.time}>
         <Handle>
@@ -76,9 +120,7 @@ const BlockLibrary = (props: Props) => (
             }}
           />
         </Handle>
-        <Text>
-          <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
-        </Text>
+        <BlockText title={block.title} desc={block.desc} />
       </Block>
     ))}
   </Container>
