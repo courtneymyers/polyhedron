@@ -4,7 +4,7 @@ import { BlocksContext } from 'contexts/blocks';
 // components
 import ArticleEditor from './index.js';
 
-export default (props) => (
+const ArticleEditorContainer = (props) => (
   <BlocksContext.Consumer>
     {({ blocks, addBlock, removeBlock }) => (
       <ArticleEditor
@@ -16,3 +16,5 @@ export default (props) => (
     )}
   </BlocksContext.Consumer>
 );
+
+export default ArticleEditorContainer;
