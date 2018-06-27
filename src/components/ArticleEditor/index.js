@@ -23,34 +23,28 @@ type Props = {
   removeBlock: (number) => void,
 };
 
-type State = {};
+const ArticleEditor = (props: Props) => (
+  <React.Fragment>
+    {props.blocks.map((block) => (
+      <Block
+        key={block.time}
+        time={block.time}
+        title={block.title}
+        desc={block.desc}
+        body={block.body}
+        removeBlock={(createdAt) => props.removeBlock(createdAt)}
+      />
+    ))}
 
-class ArticleEditor extends React.Component<Props, State> {
-  render() {
-    return (
-      <React.Fragment>
-        {this.props.blocks.map((block) => (
-          <Block
-            key={block.time}
-            time={block.time}
-            title={block.title}
-            desc={block.desc}
-            body={block.body}
-            removeBlock={(createdAt) => this.props.removeBlock(createdAt)}
-          />
-        ))}
-
-        <AddButton
-          text="+"
-          href=""
-          onClick={(ev) => {
-            ev.preventDefault();
-            this.props.addBlock();
-          }}
-        />
-      </React.Fragment>
-    );
-  }
-}
+    <AddButton
+      text="+"
+      href=""
+      onClick={(ev) => {
+        ev.preventDefault();
+        props.addBlock();
+      }}
+    />
+  </React.Fragment>
+);
 
 export default ArticleEditor;
