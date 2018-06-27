@@ -78,6 +78,7 @@ const ArticleEditor = (props: Props) => (
     <AddButton
       text="+"
       href=""
+      title="Add Block"
       onClick={(ev) => {
         ev.preventDefault();
         props.addBlock();
