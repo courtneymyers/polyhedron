@@ -36,23 +36,55 @@ type Props = {
   text: string,
 };
 
-const Field = (props: Props) => {
-  /* prettier-ignore */
-  const field = `field-${props.label.split(' ').join('-').toLowerCase()}`;
-
-  return (
-    <Container {...props}>
-      <Label htmlFor={field}>{props.label}</Label>
-
-      {props.type === 'text' && (
-        <Input id={field} type="text" defaultValue={props.text} />
-      )}
-
-      {props.type === 'textarea' && (
-        <Textarea id={field} rows={5} defaultValue={props.text} />
-      )}
-    </Container>
-  );
+type State = {
+  text: string,
 };
+
+class Field extends React.Component<Props, State> {
+  updateText: (string) => void;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      text: '',
+    };
+
+    this.updateText = (text) => {
+      this.setState((prevState) => ({
+        ...prevState,
+        text: text,
+      }));
+    };
+  }
+
+  render() {
+    /* prettier-ignore */
+    const field = `field-${this.props.label.split(' ').join('-').toLowerCase()}`;
+
+    return (
+      <Container {...this.props}>
+        <Label htmlFor={field}>{this.props.label}</Label>
+
+        {this.props.type === 'text' && (
+          <Input
+            type="text"
+            id={field}
+            value={this.state.text}
+            onChange={(ev) => this.updateText(ev.target.value)}
+          />
+        )}
+
+        {this.props.type === 'textarea' && (
+          <Textarea
+            rows={5}
+            id={field}
+            value={this.state.text}
+            onChange={(ev) => this.updateText(ev.target.value)}
+          />
+        )}
+      </Container>
+    );
+  }
+}
 
 export default Field;
