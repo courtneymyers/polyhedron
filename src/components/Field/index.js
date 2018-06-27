@@ -34,29 +34,12 @@ type Props = {
   type: 'text' | 'textarea',
   label: string,
   text: string,
+  updateText: (string) => void,
 };
 
-type State = {
-  text: string,
-};
+type State = {};
 
 class Field extends React.Component<Props, State> {
-  updateText: (string) => void;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-
-    this.updateText = (text) => {
-      this.setState((prevState) => ({
-        ...prevState,
-        text: text,
-      }));
-    };
-  }
-
   render() {
     /* prettier-ignore */
     const field = `field-${this.props.label.split(' ').join('-').toLowerCase()}`;
@@ -69,8 +52,8 @@ class Field extends React.Component<Props, State> {
           <Input
             type="text"
             id={field}
-            value={this.state.text}
-            onChange={(ev) => this.updateText(ev.target.value)}
+            value={this.props.text}
+            onChange={(ev) => this.props.updateText(ev.target.value)}
           />
         )}
 
@@ -78,8 +61,8 @@ class Field extends React.Component<Props, State> {
           <Textarea
             rows={5}
             id={field}
-            value={this.state.text}
-            onChange={(ev) => this.updateText(ev.target.value)}
+            value={this.props.text}
+            onChange={(ev) => this.props.updateText(ev.target.value)}
           />
         )}
       </Container>

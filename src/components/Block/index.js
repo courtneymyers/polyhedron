@@ -42,15 +42,34 @@ type Props = {
   desc: string,
   body: string,
   removeBlock: (number) => void,
+  // context props
+  updateFieldText: (number, string, string) => void,
 };
 
 const Block = (props: Props) => (
   <Container {...props}>
     <Fields>
       {/* TODO: user, tags */}
-      <Field type="text" label="Title" text={props.title} />
-      <Field type="text" label="Description" text={props.desc} />
-      <Field type="textarea" label="Body" text={props.body} />
+      <Field
+        type="text"
+        label="Title"
+        text={props.title}
+        updateText={(text) => props.updateFieldText(props.time, 'title', text)}
+      />
+
+      <Field
+        type="text"
+        label="Description"
+        text={props.desc}
+        updateText={(text) => props.updateFieldText(props.time, 'desc', text)}
+      />
+
+      <Field
+        type="textarea"
+        label="Body"
+        text={props.body}
+        updateText={(text) => props.updateFieldText(props.time, 'body', text)}
+      />
     </Fields>
 
     <Handle>
