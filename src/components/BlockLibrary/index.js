@@ -53,22 +53,10 @@ const Title = Paragraph.extend`
 `;
 
 // --- components
-type Props = {
-  // context props
-  blocks: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    body: string,
-  }>,
-  removeBlock: (number) => void,
-};
-
-type State = {
-  infoShown: boolean,
-};
-
-class BlockLibrary extends React.Component<Props, State> {
+class BlockText extends React.Component<
+  { title: string, desc: string },
+  { infoShown: boolean },
+> {
   showInfo: () => void;
   hideInfo: () => void;
 
@@ -79,6 +67,8 @@ class BlockLibrary extends React.Component<Props, State> {
     };
 
     this.showInfo = () => {
+      // only show info if description is set
+      if (!this.props.desc) return;
       this.setState((prevState) => ({
         infoShown: true,
       }));
@@ -93,33 +83,47 @@ class BlockLibrary extends React.Component<Props, State> {
 
   render() {
     return (
-      <Container {...this.props}>
-        {this.props.blocks.map((block) => (
-          <Block key={block.time}>
-            <Handle>
-              <RemoveButton
-                text="–"
-                href=""
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  this.props.removeBlock(block.time);
-                }}
-              />
-            </Handle>
-            <Text
-              onMouseEnter={(ev) => this.showInfo()}
-              onMouseLeave={(ev) => this.hideInfo()}
-            >
-              <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
+      <Text
+        onMouseEnter={(ev) => this.showInfo()}
+        onMouseLeave={(ev) => this.hideInfo()}
+      >
+        <Title>{this.props.title === '' ? '\u00A0' : this.props.title}</Title>
 
-              {this.state.infoShown &&
-                block.desc && <Paragraph>{block.desc}</Paragraph>}
-            </Text>
-          </Block>
-        ))}
-      </Container>
+        {this.state.infoShown && <Paragraph>{this.props.desc}</Paragraph>}
+      </Text>
     );
   }
 }
+
+type Props = {
+  // context props
+  blocks: Array<{
+    time: number,
+    title: string,
+    desc: string,
+    body: string,
+  }>,
+  removeBlock: (number) => void,
+};
+
+const BlockLibrary = (props: Props) => (
+  <Container {...this.props}>
+    {props.blocks.map((block) => (
+      <Block key={block.time}>
+        <Handle>
+          <RemoveButton
+            text="–"
+            href=""
+            onClick={(ev) => {
+              ev.preventDefault();
+              props.removeBlock(block.time);
+            }}
+          />
+        </Handle>
+        <BlockText title={block.title} desc={block.desc} />
+      </Block>
+    ))}
+  </Container>
+);
 
 export default BlockLibrary;
