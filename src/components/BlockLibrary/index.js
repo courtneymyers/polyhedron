@@ -77,7 +77,7 @@ const BlockLibrary = (props: Props) => (
           />
         </Handle>
         <Text>
-          <Title>{block.title}</Title>
+          <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
         </Text>
       </Block>
     ))}
