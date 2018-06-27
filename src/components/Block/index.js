@@ -77,6 +77,7 @@ const Block = (props: Props) => (
       <RemoveButton
         text="–"
         href=""
+        title="Remove Block"
         onClick={(ev) => {
           ev.preventDefault();
           props.removeBlock(props.time);
