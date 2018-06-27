@@ -30,7 +30,6 @@ export class BlocksProvider extends React.Component<Props, State> {
     super(props);
     this.state = {
       blocks: [],
-      test: '',
     };
 
     this.addBlock = () => {

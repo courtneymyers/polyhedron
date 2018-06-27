@@ -33,6 +33,8 @@ const Handle = styled.div`
 const Text = styled.div`
   flex-grow: 1;
   padding: 0.5rem;
+  user-select: none;
+  cursor: move;
 `;
 
 const Paragraph = styled.p`
@@ -62,26 +64,62 @@ type Props = {
   removeBlock: (number) => void,
 };
 
-const BlockLibrary = (props: Props) => (
-  <Container {...props}>
-    {props.blocks.map((block) => (
-      <Block key={block.time}>
-        <Handle>
-          <RemoveButton
-            text="–"
-            href=""
-            onClick={(ev) => {
-              ev.preventDefault();
-              props.removeBlock(block.time);
-            }}
-          />
-        </Handle>
-        <Text>
-          <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
-        </Text>
-      </Block>
-    ))}
-  </Container>
-);
+type State = {
+  infoShown: boolean,
+};
+
+class BlockLibrary extends React.Component<Props, State> {
+  showInfo: () => void;
+  hideInfo: () => void;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      infoShown: false,
+    };
+
+    this.showInfo = () => {
+      this.setState((prevState) => ({
+        infoShown: true,
+      }));
+    };
+
+    this.hideInfo = () => {
+      this.setState((prevState) => ({
+        infoShown: false,
+      }));
+    };
+  }
+
+  render() {
+    return (
+      <Container {...this.props}>
+        {this.props.blocks.map((block) => (
+          <Block key={block.time}>
+            <Handle>
+              <RemoveButton
+                text="–"
+                href=""
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  this.props.removeBlock(block.time);
+                }}
+              />
+            </Handle>
+            <Text
+              onMouseEnter={(ev) => this.showInfo()}
+              onMouseLeave={(ev) => this.hideInfo()}
+            >
+              <Title>{block.title === '' ? '\u00A0' : block.title}</Title>
+
+              {this.state.infoShown &&
+                block.desc && <Paragraph>{block.desc}</Paragraph>}
+            </Text>
+          </Block>
+        ))}
+      </Container>
+    );
+  }
+}
 
 export default BlockLibrary;
