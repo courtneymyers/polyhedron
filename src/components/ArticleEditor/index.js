@@ -3,10 +3,24 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
+import Field from 'components/Field';
 import Block from 'components/Block/container.js';
 import BlockButton from 'components/BlockButton';
 
 // --- styled components
+const ArticleField = styled(Field)`
+  margin-top: 1rem;
+  padding: 0;
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  label {
+    background-color: #ccbee4;
+  }
+`;
+
 const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
@@ -26,6 +40,20 @@ type Props = {
 
 const ArticleEditor = (props: Props) => (
   <React.Fragment>
+    <ArticleField
+      type="text"
+      label="Article Title"
+      text={'(title)'}
+      updateText={(text) => true}
+    />
+
+    <ArticleField
+      type="text"
+      label="Article Description"
+      text={'(description)'}
+      updateText={(text) => true}
+    />
+
     {props.blocks.map((block) => (
       <Block
         key={block.time}
