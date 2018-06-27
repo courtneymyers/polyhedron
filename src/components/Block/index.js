@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   margin-top: 1rem;
   border: 1px solid #ccbee4;
+  border-radius: 3px;
 `;
 
 const Fields = styled.fieldset`
