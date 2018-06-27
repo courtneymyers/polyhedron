@@ -28,14 +28,7 @@ export class BlocksProvider extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      blocks: [
-        {
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        },
-      ],
+      blocks: [],
     };
 
     this.addBlock = () => {
