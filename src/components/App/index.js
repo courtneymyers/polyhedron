@@ -3,6 +3,7 @@
 import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
+import ArticleLibrary from 'components/ArticleLibrary';
 import ArticleEditor from 'components/ArticleEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 
@@ -54,13 +55,19 @@ const SubHeading = styled.h2`
 `;
 
 const LeftPanel = Panel.extend`
-  flex-grow: 1;
+  flex-basis: 20rem;
   border-right: 1px solid #ccbee4;
+  background-color: #e2ddef;
+`;
+
+const MiddlePanel = Panel.extend`
+  flex-grow: 1;
   background-color: #edeaf3;
 `;
 
 const RightPanel = Panel.extend`
   flex-basis: 20rem;
+  border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
 
@@ -74,10 +81,17 @@ const App = (props: Props) => (
     </Header>
 
     <Main>
+      {/*
       <LeftPanel>
+        <SubHeading>Article Library</SubHeading>
+        <ArticleLibrary />
+      </LeftPanel>
+      */}
+
+      <MiddlePanel>
         <SubHeading>Article Editor</SubHeading>
         <ArticleEditor />
-      </LeftPanel>
+      </MiddlePanel>
 
       <RightPanel>
         <SubHeading>Block Library</SubHeading>
