@@ -21,6 +21,14 @@ const ArticleField = styled(Field)`
   }
 `;
 
+const Heading = styled.h3`
+  margin-top: 1rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid #ccbee4;
+  font-size: 0.9325rem;
+  color: #360a80;
+`;
+
 const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
@@ -53,6 +61,8 @@ const ArticleEditor = (props: Props) => (
       text={'(description)'}
       updateText={(text) => true}
     />
+
+    <Heading>Blocks</Heading>
 
     {props.blocks.map((block) => (
       <Block
