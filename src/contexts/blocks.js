@@ -80,13 +80,22 @@ export class BlocksProvider extends React.Component<Props, State> {
     };
 
     this.updateFieldText = (blockId, fieldName, text) => {
-      this.setState((prevState) => {
-        const blocks = [...prevState.blocks];
-        blocks.filter((block) => block.id === blockId)[0][fieldName] = text;
-        return {
-          blocks: blocks,
-        };
-      });
+      // -----------------------------------------------------------------------
+      // --- update block field in firebase ------------------------------------
+      // -----------------------------------------------------------------------
+      firebase
+        .database()
+        .ref(`blocks/${blockId}/${fieldName}`)
+        .set(text);
+      // -----------------------------------------------------------------------
+
+      // this.setState((prevState) => {
+      //   const blocks = [...prevState.blocks];
+      //   blocks.filter((block) => block.id === blockId)[0][fieldName] = text;
+      //   return {
+      //     blocks: blocks,
+      //   };
+      // });
     };
   }
 
