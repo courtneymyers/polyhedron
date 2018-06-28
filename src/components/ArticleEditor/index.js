@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import Field from 'components/Field';
 import Block from 'components/Block/container.js';
 import BlockButton from 'components/BlockButton';
+// types
+import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const ArticleField = styled(Field)`
@@ -36,14 +38,9 @@ const AddButton = styled(BlockButton)`
 // --- components
 type Props = {
   // context props
-  blocks: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    body: string,
-  }>,
+  blocks: Array<BlockProps>,
   addBlock: () => void,
-  removeBlock: (number) => void,
+  removeBlock: (string) => void,
 };
 
 const ArticleEditor = (props: Props) => (
@@ -66,12 +63,13 @@ const ArticleEditor = (props: Props) => (
 
     {props.blocks.map((block) => (
       <Block
-        key={block.time}
+        key={block.id}
+        id={block.id}
         time={block.time}
         title={block.title}
         desc={block.desc}
         body={block.body}
-        removeBlock={(createdAt) => props.removeBlock(createdAt)}
+        removeBlock={(blockId) => props.removeBlock(blockId)}
       />
     ))}
 

@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+// types
+import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const Container = styled.div`
@@ -53,14 +55,20 @@ const Title = Paragraph.extend`
 `;
 
 // --- components
-class BlockText extends React.Component<
-  { title: string, desc: string },
-  { infoShown: boolean },
-> {
+type BlockTextProps = {
+  title: string,
+  desc: string,
+};
+
+type BlockTextState = {
+  infoShown: boolean,
+};
+
+class BlockText extends React.Component<BlockTextProps, BlockTextState> {
   showInfo: () => void;
   hideInfo: () => void;
 
-  constructor(props: Props) {
+  constructor(props: BlockTextProps) {
     super(props);
     this.state = {
       infoShown: false,
@@ -97,19 +105,14 @@ class BlockText extends React.Component<
 
 type Props = {
   // context props
-  blocks: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    body: string,
-  }>,
-  removeBlock: (number) => void,
+  blocks: Array<BlockProps>,
+  removeBlock: (string) => void,
 };
 
 const BlockLibrary = (props: Props) => (
   <Container {...props}>
     {props.blocks.map((block) => (
-      <Block key={block.time}>
+      <Block key={block.id}>
         <Handle>
           <RemoveButton
             text="–"
@@ -117,7 +120,7 @@ const BlockLibrary = (props: Props) => (
             title="Remove Block"
             onClick={(ev) => {
               ev.preventDefault();
-              props.removeBlock(block.time);
+              props.removeBlock(block.id);
             }}
           />
         </Handle>

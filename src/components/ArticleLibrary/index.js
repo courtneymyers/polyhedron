@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+// types
+import type { ArticleProps } from 'contexts/articles';
 
 // --- styled components
 const Container = styled.div`
@@ -61,24 +63,14 @@ const Title = Paragraph.extend`
 // --- components
 type Props = {
   // context props
-  articles: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    blocks: Array<{
-      time: number,
-      title: string,
-      desc: string,
-      body: string,
-    }>,
-  }>,
-  removeArticle: (number) => void,
+  articles: Array<ArticleProps>,
+  removeArticle: (string) => void,
 };
 
 const ArticleLibrary = (props: Props) => (
   <Container {...props}>
     {props.articles.map((article) => (
-      <Article key={article.time}>
+      <Article key={article.id}>
         <Handle>
           <RemoveButton
             text="–"
@@ -86,7 +78,7 @@ const ArticleLibrary = (props: Props) => (
             title="Remove Article"
             onClick={(ev) => {
               ev.preventDefault();
-              props.removeArticle(article.time);
+              props.removeArticle(article.id);
             }}
           />
         </Handle>
