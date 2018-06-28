@@ -12,18 +12,21 @@ type Props = {
   children: Node,
 };
 
+export type BlockProps = {|
+  id: string,
+  time: number,
+  title: string,
+  desc: string,
+  body: string,
+|};
+
 type State = {
-  blocks: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    body: string,
-  }>,
+  blocks: Array<BlockProps>,
 };
 
 export class BlocksProvider extends React.Component<Props, State> {
   addBlock: () => void;
-  removeBlock: (number) => void;
+  removeBlock: (string) => void;
   updateFieldText: (number, string, string) => void;
 
   constructor(props: Props) {
@@ -33,19 +36,23 @@ export class BlocksProvider extends React.Component<Props, State> {
     };
 
     this.addBlock = () => {
-      this.setState((prevState) => ({
-        blocks: prevState.blocks.concat({
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          body: '',
-        }),
-      }));
+      this.setState((prevState) => {
+        const currentTime = new Date().getTime();
+        return {
+          blocks: prevState.blocks.concat({
+            id: currentTime.toString(),
+            time: currentTime,
+            title: '',
+            desc: '',
+            body: '',
+          }),
+        };
+      });
     };
 
-    this.removeBlock = (createdAt) => {
+    this.removeBlock = (blockId) => {
       this.setState((prevState) => ({
-        blocks: prevState.blocks.filter((block) => block.time !== createdAt),
+        blocks: prevState.blocks.filter((block) => block.id !== blockId),
       }));
     };
 

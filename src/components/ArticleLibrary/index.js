@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+// types
+import type { BlockProps } from 'contexts/block';
 
 // --- styled components
 const Container = styled.div`
@@ -62,15 +64,11 @@ const Title = Paragraph.extend`
 type Props = {
   // context props
   articles: Array<{
+    id: string,
     time: number,
     title: string,
     desc: string,
-    blocks: Array<{
-      time: number,
-      title: string,
-      desc: string,
-      body: string,
-    }>,
+    blocks: Array<BlockProps>,
   }>,
   removeArticle: (number) => void,
 };

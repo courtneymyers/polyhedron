@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+// types
+import type { BlockProps } from 'contexts/block';
 
 // --- styled components
 const Container = styled.div`
@@ -97,19 +99,14 @@ class BlockText extends React.Component<
 
 type Props = {
   // context props
-  blocks: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    body: string,
-  }>,
-  removeBlock: (number) => void,
+  blocks: Array<BlockProps>,
+  removeBlock: (string) => void,
 };
 
 const BlockLibrary = (props: Props) => (
   <Container {...props}>
     {props.blocks.map((block) => (
-      <Block key={block.time}>
+      <Block key={block.id}>
         <Handle>
           <RemoveButton
             text="–"
@@ -117,7 +114,7 @@ const BlockLibrary = (props: Props) => (
             title="Remove Block"
             onClick={(ev) => {
               ev.preventDefault();
-              props.removeBlock(block.time);
+              props.removeBlock(block.id);
             }}
           />
         </Handle>

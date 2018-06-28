@@ -5,6 +5,8 @@ import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
+// types
+import type { BlockProps } from 'contexts/block';
 
 // --- styled components
 const Container = styled.div`
@@ -38,11 +40,8 @@ const RemoveButton = styled(BlockButton)`
 
 // --- components
 type Props = {
-  time: number,
-  title: string,
-  desc: string,
-  body: string,
-  removeBlock: (number) => void,
+  ...BlockProps,
+  removeBlock: (string) => void,
   // context props
   updateFieldText: (number, string, string) => void,
 };
@@ -80,7 +79,7 @@ const Block = (props: Props) => (
         title="Remove Block"
         onClick={(ev) => {
           ev.preventDefault();
-          props.removeBlock(props.time);
+          props.removeBlock(props.id);
         }}
       />
     </Handle>
