@@ -55,14 +55,20 @@ const Title = Paragraph.extend`
 `;
 
 // --- components
-class BlockText extends React.Component<
-  { title: string, desc: string },
-  { infoShown: boolean },
-> {
+type BlockTextProps = {
+  title: string,
+  desc: string,
+};
+
+type BlockTextState = {
+  infoShown: boolean,
+};
+
+class BlockText extends React.Component<BlockTextProps, BlockTextState> {
   showInfo: () => void;
   hideInfo: () => void;
 
-  constructor(props: Props) {
+  constructor(props: BlockTextProps) {
     super(props);
     this.state = {
       infoShown: false,
