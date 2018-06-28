@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
 // types
-import type { BlockProps } from 'contexts/block';
+import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const Container = styled.div`

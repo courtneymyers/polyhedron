@@ -7,7 +7,7 @@ import Field from 'components/Field';
 import Block from 'components/Block/container.js';
 import BlockButton from 'components/BlockButton';
 // types
-import type { BlockProps } from 'contexts/block';
+import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const ArticleField = styled(Field)`
