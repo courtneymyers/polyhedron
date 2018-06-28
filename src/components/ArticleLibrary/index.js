@@ -70,7 +70,7 @@ type Props = {
 const ArticleLibrary = (props: Props) => (
   <Container {...props}>
     {props.articles.map((article) => (
-      <Article key={article.time}>
+      <Article key={article.id}>
         <Handle>
           <RemoveButton
             text="–"
