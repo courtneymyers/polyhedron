@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 // types
-import type { BlockProps } from 'contexts/blocks';
+import type { ArticleProps } from 'contexts/articles';
 
 // --- styled components
 const Container = styled.div`
@@ -63,14 +63,8 @@ const Title = Paragraph.extend`
 // --- components
 type Props = {
   // context props
-  articles: Array<{
-    id: string,
-    time: number,
-    title: string,
-    desc: string,
-    blocks: Array<BlockProps>,
-  }>,
-  removeArticle: (number) => void,
+  articles: Array<ArticleProps>,
+  removeArticle: (string) => void,
 };
 
 const ArticleLibrary = (props: Props) => (
@@ -84,7 +78,7 @@ const ArticleLibrary = (props: Props) => (
             title="Remove Article"
             onClick={(ev) => {
               ev.preventDefault();
-              props.removeArticle(article.time);
+              props.removeArticle(article.id);
             }}
           />
         </Handle>

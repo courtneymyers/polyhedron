@@ -3,6 +3,7 @@
 import React from 'react';
 // types
 import type { Node } from 'react';
+import type { BlockProps } from 'contexts/blocks';
 
 // --- contexts
 export const ArticlesContext = React.createContext();
@@ -12,39 +13,48 @@ type Props = {
   children: Node,
 };
 
+export type ArticleProps = {|
+  id: string,
+  time: number,
+  title: string,
+  desc: string,
+  blocks: Array<BlockProps>,
+|};
+
 type State = {
-  articles: Array<{
-    time: number,
-    title: string,
-    desc: string,
-    blocks: Array<{
-      time: number,
-      title: string,
-      desc: string,
-      body: string,
-    }>,
-  }>,
+  articles: Array<ArticleProps>,
 };
 
 export class ArticlesProvider extends React.Component<Props, State> {
   addArticle: () => void;
-  removeArticle: (number) => void;
+  removeArticle: (string) => void;
 
   constructor(props: Props) {
     super(props);
+
+    /* ---------------------------------------------------------------------- */
+    /* temporary */
+    /* ---------------------------------------------------------------------- */
+    const currentTime = new Date().getTime();
+    /* ---------------------------------------------------------------------- */
+    /* temporary */
+    /* ---------------------------------------------------------------------- */
+
     this.state = {
-      articles: [],
+      // articles: [],
       /* -------------------------------------------------------------------- */
       /* temporary */
       /* -------------------------------------------------------------------- */
       articles: [
         {
-          time: new Date().getTime(),
+          id: currentTime.toString(),
+          time: currentTime,
           title: '(title)',
           desc: '(description)',
           blocks: [
             {
-              time: new Date().getTime(),
+              id: currentTime.toString(),
+              time: currentTime,
               title: '',
               desc: '',
               body: '',
@@ -58,27 +68,32 @@ export class ArticlesProvider extends React.Component<Props, State> {
     };
 
     this.addArticle = () => {
-      this.setState((prevState) => ({
-        articles: prevState.articles.concat({
-          time: new Date().getTime(),
-          title: '',
-          desc: '',
-          blocks: [
-            {
-              time: new Date().getTime(),
-              title: '',
-              desc: '',
-              body: '',
-            },
-          ],
-        }),
-      }));
+      this.setState((prevState) => {
+        const currentTime = new Date().getTime();
+        return {
+          articles: prevState.articles.concat({
+            id: currentTime.toString(),
+            time: currentTime,
+            title: '',
+            desc: '',
+            blocks: [
+              {
+                id: currentTime.toString(),
+                time: currentTime,
+                title: '',
+                desc: '',
+                body: '',
+              },
+            ],
+          }),
+        };
+      });
     };
 
-    this.removeArticle = (createdAt) => {
+    this.removeArticle = (articleId) => {
       this.setState((prevState) => ({
         articles: prevState.articles.filter(
-          (article) => article.time !== createdAt,
+          (article) => article.id !== articleId,
         ),
       }));
     };
