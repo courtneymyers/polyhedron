@@ -27,7 +27,7 @@ type State = {
 export class BlocksProvider extends React.Component<Props, State> {
   addBlock: () => void;
   removeBlock: (string) => void;
-  updateFieldText: (number, string, string) => void;
+  updateFieldText: (string, string, string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -56,10 +56,10 @@ export class BlocksProvider extends React.Component<Props, State> {
       }));
     };
 
-    this.updateFieldText = (createdAt, fieldName, text) => {
+    this.updateFieldText = (blockId, fieldName, text) => {
       this.setState((prevState) => {
         const blocks = [...prevState.blocks];
-        blocks.filter((block) => block.time === createdAt)[0][fieldName] = text;
+        blocks.filter((block) => block.id === blockId)[0][fieldName] = text;
         return {
           blocks: blocks,
         };

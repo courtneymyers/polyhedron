@@ -43,7 +43,7 @@ type Props = {
   ...BlockProps,
   removeBlock: (string) => void,
   // context props
-  updateFieldText: (number, string, string) => void,
+  updateFieldText: (string, string, string) => void,
 };
 
 const Block = (props: Props) => (
@@ -54,21 +54,21 @@ const Block = (props: Props) => (
         type="text"
         label="Title"
         text={props.title}
-        updateText={(text) => props.updateFieldText(props.time, 'title', text)}
+        updateText={(text) => props.updateFieldText(props.id, 'title', text)}
       />
 
       <Field
         type="text"
         label="Description"
         text={props.desc}
-        updateText={(text) => props.updateFieldText(props.time, 'desc', text)}
+        updateText={(text) => props.updateFieldText(props.id, 'desc', text)}
       />
 
       <Field
         type="textarea"
         label="Body"
         text={props.body}
-        updateText={(text) => props.updateFieldText(props.time, 'body', text)}
+        updateText={(text) => props.updateFieldText(props.id, 'body', text)}
       />
     </Fields>
 
