@@ -27,10 +27,60 @@ type State = {
 };
 
 export class ArticlesProvider extends React.Component<Props, State> {
+  addArticle: () => void;
+  removeArticle: (number) => void;
+
   constructor(props: Props) {
     super(props);
     this.state = {
       articles: [],
+      /* -------------------------------------------------------------------- */
+      /* temporary */
+      /* -------------------------------------------------------------------- */
+      articles: [
+        {
+          time: new Date().getTime(),
+          title: '(title)',
+          desc: '(description)',
+          blocks: [
+            {
+              time: new Date().getTime(),
+              title: '',
+              desc: '',
+              body: '',
+            },
+          ],
+        },
+      ],
+      /* -------------------------------------------------------------------- */
+      /* temporary */
+      /* -------------------------------------------------------------------- */
+    };
+
+    this.addArticle = () => {
+      this.setState((prevState) => ({
+        articles: prevState.articles.concat({
+          time: new Date().getTime(),
+          title: '',
+          desc: '',
+          blocks: [
+            {
+              time: new Date().getTime(),
+              title: '',
+              desc: '',
+              body: '',
+            },
+          ],
+        }),
+      }));
+    };
+
+    this.removeArticle = (createdAt) => {
+      this.setState((prevState) => ({
+        articles: prevState.articles.filter(
+          (article) => article.time !== createdAt,
+        ),
+      }));
     };
   }
 
@@ -39,6 +89,8 @@ export class ArticlesProvider extends React.Component<Props, State> {
       <ArticlesContext.Provider
         value={{
           ...this.state,
+          addArticle: this.addArticle,
+          removeArticle: this.removeArticle,
         }}
       >
         {this.props.children}

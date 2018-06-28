@@ -4,7 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
-import ArticleLibrary from 'components/ArticleLibrary';
+import ArticleLibrary from 'components/ArticleLibrary/container.js';
 import ArticleEditor from 'components/ArticleEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 
