@@ -30,7 +30,7 @@ export class BlocksProvider extends React.Component<Props, State> {
   dbBlocks: Object; // firebase database reference
   addBlock: () => void;
   removeBlock: (string) => void;
-  updateFieldText: (string, string, string) => void;
+  updateBlockFieldText: (string, string, string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -78,7 +78,7 @@ export class BlocksProvider extends React.Component<Props, State> {
       // }));
     };
 
-    this.updateFieldText = (blockId, fieldName, text) => {
+    this.updateBlockFieldText = (blockId, fieldName, text) => {
       // -----------------------------------------------------------------------
       // --- update block field in firebase ------------------------------------
       // -----------------------------------------------------------------------
@@ -130,7 +130,7 @@ export class BlocksProvider extends React.Component<Props, State> {
           ...this.state,
           addBlock: this.addBlock,
           removeBlock: this.removeBlock,
-          updateFieldText: this.updateFieldText,
+          updateBlockFieldText: this.updateBlockFieldText,
         }}
       >
         {this.props.children}
