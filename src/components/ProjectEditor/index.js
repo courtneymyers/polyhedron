@@ -7,6 +7,7 @@ import Field from 'components/Field';
 import Block from 'components/Block/container.js';
 import BlockButton from 'components/BlockButton';
 // types
+import type { ProjectProps } from 'contexts/projects';
 import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
@@ -38,6 +39,8 @@ const AddButton = styled(BlockButton)`
 // --- components
 type Props = {
   // context props
+  projects: Array<ProjectProps>,
+  addProject: () => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
   removeBlock: (string) => void,
@@ -45,43 +48,60 @@ type Props = {
 
 const ProjectEditor = (props: Props) => (
   <React.Fragment>
-    <ProjectField
-      type="text"
-      label="Project Title"
-      text={'(title)'}
-      updateText={(text) => true}
-    />
+    {props.projects.length === 0 ? (
+      <React.Fragment>
+        <p>No projects exist. Create a new one!</p>
+        <AddButton
+          text="+"
+          href=""
+          title="Add Project"
+          onClick={(ev) => {
+            ev.preventDefault();
+            props.addProject();
+          }}
+        />
+      </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <ProjectField
+          type="text"
+          label="Project Title"
+          text={'(title)'}
+          updateText={(text) => true}
+        />
 
-    <ProjectField
-      type="text"
-      label="Project Description"
-      text={'(description)'}
-      updateText={(text) => true}
-    />
+        <ProjectField
+          type="text"
+          label="Project Description"
+          text={'(description)'}
+          updateText={(text) => true}
+        />
 
-    <Heading>Blocks</Heading>
+        <Heading>Blocks</Heading>
 
-    {props.blocks.map((block) => (
-      <Block
-        key={block.id}
-        id={block.id}
-        time={block.time}
-        title={block.title}
-        desc={block.desc}
-        body={block.body}
-        removeBlock={(blockId) => props.removeBlock(blockId)}
-      />
-    ))}
+        {props.blocks.map((block) => (
+          <Block
+            key={block.id}
+            id={block.id}
+            time={block.time}
+            title={block.title}
+            desc={block.desc}
+            body={block.body}
+            removeBlock={(blockId) => props.removeBlock(blockId)}
+          />
+        ))}
 
-    <AddButton
-      text="+"
-      href=""
-      title="Add Block"
-      onClick={(ev) => {
-        ev.preventDefault();
-        props.addBlock();
-      }}
-    />
+        <AddButton
+          text="+"
+          href=""
+          title="Add Block"
+          onClick={(ev) => {
+            ev.preventDefault();
+            props.addBlock();
+          }}
+        />
+      </React.Fragment>
+    )}
   </React.Fragment>
 );
 
