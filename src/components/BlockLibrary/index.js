@@ -28,7 +28,7 @@ const Handle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 1.75rem;
+  padding: 0.25rem;
   background-color: #ccbee4;
 `;
 

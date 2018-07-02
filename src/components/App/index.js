@@ -33,7 +33,6 @@ const Header = styled.header`
 `;
 
 const ToggleButton = styled(BlockButton)`
-  margin-right: 0.75rem;
   width: 1.5rem;
   height: 1.5rem;
   font-size: 1.125rem;
@@ -47,10 +46,11 @@ const ToggleButton = styled(BlockButton)`
 `;
 
 const Heading = styled.h1`
-  margin-top: 0.1875rem;
-  margin-bottom: 0;
+  flex: 1;
+  margin: 0.1875rem 0.75rem 0;
   font-size: 1.3125rem;
   font-weight: normal;
+  text-align: center;
   color: #fff;
 `;
 
@@ -65,15 +65,19 @@ const Panel = styled.section`
 `;
 
 const SubHeading = styled.h2`
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid #ccbee4;
   font-size: 1.125rem;
   color: #360a80;
+
+  :first-of-type {
+    margin-top: 0;
+  }
 `;
 
 const LeftPanel = Panel.extend`
-  flex-basis: 20rem;
+  flex-basis: 15rem;
   border-right: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
@@ -84,7 +88,7 @@ const MiddlePanel = Panel.extend`
 `;
 
 const RightPanel = Panel.extend`
-  flex-basis: 20rem;
+  flex-basis: 15rem;
   border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
@@ -93,22 +97,30 @@ const RightPanel = Panel.extend`
 type Props = {};
 
 type State = {
-  articleLibraryShown: boolean,
+  leftPanelShown: boolean,
+  rightPanelShown: boolean,
 };
 
 class App extends React.Component<Props, State> {
-  toggleArticleLibrary: () => void;
-  hideArticleLibrary: () => void;
+  toggleLeftPanel: () => void;
+  toggleRightPanel: () => void;
 
   constructor(props: Props) {
     super(props);
     this.state = {
-      articleLibraryShown: false,
+      leftPanelShown: true,
+      rightPanelShown: false,
     };
 
-    this.toggleArticleLibrary = () => {
+    this.toggleLeftPanel = () => {
       this.setState((prevState) => ({
-        articleLibraryShown: !prevState.articleLibraryShown,
+        leftPanelShown: !prevState.leftPanelShown,
+      }));
+    };
+
+    this.toggleRightPanel = () => {
+      this.setState((prevState) => ({
+        rightPanelShown: !prevState.rightPanelShown,
       }));
     };
   }
@@ -119,21 +131,33 @@ class App extends React.Component<Props, State> {
         <Header>
           <ToggleButton
             text="☰"
-            href=""
-            title="Toggle Article Library"
+            href="#library"
+            title="Toggle Library"
             onClick={(ev) => {
               ev.preventDefault();
-              this.toggleArticleLibrary();
+              this.toggleLeftPanel();
             }}
           />
           <Heading>Polyhedron</Heading>
+          <ToggleButton
+            text="☰"
+            href="#preview"
+            title="Toggle Preview"
+            onClick={(ev) => {
+              ev.preventDefault();
+              this.toggleRightPanel();
+            }}
+          />
         </Header>
 
         <Main>
-          {this.state.articleLibraryShown && (
+          {this.state.leftPanelShown && (
             <LeftPanel>
-              <SubHeading>Article Library</SubHeading>
+              <SubHeading>Project Library</SubHeading>
               <ArticleLibrary />
+
+              <SubHeading>Block Library</SubHeading>
+              <BlockLibrary />
             </LeftPanel>
           )}
 
@@ -142,10 +166,11 @@ class App extends React.Component<Props, State> {
             <ProjectEditor />
           </MiddlePanel>
 
-          <RightPanel>
-            <SubHeading>Block Library</SubHeading>
-            <BlockLibrary />
-          </RightPanel>
+          {this.state.rightPanelShown && (
+            <RightPanel>
+              <SubHeading>Project Preview</SubHeading>
+            </RightPanel>
+          )}
         </Main>
       </Container>
     );

@@ -10,7 +10,7 @@ import BlockButton from 'components/BlockButton';
 import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
-const ArticleField = styled(Field)`
+const ProjectField = styled(Field)`
   margin-top: 1rem;
   padding: 0;
 
@@ -45,16 +45,16 @@ type Props = {
 
 const ProjectEditor = (props: Props) => (
   <React.Fragment>
-    <ArticleField
+    <ProjectField
       type="text"
-      label="Article Title"
+      label="Project Title"
       text={'(title)'}
       updateText={(text) => true}
     />
 
-    <ArticleField
+    <ProjectField
       type="text"
-      label="Article Description"
+      label="Project Description"
       text={'(description)'}
       updateText={(text) => true}
     />
