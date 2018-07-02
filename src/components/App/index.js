@@ -4,7 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
-import ArticleLibrary from 'components/ArticleLibrary/container.js';
+import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
 import ProjectPreview from 'components/ProjectPreview';
@@ -155,7 +155,7 @@ class App extends React.Component<Props, State> {
           {this.state.leftPanelShown && (
             <LeftPanel>
               <SubHeading>Project Library</SubHeading>
-              <ArticleLibrary />
+              <ProjectLibrary />
 
               <SubHeading>Block Library</SubHeading>
               <BlockLibrary />

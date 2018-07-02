@@ -67,7 +67,7 @@ type Props = {
   removeArticle: (string) => void,
 };
 
-const ArticleLibrary = (props: Props) => (
+const ProjectLibrary = (props: Props) => (
   <Container {...props}>
     {props.articles.map((article) => (
       <Article key={article.id}>
@@ -90,4 +90,4 @@ const ArticleLibrary = (props: Props) => (
   </Container>
 );
 
-export default ArticleLibrary;
+export default ProjectLibrary;

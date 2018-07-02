@@ -2,12 +2,12 @@ import React from 'react';
 // contexts
 import { ArticlesContext } from 'contexts/articles';
 // components
-import ArticleLibrary from './index.js';
+import ProjectLibrary from './index.js';
 
-const ArticleLibraryContainer = (props) => (
+const ProjectLibraryContainer = (props) => (
   <ArticlesContext.Consumer>
     {({ articles, removeArticle }) => (
-      <ArticleLibrary
+      <ProjectLibrary
         {...props}
         articles={articles}
         removeArticle={removeArticle}
@@ -16,4 +16,4 @@ const ArticleLibraryContainer = (props) => (
   </ArticlesContext.Consumer>
 );
 
-export default ArticleLibraryContainer;
+export default ProjectLibraryContainer;
