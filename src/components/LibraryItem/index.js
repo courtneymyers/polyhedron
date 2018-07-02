@@ -26,7 +26,7 @@ const RemoveButton = styled(BlockButton)`
   /* */
 `;
 
-const TextContent = styled.div`
+const Text = styled.div`
   flex-grow: 1;
   padding: 0.5rem;
   user-select: none;
@@ -49,20 +49,23 @@ const Title = Paragraph.extend`
 `;
 
 // --- components
-type TextProps = {
+type Props = {
+  id: string,
+  label: string,
   title: string,
   desc: string,
+  removeItem: (string) => void,
 };
 
-type TextState = {
+type State = {
   infoShown: boolean,
 };
 
-class Text extends React.Component<TextProps, TextState> {
+class Item extends React.Component<Props, State> {
   showInfo: () => void;
   hideInfo: () => void;
 
-  constructor(props: TextProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       infoShown: false,
@@ -85,41 +88,29 @@ class Text extends React.Component<TextProps, TextState> {
 
   render() {
     return (
-      <TextContent
+      <Container
         onMouseEnter={(ev) => this.showInfo()}
         onMouseLeave={(ev) => this.hideInfo()}
       >
-        <Title>{this.props.title === '' ? '\u00A0' : this.props.title}</Title>
+        <Handle>
+          <RemoveButton
+            text="–"
+            href=""
+            title={`Remove ${this.props.label}`}
+            onClick={(ev) => {
+              ev.preventDefault();
+              this.props.removeItem(this.props.id);
+            }}
+          />
+        </Handle>
+        <Text>
+          <Title>{this.props.title === '' ? '\u00A0' : this.props.title}</Title>
 
-        {this.state.infoShown && <Paragraph>{this.props.desc}</Paragraph>}
-      </TextContent>
+          {this.state.infoShown && <Paragraph>{this.props.desc}</Paragraph>}
+        </Text>
+      </Container>
     );
   }
 }
-
-type Props = {
-  id: string,
-  label: string,
-  title: string,
-  desc: string,
-  removeItem: (string) => void,
-};
-
-const Item = (props: Props) => (
-  <Container>
-    <Handle>
-      <RemoveButton
-        text="–"
-        href=""
-        title={`Remove ${props.label}`}
-        onClick={(ev) => {
-          ev.preventDefault();
-          props.removeItem(props.id);
-        }}
-      />
-    </Handle>
-    <Text title={props.title} desc={props.desc} />
-  </Container>
-);
 
 export default Item;
