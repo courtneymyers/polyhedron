@@ -5,8 +5,9 @@ import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 import ArticleLibrary from 'components/ArticleLibrary/container.js';
-import ProjectEditor from 'components/ProjectEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
+import ProjectEditor from 'components/ProjectEditor/container.js';
+import ProjectPreview from 'components/ProjectPreview';
 
 // --- global stylesheet
 injectGlobal`
@@ -88,7 +89,7 @@ const MiddlePanel = Panel.extend`
 `;
 
 const RightPanel = Panel.extend`
-  flex-basis: 15rem;
+  flex-grow: 1;
   border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
@@ -169,6 +170,7 @@ class App extends React.Component<Props, State> {
           {this.state.rightPanelShown && (
             <RightPanel>
               <SubHeading>Project Preview</SubHeading>
+              <ProjectPreview />
             </RightPanel>
           )}
         </Main>
