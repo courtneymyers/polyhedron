@@ -29,6 +29,7 @@ type State = {
 export class ProjectsProvider extends React.Component<Props, State> {
   addProject: () => void;
   removeProject: (string) => void;
+  updateProjectFieldText: (string, string, string) => void;
   setActiveProjectId: (string) => void;
 
   constructor(props: Props) {
@@ -57,6 +58,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
             },
           ],
         }),
+        activeProjectId: currentTime.toString(),
       }));
     };
 
@@ -66,6 +68,16 @@ export class ProjectsProvider extends React.Component<Props, State> {
           (project) => project.id !== projectId,
         ),
       }));
+    };
+
+    this.updateProjectFieldText = (projectId, fieldName, text) => {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        projects.filter((p) => p.id === projectId)[0][fieldName] = text;
+        return {
+          projects: projects,
+        };
+      });
     };
 
     this.setActiveProjectId = (projectId) => {
@@ -82,6 +94,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           ...this.state,
           addProject: this.addProject,
           removeProject: this.removeProject,
+          updateProjectFieldText: this.updateProjectFieldText,
           setActiveProjectId: this.setActiveProjectId,
         }}
       >

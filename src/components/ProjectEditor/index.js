@@ -41,57 +41,68 @@ type Props = {
   // context props
   projects: Array<ProjectProps>,
   activeProjectId: string,
+  updateProjectFieldText: (string, string, string) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
   removeBlock: (string) => void,
 };
 
-const ProjectEditor = (props: Props) => (
-  <React.Fragment>
-    {props.projects.length === 0 ? (
-      <p>No projects exist. Create a new one!</p>
-    ) : (
-      <React.Fragment>
-        <ProjectField
-          type="text"
-          label="Project Title"
-          text={'(title)'}
-          updateText={(text) => true}
-        />
+const ProjectEditor = (props: Props) => {
+  const project = props.projects.filter(
+    (p) => p.id === props.activeProjectId,
+  )[0];
 
-        <ProjectField
-          type="text"
-          label="Project Description"
-          text={'(description)'}
-          updateText={(text) => true}
-        />
-
-        <Heading>Blocks</Heading>
-
-        {props.blocks.map((block) => (
-          <Block
-            key={block.id}
-            id={block.id}
-            time={block.time}
-            title={block.title}
-            desc={block.desc}
-            body={block.body}
-            removeBlock={(blockId) => props.removeBlock(blockId)}
+  return (
+    <React.Fragment>
+      {!project ? (
+        <p>No project selected. Select a project or create a new one!</p>
+      ) : (
+        <React.Fragment>
+          <ProjectField
+            type="text"
+            label="Project Title"
+            text={project.title}
+            updateText={(text) =>
+              props.updateProjectFieldText(project.id, 'title', text)
+            }
           />
-        ))}
 
-        <AddButton
-          text="+"
-          href=""
-          title="Add Block"
-          onClick={(ev) => {
-            ev.preventDefault();
-            props.addBlock();
-          }}
-        />
-      </React.Fragment>
-    )}
-  </React.Fragment>
-);
+          <ProjectField
+            type="text"
+            label="Project Description"
+            text={project.desc}
+            updateText={(text) =>
+              props.updateProjectFieldText(project.id, 'desc', text)
+            }
+          />
+
+          <Heading>Blocks</Heading>
+
+          {props.blocks.map((block) => (
+            <Block
+              key={block.id}
+              id={block.id}
+              time={block.time}
+              title={block.title}
+              desc={block.desc}
+              body={block.body}
+              removeBlock={(blockId) => props.removeBlock(blockId)}
+            />
+          ))}
+
+          <AddButton
+            text="+"
+            href=""
+            title="Add Block"
+            onClick={(ev) => {
+              ev.preventDefault();
+              props.addBlock();
+            }}
+          />
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};
 
 export default ProjectEditor;
