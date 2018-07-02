@@ -2,12 +2,12 @@ import React from 'react';
 // contexts
 import { BlocksContext } from 'contexts/blocks';
 // components
-import ArticleEditor from './index.js';
+import ProjectEditor from './index.js';
 
-const ArticleEditorContainer = (props) => (
+const ProjectEditorContainer = (props) => (
   <BlocksContext.Consumer>
     {({ blocks, addBlock, removeBlock }) => (
-      <ArticleEditor
+      <ProjectEditor
         {...props}
         blocks={blocks}
         addBlock={addBlock}
@@ -17,4 +17,4 @@ const ArticleEditorContainer = (props) => (
   </BlocksContext.Consumer>
 );
 
-export default ArticleEditorContainer;
+export default ProjectEditorContainer;

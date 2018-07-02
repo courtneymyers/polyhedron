@@ -43,7 +43,7 @@ type Props = {
   removeBlock: (string) => void,
 };
 
-const ArticleEditor = (props: Props) => (
+const ProjectEditor = (props: Props) => (
   <React.Fragment>
     <ArticleField
       type="text"
@@ -85,4 +85,4 @@ const ArticleEditor = (props: Props) => (
   </React.Fragment>
 );
 
-export default ArticleEditor;
+export default ProjectEditor;

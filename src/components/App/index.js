@@ -5,7 +5,7 @@ import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 import ArticleLibrary from 'components/ArticleLibrary/container.js';
-import ArticleEditor from 'components/ArticleEditor/container.js';
+import ProjectEditor from 'components/ProjectEditor/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 
 // --- global stylesheet
@@ -138,8 +138,8 @@ class App extends React.Component<Props, State> {
           )}
 
           <MiddlePanel>
-            <SubHeading>Article Editor</SubHeading>
-            <ArticleEditor />
+            <SubHeading>Project Editor</SubHeading>
+            <ProjectEditor />
           </MiddlePanel>
 
           <RightPanel>
