@@ -1,19 +1,19 @@
 import React from 'react';
 // contexts
-import { ArticlesContext } from 'contexts/articles';
+import { ProjectsContext } from 'contexts/projects';
 // components
 import ProjectLibrary from './index.js';
 
 const ProjectLibraryContainer = (props) => (
-  <ArticlesContext.Consumer>
-    {({ articles, removeArticle }) => (
+  <ProjectsContext.Consumer>
+    {({ projects, removeProject }) => (
       <ProjectLibrary
         {...props}
-        articles={articles}
-        removeArticle={removeArticle}
+        projects={projects}
+        removeProject={removeProject}
       />
     )}
-  </ArticlesContext.Consumer>
+  </ProjectsContext.Consumer>
 );
 
 export default ProjectLibraryContainer;

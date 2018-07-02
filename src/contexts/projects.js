@@ -6,14 +6,14 @@ import type { Node } from 'react';
 import type { BlockProps } from 'contexts/blocks';
 
 // --- contexts
-export const ArticlesContext = React.createContext();
+export const ProjectsContext = React.createContext();
 
 // --- components
 type Props = {
   children: Node,
 };
 
-export type ArticleProps = {|
+export type ProjectProps = {|
   id: string,
   time: number,
   title: string,
@@ -22,12 +22,12 @@ export type ArticleProps = {|
 |};
 
 type State = {
-  articles: Array<ArticleProps>,
+  projects: Array<ProjectProps>,
 };
 
-export class ArticlesProvider extends React.Component<Props, State> {
-  addArticle: () => void;
-  removeArticle: (string) => void;
+export class ProjectsProvider extends React.Component<Props, State> {
+  addProject: () => void;
+  removeProject: (string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -41,11 +41,11 @@ export class ArticlesProvider extends React.Component<Props, State> {
     /* ---------------------------------------------------------------------- */
 
     this.state = {
-      // articles: [],
+      // projects: [],
       /* -------------------------------------------------------------------- */
       /* temporary */
       /* -------------------------------------------------------------------- */
-      articles: [
+      projects: [
         {
           id: currentTime.toString(),
           time: currentTime,
@@ -67,11 +67,11 @@ export class ArticlesProvider extends React.Component<Props, State> {
       /* -------------------------------------------------------------------- */
     };
 
-    this.addArticle = () => {
+    this.addProject = () => {
       this.setState((prevState) => {
         const currentTime = new Date().getTime();
         return {
-          articles: prevState.articles.concat({
+          projects: prevState.projects.concat({
             id: currentTime.toString(),
             time: currentTime,
             title: '',
@@ -90,9 +90,9 @@ export class ArticlesProvider extends React.Component<Props, State> {
       });
     };
 
-    this.removeArticle = (articleId) => {
+    this.removeProject = (articleId) => {
       this.setState((prevState) => ({
-        articles: prevState.articles.filter(
+        projects: prevState.projects.filter(
           (article) => article.id !== articleId,
         ),
       }));
@@ -101,15 +101,15 @@ export class ArticlesProvider extends React.Component<Props, State> {
 
   render() {
     return (
-      <ArticlesContext.Provider
+      <ProjectsContext.Provider
         value={{
           ...this.state,
-          addArticle: this.addArticle,
-          removeArticle: this.removeArticle,
+          addProject: this.addProject,
+          removeProject: this.removeProject,
         }}
       >
         {this.props.children}
-      </ArticlesContext.Provider>
+      </ProjectsContext.Provider>
     );
   }
 }

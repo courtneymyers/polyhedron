@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // components
 import LibraryItem from 'components/LibraryItem';
 // types
-import type { ArticleProps } from 'contexts/articles';
+import type { ProjectProps } from 'contexts/projects';
 
 // --- styled components
 const Container = styled.div`
@@ -15,20 +15,20 @@ const Container = styled.div`
 // --- components
 type Props = {
   // context props
-  articles: Array<ArticleProps>,
-  removeArticle: (string) => void,
+  projects: Array<ProjectProps>,
+  removeProject: (string) => void,
 };
 
 const ProjectLibrary = (props: Props) => (
   <Container {...props}>
-    {props.articles.map((article) => (
+    {props.projects.map((project) => (
       <LibraryItem
-        key={article.id}
-        id={article.id}
+        key={project.id}
+        id={project.id}
         label="Article"
-        title={article.title}
-        desc={article.desc}
-        removeItem={props.removeArticle}
+        title={project.title}
+        desc={project.desc}
+        removeItem={props.removeProject}
       />
     ))}
   </Container>
