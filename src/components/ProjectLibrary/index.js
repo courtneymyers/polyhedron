@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // components
+import BlockButton from 'components/BlockButton';
 import LibraryItem from 'components/LibraryItem';
 // types
 import type { ProjectProps } from 'contexts/projects';
@@ -12,11 +13,18 @@ const Container = styled.div`
   /* */
 `;
 
+const AddButton = styled(BlockButton)`
+  margin: 0.5rem auto 0;
+`;
+
 // --- components
 type Props = {
   // context props
   projects: Array<ProjectProps>,
+  activeProjectId: string,
+  addProject: () => void,
   removeProject: (string) => void,
+  setActiveProjectId: (string) => void,
 };
 
 const ProjectLibrary = (props: Props) => (
@@ -31,6 +39,16 @@ const ProjectLibrary = (props: Props) => (
         removeItem={props.removeProject}
       />
     ))}
+
+    <AddButton
+      text="+"
+      href=""
+      title="Add Project"
+      onClick={(ev) => {
+        ev.preventDefault();
+        props.addProject();
+      }}
+    />
   </Container>
 );
 

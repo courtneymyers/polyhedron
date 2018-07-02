@@ -23,16 +23,19 @@ export type ProjectProps = {|
 
 type State = {
   projects: Array<ProjectProps>,
+  activeProjectId: string,
 };
 
 export class ProjectsProvider extends React.Component<Props, State> {
   addProject: () => void;
   removeProject: (string) => void;
+  setActiveProjectId: (string) => void;
 
   constructor(props: Props) {
     super(props);
     this.state = {
       projects: [],
+      activeProjectId: '',
     };
 
     this.addProject = () => {
@@ -64,6 +67,12 @@ export class ProjectsProvider extends React.Component<Props, State> {
         ),
       }));
     };
+
+    this.setActiveProjectId = (projectId) => {
+      this.setState((prevState) => ({
+        activeProjectId: projectId,
+      }));
+    };
   }
 
   render() {
@@ -73,6 +82,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           ...this.state,
           addProject: this.addProject,
           removeProject: this.removeProject,
+          setActiveProjectId: this.setActiveProjectId,
         }}
       >
         {this.props.children}

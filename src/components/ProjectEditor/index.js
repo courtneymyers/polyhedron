@@ -40,7 +40,7 @@ const AddButton = styled(BlockButton)`
 type Props = {
   // context props
   projects: Array<ProjectProps>,
-  addProject: () => void,
+  activeProjectId: string,
   blocks: Array<BlockProps>,
   addBlock: () => void,
   removeBlock: (string) => void,
@@ -49,18 +49,7 @@ type Props = {
 const ProjectEditor = (props: Props) => (
   <React.Fragment>
     {props.projects.length === 0 ? (
-      <React.Fragment>
-        <p>No projects exist. Create a new one!</p>
-        <AddButton
-          text="+"
-          href=""
-          title="Add Project"
-          onClick={(ev) => {
-            ev.preventDefault();
-            props.addProject();
-          }}
-        />
-      </React.Fragment>
+      <p>No projects exist. Create a new one!</p>
     ) : (
       <React.Fragment>
         <ProjectField
