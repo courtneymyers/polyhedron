@@ -6,8 +6,8 @@ import Block from './index.js';
 
 const BlockContainer = (props) => (
   <BlocksContext.Consumer>
-    {({ updateFieldText }) => {
-      return <Block {...props} updateFieldText={updateFieldText} />;
+    {({ updateBlockFieldText }) => {
+      return <Block {...props} updateBlockFieldText={updateBlockFieldText} />;
     }}
   </BlocksContext.Consumer>
 );
