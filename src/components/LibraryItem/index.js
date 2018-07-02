@@ -9,7 +9,7 @@ import BlockButton from 'components/BlockButton';
 const Container = styled.div`
   display: flex;
   margin-top: 0.5rem;
-  border: 1px solid #ccbee4;
+  border: 3px solid #e2ddef;
   border-radius: 3px;
   background-color: white;
 `;
@@ -18,7 +18,8 @@ const Handle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem;
+  padding: 0.3125rem;
+  padding-right: 0.25rem;
   background-color: #ccbee4;
 `;
 
@@ -29,6 +30,7 @@ const RemoveButton = styled(BlockButton)`
 const Text = styled.div`
   flex-grow: 1;
   padding: 0.5rem;
+  border: 1px solid #ccbee4;
   user-select: none;
   cursor: move;
 `;
@@ -55,6 +57,7 @@ type Props = {
   title: string,
   desc: string,
   removeItem: (string) => void,
+  setActiveItem: (string) => void,
 };
 
 type State = {
@@ -89,8 +92,10 @@ class Item extends React.Component<Props, State> {
   render() {
     return (
       <Container
+        {...this.props}
         onMouseEnter={(ev) => this.showInfo()}
         onMouseLeave={(ev) => this.hideInfo()}
+        onClick={(ev) => this.props.setActiveItem(this.props.id)}
       >
         <Handle>
           <RemoveButton

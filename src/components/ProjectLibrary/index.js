@@ -37,6 +37,11 @@ const ProjectLibrary = (props: Props) => (
         title={project.title}
         desc={project.desc}
         removeItem={props.removeProject}
+        setActiveItem={props.setActiveProjectId}
+        style={{
+          // active project get highlighted border
+          borderColor: project.id === props.activeProjectId && '#360a80',
+        }}
       />
     ))}
 

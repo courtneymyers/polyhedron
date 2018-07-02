@@ -29,6 +29,7 @@ const BlockLibrary = (props: Props) => (
         title={block.title}
         desc={block.desc}
         removeItem={props.removeBlock}
+        setActiveItem={(id) => console.log(`Block "${id}" clicked`)}
       />
     ))}
   </Container>
