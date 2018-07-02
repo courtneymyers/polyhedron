@@ -41,29 +41,28 @@ export class BlocksProvider extends React.Component<Props, State> {
     this.dbBlocks = firebase.database().ref('blocks');
 
     this.addBlock = () => {
+      const currentTime = new Date().getTime();
+
       // -----------------------------------------------------------------------
       // --- add block to firebase ---------------------------------------------
       // -----------------------------------------------------------------------
       this.dbBlocks.push({
-        time: new Date().getTime(),
+        time: currentTime,
         title: '',
         desc: '',
         body: '',
       });
       // -----------------------------------------------------------------------
 
-      // this.setState((prevState) => {
-      //   const currentTime = new Date().getTime();
-      //   return {
-      //     blocks: prevState.blocks.concat({
-      //       id: currentTime.toString(),
-      //       time: currentTime,
-      //       title: '',
-      //       desc: '',
-      //       body: '',
-      //     }),
-      //   };
-      // });
+      // this.setState((prevState) => ({
+      //   blocks: prevState.blocks.concat({
+      //     id: currentTime.toString(),
+      //     time: currentTime,
+      //     title: '',
+      //     desc: '',
+      //     body: '',
+      //   }),
+      // }));
     };
 
     this.removeBlock = (blockId) => {

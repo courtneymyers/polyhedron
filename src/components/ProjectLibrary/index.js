@@ -25,7 +25,7 @@ const ProjectLibrary = (props: Props) => (
       <LibraryItem
         key={project.id}
         id={project.id}
-        label="Article"
+        label="Project"
         title={project.title}
         desc={project.desc}
         removeItem={props.removeProject}

@@ -31,26 +31,19 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-
-    /* ---------------------------------------------------------------------- */
-    /* temporary */
-    /* ---------------------------------------------------------------------- */
-    const currentTime = new Date().getTime();
-    /* ---------------------------------------------------------------------- */
-    /* temporary */
-    /* ---------------------------------------------------------------------- */
-
     this.state = {
-      // projects: [],
-      /* -------------------------------------------------------------------- */
-      /* temporary */
-      /* -------------------------------------------------------------------- */
-      projects: [
-        {
+      projects: [],
+    };
+
+    this.addProject = () => {
+      const currentTime = new Date().getTime();
+
+      this.setState((prevState) => ({
+        projects: prevState.projects.concat({
           id: currentTime.toString(),
           time: currentTime,
-          title: '(title)',
-          desc: '(description)',
+          title: '',
+          desc: '',
           blocks: [
             {
               id: currentTime.toString(),
@@ -60,40 +53,14 @@ export class ProjectsProvider extends React.Component<Props, State> {
               body: '',
             },
           ],
-        },
-      ],
-      /* -------------------------------------------------------------------- */
-      /* temporary */
-      /* -------------------------------------------------------------------- */
+        }),
+      }));
     };
 
-    this.addProject = () => {
-      this.setState((prevState) => {
-        const currentTime = new Date().getTime();
-        return {
-          projects: prevState.projects.concat({
-            id: currentTime.toString(),
-            time: currentTime,
-            title: '',
-            desc: '',
-            blocks: [
-              {
-                id: currentTime.toString(),
-                time: currentTime,
-                title: '',
-                desc: '',
-                body: '',
-              },
-            ],
-          }),
-        };
-      });
-    };
-
-    this.removeProject = (articleId) => {
+    this.removeProject = (projectId) => {
       this.setState((prevState) => ({
         projects: prevState.projects.filter(
-          (article) => article.id !== articleId,
+          (project) => project.id !== projectId,
         ),
       }));
     };
