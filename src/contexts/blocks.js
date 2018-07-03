@@ -28,7 +28,7 @@ type State = {
 
 export class BlocksProvider extends React.Component<Props, State> {
   dbBlocks: Object; // firebase database reference
-  addBlock: () => void;
+  addBlock: () => string;
   removeBlock: (string) => void;
   updateBlockFieldText: (string, string, string) => void;
 
@@ -44,12 +44,14 @@ export class BlocksProvider extends React.Component<Props, State> {
       const currentTime = new Date().getTime();
 
       // add block to firebase -------------------------------------------------
-      this.dbBlocks.push({
+      const newBlock = this.dbBlocks.push({
         time: currentTime,
         title: '',
         desc: '',
         body: '',
       });
+
+      return newBlock.key;
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => ({
@@ -61,6 +63,8 @@ export class BlocksProvider extends React.Component<Props, State> {
       //     body: '',
       //   }),
       // }));
+      //
+      // return currentTime.toString();
     };
 
     this.removeBlock = (blockId) => {
