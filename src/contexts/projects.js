@@ -159,8 +159,16 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
     this.removeBlockIdFromAllProjects = (blockId) => {
       // remove blockId from all projects in firebase --------------------------
-      // TODO: firebase implementation
-      console.log(blockId);
+      this.state.projects.forEach((project) => {
+        firebase
+          .database()
+          .ref(`projects/${project.id}/blockIds`)
+          .orderByValue()
+          .equalTo(blockId)
+          .on('child_added', (snapshot) => {
+            snapshot.ref.remove();
+          });
+      });
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => {
