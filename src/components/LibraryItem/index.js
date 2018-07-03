@@ -32,7 +32,7 @@ const Text = styled.div`
   padding: 0.5rem;
   border: 1px solid #ccbee4;
   user-select: none;
-  cursor: move;
+  /* cursor: move; */
 `;
 
 const Paragraph = styled.p`
