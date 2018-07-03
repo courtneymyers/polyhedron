@@ -49,9 +49,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
     this.addProject = () => {
       const currentTime = new Date().getTime();
 
-      // -----------------------------------------------------------------------
-      // --- add project to firebase and set it as the active project ----------
-      // -----------------------------------------------------------------------
+      // add project to firebase and set it as the active project --------------
       const newProject = this.dbProjects.push({
         time: currentTime,
         title: '',
@@ -75,9 +73,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
     };
 
     this.removeProject = (projectId) => {
-      // -----------------------------------------------------------------------
-      // --- remove project from firebase --------------------------------------
-      // -----------------------------------------------------------------------
+      // remove project from firebase ------------------------------------------
       const dbProject = firebase.database().ref(`projects/${projectId}`);
       dbProject.remove();
       // -----------------------------------------------------------------------
@@ -90,9 +86,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
     };
 
     this.updateProjectFieldText = (projectId, fieldName, text) => {
-      // -----------------------------------------------------------------------
-      // --- update project field in firebase ----------------------------------
-      // -----------------------------------------------------------------------
+      // update project field in firebase --------------------------------------
       firebase
         .database()
         .ref(`projects/${projectId}/${fieldName}`)
@@ -109,9 +103,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
     };
 
     this.setActiveProjectId = (projectId) => {
-      // -----------------------------------------------------------------------
-      // --- set active project in firebase ------------------------------------
-      // -----------------------------------------------------------------------
+      // set active project in firebase ----------------------------------------
       this.dbActiveProject.set(projectId);
       // -----------------------------------------------------------------------
 
@@ -126,9 +118,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // -------------------------------------------------------------------------
-    // --- get projects and active project from firebase -----------------------
-    // -------------------------------------------------------------------------
+    // get projects and active project from firebase ---------------------------
     this.dbProjects.on('value', (snapshot) => {
       const projects = snapshot.val();
       let updatedProjects = [];

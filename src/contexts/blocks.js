@@ -43,9 +43,7 @@ export class BlocksProvider extends React.Component<Props, State> {
     this.addBlock = () => {
       const currentTime = new Date().getTime();
 
-      // -----------------------------------------------------------------------
-      // --- add block to firebase ---------------------------------------------
-      // -----------------------------------------------------------------------
+      // add block to firebase -------------------------------------------------
       this.dbBlocks.push({
         time: currentTime,
         title: '',
@@ -66,9 +64,7 @@ export class BlocksProvider extends React.Component<Props, State> {
     };
 
     this.removeBlock = (blockId) => {
-      // -----------------------------------------------------------------------
-      // --- remove block from firebase ----------------------------------------
-      // -----------------------------------------------------------------------
+      // remove block from firebase --------------------------------------------
       const dbBlock = firebase.database().ref(`blocks/${blockId}`);
       dbBlock.remove();
       // -----------------------------------------------------------------------
@@ -79,9 +75,7 @@ export class BlocksProvider extends React.Component<Props, State> {
     };
 
     this.updateBlockFieldText = (blockId, fieldName, text) => {
-      // -----------------------------------------------------------------------
-      // --- update block field in firebase ------------------------------------
-      // -----------------------------------------------------------------------
+      // update block field in firebase ----------------------------------------
       firebase
         .database()
         .ref(`blocks/${blockId}/${fieldName}`)
@@ -99,9 +93,7 @@ export class BlocksProvider extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // -------------------------------------------------------------------------
-    // --- get blocks from firebase --------------------------------------------
-    // -------------------------------------------------------------------------
+    // get blocks from firebase ------------------------------------------------
     this.dbBlocks.on('value', (snapshot) => {
       const blocks = snapshot.val();
       let updatedBlocks = [];
