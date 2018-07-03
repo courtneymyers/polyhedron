@@ -76,7 +76,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
     this.removeProject = (projectId) => {
       // remove project from firebase ------------------------------------------
-      const dbProject = firebase.database().ref(`projects/${projectId}`);
+      const dbProject = this.dbProjects.child(projectId);
       dbProject.remove();
       // -----------------------------------------------------------------------
 
@@ -87,10 +87,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
     this.updateProjectFieldText = (projectId, fieldName, text) => {
       // update project field in firebase --------------------------------------
-      firebase
-        .database()
-        .ref(`projects/${projectId}/${fieldName}`)
-        .set(text);
+      this.dbProjects.child(`${projectId}/${fieldName}`).set(text);
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => {
@@ -116,10 +113,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
     this.addBlockIdToProject = (projectId, blockId) => {
       // add blockId to project in firebase ------------------------------------
-      firebase
-        .database()
-        .ref(`projects/${projectId}/blockIds`)
-        .push(blockId);
+      this.dbProjects.child(`${projectId}/blockIds`).push(blockId);
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => {
@@ -135,9 +129,8 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
     this.removeBlockIdFromProject = (projectId, blockId) => {
       // remove blockId from project in firebase -------------------------------
-      firebase
-        .database()
-        .ref(`projects/${projectId}/blockIds`)
+      this.dbProjects
+        .child(`${projectId}/blockIds`)
         .orderByValue()
         .equalTo(blockId)
         .on('child_added', (snapshot) => {
@@ -160,9 +153,8 @@ export class ProjectsProvider extends React.Component<Props, State> {
     this.removeBlockIdFromAllProjects = (blockId) => {
       // remove blockId from all projects in firebase --------------------------
       this.state.projects.forEach((project) => {
-        firebase
-          .database()
-          .ref(`projects/${project.id}/blockIds`)
+        this.dbProjects
+          .child(`${project.id}/blockIds`)
           .orderByValue()
           .equalTo(blockId)
           .on('child_added', (snapshot) => {

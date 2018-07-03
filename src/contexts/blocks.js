@@ -69,7 +69,7 @@ export class BlocksProvider extends React.Component<Props, State> {
 
     this.removeBlock = (blockId) => {
       // remove block from firebase --------------------------------------------
-      const dbBlock = firebase.database().ref(`blocks/${blockId}`);
+      const dbBlock = this.dbBlocks.child(blockId);
       dbBlock.remove();
       // -----------------------------------------------------------------------
 
@@ -80,10 +80,7 @@ export class BlocksProvider extends React.Component<Props, State> {
 
     this.updateBlockFieldText = (blockId, fieldName, text) => {
       // update block field in firebase ----------------------------------------
-      firebase
-        .database()
-        .ref(`blocks/${blockId}/${fieldName}`)
-        .set(text);
+      this.dbBlocks.child(`${blockId}/${fieldName}`).set(text);
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => {
