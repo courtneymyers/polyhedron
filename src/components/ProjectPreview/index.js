@@ -14,6 +14,7 @@ const Container = styled.div`
   p {
     margin-top: 1rem;
     margin-bottom: 0;
+    font-size: 1rem;
     line-height: 1.375;
 
     :first-of-type {
