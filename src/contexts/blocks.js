@@ -88,7 +88,9 @@ export class BlocksProvider extends React.Component<Props, State> {
 
       // this.setState((prevState) => {
       //   const blocks = [...prevState.blocks];
-      //   blocks.filter((block) => block.id === blockId)[0][fieldName] = text;
+      //   const block = blocks.filter((block) => block.id === blockId)[0];
+      //   block[fieldName] = text;
+      //
       //   return {
       //     blocks: blocks,
       //   };
