@@ -36,6 +36,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   setActiveProjectId: (string) => void;
   addBlockIdToProject: (string, string) => void;
   removeBlockIdFromProject: (string, string) => void;
+  removeBlockIdFromAllProjects: (string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -155,6 +156,25 @@ export class ProjectsProvider extends React.Component<Props, State> {
       //   };
       // });
     };
+
+    this.removeBlockIdFromAllProjects = (blockId) => {
+      // remove blockId from all projects in firebase --------------------------
+      // TODO: firebase implementation
+      console.log(blockId);
+      // -----------------------------------------------------------------------
+
+      // this.setState((prevState) => {
+      //   const projects = [...prevState.projects];
+      //   projects.map((project) => {
+      //     project.blockIds = project.blockIds.filter((id) => id !== blockId);
+      //     return project;
+      //   });
+      //
+      //   return {
+      //     projects: projects,
+      //   };
+      // });
+    };
   }
 
   componentDidMount() {
@@ -208,6 +228,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           setActiveProjectId: this.setActiveProjectId,
           addBlockIdToProject: this.addBlockIdToProject,
           removeBlockIdFromProject: this.removeBlockIdFromProject,
+          removeBlockIdFromAllProjects: this.removeBlockIdFromAllProjects,
         }}
       >
         {this.props.children}

@@ -5,10 +5,15 @@ import { BlocksContext } from 'contexts/blocks';
 // components
 import ProjectEditor from './index.js';
 
-/* prettier-ignore */
 const ProjectEditorContainer = (props) => (
   <ProjectsContext.Consumer>
-    {({ projects, activeProjectId, updateProjectFieldText, addBlockIdToProject, removeBlockIdFromProject}) => (
+    {({
+      projects,
+      activeProjectId,
+      updateProjectFieldText,
+      addBlockIdToProject,
+      removeBlockIdFromProject,
+    }) => (
       <BlocksContext.Consumer>
         {({ blocks, addBlock }) => (
           <ProjectEditor
