@@ -43,9 +43,9 @@ type Props = {
   activeProjectId: string,
   updateProjectFieldText: (string, string, string) => void,
   addBlockIdToProject: (string, string) => void,
+  removeBlockIdFromProject: (string, string) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
-  removeBlock: (string) => void,
 };
 
 const ProjectEditor = (props: Props) => {
@@ -93,7 +93,9 @@ const ProjectEditor = (props: Props) => {
               title={block.title}
               desc={block.desc}
               body={block.body}
-              removeBlock={(blockId) => props.removeBlock(blockId)}
+              removeBlock={(blockId) =>
+                props.removeBlockIdFromProject(project.id, blockId)
+              }
             />
           ))}
 

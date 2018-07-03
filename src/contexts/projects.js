@@ -35,6 +35,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   updateProjectFieldText: (string, string, string) => void;
   setActiveProjectId: (string) => void;
   addBlockIdToProject: (string, string) => void;
+  removeBlockIdFromProject: (string, string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -79,9 +80,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
       // -----------------------------------------------------------------------
 
       // this.setState((prevState) => ({
-      //   projects: prevState.projects.filter(
-      //     (project) => project.id !== projectId,
-      //   ),
+      //   projects: prevState.projects.filter((p) => p.id !== projectId),
       // }));
     };
 
@@ -95,7 +94,9 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
       // this.setState((prevState) => {
       //   const projects = [...prevState.projects];
-      //   projects.filter((p) => p.id === projectId)[0][fieldName] = text;
+      //   const project = projects.filter((p) => p.id === projectId)[0];
+      //   project[fieldName] = text;
+      //
       //   return {
       //     projects: projects,
       //   };
@@ -122,7 +123,33 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
       // this.setState((prevState) => {
       //   const projects = [...prevState.projects];
-      //   projects.filter((p) => p.id === projectId)[0].blockIds.push(blockId);
+      //   const project = projects.filter((p) => p.id === projectId)[0];
+      //   project.blockIds.push(blockId);
+      //
+      //   return {
+      //     projects: projects,
+      //   };
+      // });
+    };
+
+    this.removeBlockIdFromProject = (projectId, blockId) => {
+      // remove blockId from project in firebase -------------------------------
+      firebase
+        .database()
+        .ref(`projects/${projectId}/blockIds`)
+        .orderByValue()
+        .equalTo(blockId)
+        .on('child_added', (snapshot) => {
+          snapshot.ref.remove();
+        });
+      // -----------------------------------------------------------------------
+
+      // this.setState((prevState) => {
+      //   const projects = [...prevState.projects];
+      //   const project = projects.filter((p) => p.id === projectId)[0];
+      //   const updatedBlockIds = project.blockIds.filter((id) => id !== blockId);
+      //   project.blockIds = updatedBlockIds;
+      //
       //   return {
       //     projects: projects,
       //   };
@@ -180,6 +207,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           updateProjectFieldText: this.updateProjectFieldText,
           setActiveProjectId: this.setActiveProjectId,
           addBlockIdToProject: this.addBlockIdToProject,
+          removeBlockIdFromProject: this.removeBlockIdFromProject,
         }}
       >
         {this.props.children}
