@@ -56,7 +56,6 @@ export class ProjectsProvider extends React.Component<Props, State> {
         time: currentTime,
         title: '',
         desc: '',
-        blockIds: [],
       });
 
       this.dbActiveProject.set(newProject.key);
