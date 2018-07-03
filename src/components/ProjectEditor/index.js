@@ -42,15 +42,22 @@ type Props = {
   projects: Array<ProjectProps>,
   activeProjectId: string,
   updateProjectFieldText: (string, string, string) => void,
+  addBlockIdToProject: (string, string) => void,
+  removeBlockIdFromProject: (string, string) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
-  removeBlock: (string) => void,
 };
 
 const ProjectEditor = (props: Props) => {
   const project = props.projects.filter(
     (p) => p.id === props.activeProjectId,
   )[0];
+
+  const blocks = !project
+    ? []
+    : project.blockIds.map(
+        (blockId) => props.blocks.filter((block) => block.id === blockId)[0],
+      );
 
   return (
     <React.Fragment>
@@ -78,7 +85,7 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          {props.blocks.map((block) => (
+          {blocks.map((block) => (
             <Block
               key={block.id}
               id={block.id}
@@ -86,7 +93,9 @@ const ProjectEditor = (props: Props) => {
               title={block.title}
               desc={block.desc}
               body={block.body}
-              removeBlock={(blockId) => props.removeBlock(blockId)}
+              removeBlock={(blockId) =>
+                props.removeBlockIdFromProject(project.id, blockId)
+              }
             />
           ))}
 
@@ -96,7 +105,8 @@ const ProjectEditor = (props: Props) => {
             title="Add Block"
             onClick={(ev) => {
               ev.preventDefault();
-              props.addBlock();
+              const blockId = props.addBlock();
+              if (blockId) props.addBlockIdToProject(project.id, blockId);
             }}
           />
         </React.Fragment>

@@ -7,17 +7,24 @@ import ProjectEditor from './index.js';
 
 const ProjectEditorContainer = (props) => (
   <ProjectsContext.Consumer>
-    {({ projects, activeProjectId, updateProjectFieldText }) => (
+    {({
+      projects,
+      activeProjectId,
+      updateProjectFieldText,
+      addBlockIdToProject,
+      removeBlockIdFromProject,
+    }) => (
       <BlocksContext.Consumer>
-        {({ blocks, addBlock, removeBlock }) => (
+        {({ blocks, addBlock }) => (
           <ProjectEditor
             {...props}
             projects={projects}
             activeProjectId={activeProjectId}
             updateProjectFieldText={updateProjectFieldText}
+            addBlockIdToProject={addBlockIdToProject}
+            removeBlockIdFromProject={removeBlockIdFromProject}
             blocks={blocks}
             addBlock={addBlock}
-            removeBlock={removeBlock}
           />
         )}
       </BlocksContext.Consumer>

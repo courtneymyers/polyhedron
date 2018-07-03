@@ -17,6 +17,7 @@ type Props = {
   // context props
   blocks: Array<BlockProps>,
   removeBlock: (string) => void,
+  removeBlockIdFromAllProjects: (string) => void,
 };
 
 const BlockLibrary = (props: Props) => (
@@ -28,8 +29,11 @@ const BlockLibrary = (props: Props) => (
         label="Block"
         title={block.title}
         desc={block.desc}
-        removeItem={props.removeBlock}
-        setActiveItem={(id) => console.log(`Block "${id}" clicked`)}
+        removeItem={(blockId) => {
+          props.removeBlock(blockId);
+          props.removeBlockIdFromAllProjects(blockId);
+        }}
+        setActiveItem={(blockId) => console.log(`Block "${blockId}" clicked`)}
       />
     ))}
   </Container>
