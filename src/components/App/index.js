@@ -7,7 +7,7 @@ import BlockButton from 'components/BlockButton';
 import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
-import ProjectPreview from 'components/ProjectPreview';
+import ProjectPreview from 'components/ProjectPreview/container.js';
 
 // --- global stylesheet
 injectGlobal`
@@ -78,18 +78,18 @@ const SubHeading = styled.h2`
 `;
 
 const LeftPanel = Panel.extend`
-  flex-basis: 15rem;
+  flex: 0 0 15rem;
   border-right: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
 
 const MiddlePanel = Panel.extend`
-  flex-grow: 1;
+  flex: 1;
   background-color: #edeaf3;
 `;
 
 const RightPanel = Panel.extend`
-  flex-grow: 1;
+  flex: 1;
   border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
@@ -110,7 +110,7 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       leftPanelShown: true,
-      rightPanelShown: false,
+      rightPanelShown: true,
     };
 
     this.toggleLeftPanel = () => {

@@ -15,7 +15,7 @@ const ProjectField = styled(Field)`
   margin-top: 1rem;
   padding: 0;
 
-  :first-child {
+  :first-of-type {
     margin-top: 0;
   }
 
@@ -49,15 +49,11 @@ type Props = {
 };
 
 const ProjectEditor = (props: Props) => {
-  const project = props.projects.filter(
-    (p) => p.id === props.activeProjectId,
-  )[0];
-
-  const blocks = !project
+  const { projects, activeProjectId, blocks } = props;
+  const project = projects.filter((p) => p.id === activeProjectId)[0];
+  const projectBlocks = !project
     ? []
-    : project.blockIds.map(
-        (blockId) => props.blocks.filter((block) => block.id === blockId)[0],
-      );
+    : blocks.filter((block) => project.blockIds.indexOf(block.id) !== -1);
 
   return (
     <React.Fragment>
@@ -85,7 +81,7 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          {blocks.map((block) => (
+          {projectBlocks.map((block) => (
             <Block
               key={block.id}
               id={block.id}
