@@ -3,7 +3,6 @@
 import React from 'react';
 // types
 import type { Node } from 'react';
-import type { BlockProps } from 'contexts/blocks';
 // databases
 import firebase from 'databases/firebase.js';
 
@@ -20,7 +19,7 @@ export type ProjectProps = {|
   time: number,
   title: string,
   desc: string,
-  blocks: Array<BlockProps>,
+  blockIds: Array<string>,
 |};
 
 type State = {
@@ -35,6 +34,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   removeProject: (string) => void;
   updateProjectFieldText: (string, string, string) => void;
   setActiveProjectId: (string) => void;
+  addBlockToProject: () => void;
 
   constructor(props: Props) {
     super(props);
@@ -56,15 +56,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
         time: currentTime,
         title: '',
         desc: '',
-        blocks: [
-          {
-            id: currentTime.toString(),
-            time: currentTime,
-            title: '',
-            desc: '',
-            body: '',
-          },
-        ],
+        blockIds: [],
       });
 
       this.dbActiveProject.set(newProject.key);
@@ -76,15 +68,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
       //     time: currentTime,
       //     title: '',
       //     desc: '',
-      //     blocks: [
-      //       {
-      //         id: currentTime.toString(),
-      //         time: currentTime,
-      //         title: '',
-      //         desc: '',
-      //         body: '',
-      //       },
-      //     ],
+      //     blockIds: [],
       //   }),
       //   activeProjectId: currentTime.toString(),
       // }));
@@ -135,6 +119,10 @@ export class ProjectsProvider extends React.Component<Props, State> {
       //   activeProjectId: projectId,
       // }));
     };
+
+    this.addBlockToProject = () => {
+      // TODO: add method logic
+    };
   }
 
   componentDidMount() {
@@ -151,15 +139,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           time: projects[projectId].time,
           title: projects[projectId].title,
           desc: projects[projectId].desc,
-          blocks: [
-            {
-              id: projectId,
-              time: projects[projectId].time,
-              title: '',
-              desc: '',
-              body: '',
-            },
-          ],
+          blockIds: [],
         });
       }
 

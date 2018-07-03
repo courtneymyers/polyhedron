@@ -52,6 +52,12 @@ const ProjectEditor = (props: Props) => {
     (p) => p.id === props.activeProjectId,
   )[0];
 
+  const blocks = !project
+    ? []
+    : project.blockIds.map((blockId) =>
+        props.blocks.map((block) => block.id === blockId),
+      );
+
   return (
     <React.Fragment>
       {!project ? (
@@ -78,7 +84,7 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          {props.blocks.map((block) => (
+          {blocks.map((block) => (
             <Block
               key={block.id}
               id={block.id}
