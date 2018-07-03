@@ -34,7 +34,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   removeProject: (string) => void;
   updateProjectFieldText: (string, string, string) => void;
   setActiveProjectId: (string) => void;
-  addBlockToProject: () => void;
+  addBlockIdToProject: (string) => void;
 
   constructor(props: Props) {
     super(props);
@@ -120,8 +120,8 @@ export class ProjectsProvider extends React.Component<Props, State> {
       // }));
     };
 
-    this.addBlockToProject = () => {
-      // TODO: add method logic
+    this.addBlockIdToProject = (blockId) => {
+      console.log(blockId);
     };
   }
 
@@ -165,6 +165,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           removeProject: this.removeProject,
           updateProjectFieldText: this.updateProjectFieldText,
           setActiveProjectId: this.setActiveProjectId,
+          addBlockIdToProject: this.addBlockIdToProject,
         }}
       >
         {this.props.children}
