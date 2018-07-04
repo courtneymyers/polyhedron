@@ -12,8 +12,8 @@ import App from 'components/App';
 const rootElement: any = document.getElementById('root');
 
 ReactDOM.render(
-  <ProjectsProvider>
-    <BlocksProvider>
+  <ProjectsProvider db="firebase">
+    <BlocksProvider db="firebase">
       <App />
     </BlocksProvider>
   </ProjectsProvider>,
