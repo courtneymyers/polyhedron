@@ -44,17 +44,6 @@ export class BlocksProvider extends React.Component<Props, State> {
     this.addBlock = () => {
       const currentTime = new Date().getTime();
 
-      if (this.props.db === 'firebase') {
-        const newBlock = this.dbBlocks.push({
-          time: currentTime,
-          title: '',
-          desc: '',
-          body: '',
-        });
-
-        return newBlock.key;
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => ({
           blocks: prevState.blocks.concat({
@@ -69,27 +58,34 @@ export class BlocksProvider extends React.Component<Props, State> {
         return currentTime.toString();
       }
 
+      if (this.props.db === 'firebase') {
+        const newBlock = this.dbBlocks.push({
+          time: currentTime,
+          title: '',
+          desc: '',
+          body: '',
+        });
+
+        return newBlock.key;
+      }
+
       return '';
     };
 
     this.removeBlock = (blockId) => {
-      if (this.props.db === 'firebase') {
-        const dbBlock = this.dbBlocks.child(blockId);
-        dbBlock.remove();
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => ({
           blocks: prevState.blocks.filter((block) => block.id !== blockId),
         }));
       }
+
+      if (this.props.db === 'firebase') {
+        const dbBlock = this.dbBlocks.child(blockId);
+        dbBlock.remove();
+      }
     };
 
     this.updateBlockFieldText = (blockId, fieldName, text) => {
-      if (this.props.db === 'firebase') {
-        this.dbBlocks.child(`${blockId}/${fieldName}`).set(text);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const blocks = [...prevState.blocks];
@@ -100,6 +96,10 @@ export class BlocksProvider extends React.Component<Props, State> {
             blocks: blocks,
           };
         });
+      }
+
+      if (this.props.db === 'firebase') {
+        this.dbBlocks.child(`${blockId}/${fieldName}`).set(text);
       }
     };
   }

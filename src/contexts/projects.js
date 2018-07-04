@@ -52,16 +52,6 @@ export class ProjectsProvider extends React.Component<Props, State> {
     this.addProject = () => {
       const currentTime = new Date().getTime();
 
-      if (this.props.db === 'firebase') {
-        const newProject = this.dbProjects.push({
-          time: currentTime,
-          title: '',
-          desc: '',
-        });
-
-        this.dbActiveProject.set(newProject.key);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => ({
           projects: prevState.projects.concat({
@@ -74,26 +64,32 @@ export class ProjectsProvider extends React.Component<Props, State> {
           activeProjectId: currentTime.toString(),
         }));
       }
+
+      if (this.props.db === 'firebase') {
+        const newProject = this.dbProjects.push({
+          time: currentTime,
+          title: '',
+          desc: '',
+        });
+
+        this.dbActiveProject.set(newProject.key);
+      }
     };
 
     this.removeProject = (projectId) => {
-      if (this.props.db === 'firebase') {
-        const dbProject = this.dbProjects.child(projectId);
-        dbProject.remove();
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => ({
           projects: prevState.projects.filter((p) => p.id !== projectId),
         }));
       }
+
+      if (this.props.db === 'firebase') {
+        const dbProject = this.dbProjects.child(projectId);
+        dbProject.remove();
+      }
     };
 
     this.updateProjectFieldText = (projectId, fieldName, text) => {
-      if (this.props.db === 'firebase') {
-        this.dbProjects.child(`${projectId}/${fieldName}`).set(text);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
@@ -105,25 +101,25 @@ export class ProjectsProvider extends React.Component<Props, State> {
           };
         });
       }
+
+      if (this.props.db === 'firebase') {
+        this.dbProjects.child(`${projectId}/${fieldName}`).set(text);
+      }
     };
 
     this.setActiveProjectId = (projectId) => {
-      if (this.props.db === 'firebase') {
-        this.dbActiveProject.set(projectId);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => ({
           activeProjectId: projectId,
         }));
       }
+
+      if (this.props.db === 'firebase') {
+        this.dbActiveProject.set(projectId);
+      }
     };
 
     this.addBlockIdToProject = (projectId, blockId) => {
-      if (this.props.db === 'firebase') {
-        this.dbProjects.child(`${projectId}/blockIds`).push(blockId);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
@@ -135,19 +131,13 @@ export class ProjectsProvider extends React.Component<Props, State> {
           };
         });
       }
+
+      if (this.props.db === 'firebase') {
+        this.dbProjects.child(`${projectId}/blockIds`).push(blockId);
+      }
     };
 
     this.removeBlockIdFromProject = (projectId, blockId) => {
-      if (this.props.db === 'firebase') {
-        this.dbProjects
-          .child(`${projectId}/blockIds`)
-          .orderByValue()
-          .equalTo(blockId)
-          .on('child_added', (snapshot) => {
-            snapshot.ref.remove();
-          });
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
@@ -162,21 +152,19 @@ export class ProjectsProvider extends React.Component<Props, State> {
           };
         });
       }
+
+      if (this.props.db === 'firebase') {
+        this.dbProjects
+          .child(`${projectId}/blockIds`)
+          .orderByValue()
+          .equalTo(blockId)
+          .on('child_added', (snapshot) => {
+            snapshot.ref.remove();
+          });
+      }
     };
 
     this.removeBlockIdFromAllProjects = (blockId) => {
-      if (this.props.db === 'firebase') {
-        this.state.projects.forEach((project) => {
-          this.dbProjects
-            .child(`${project.id}/blockIds`)
-            .orderByValue()
-            .equalTo(blockId)
-            .on('child_added', (snapshot) => {
-              snapshot.ref.remove();
-            });
-        });
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
@@ -188,6 +176,18 @@ export class ProjectsProvider extends React.Component<Props, State> {
           return {
             projects: projects,
           };
+        });
+      }
+
+      if (this.props.db === 'firebase') {
+        this.state.projects.forEach((project) => {
+          this.dbProjects
+            .child(`${project.id}/blockIds`)
+            .orderByValue()
+            .equalTo(blockId)
+            .on('child_added', (snapshot) => {
+              snapshot.ref.remove();
+            });
         });
       }
     };
