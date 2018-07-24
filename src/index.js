@@ -12,8 +12,8 @@ import AppDND from 'components/AppDND';
 const rootElement: any = document.getElementById('root');
 
 ReactDOM.render(
-  <ProjectsProvider db="memory">
-    <BlocksProvider db="memory">
+  <ProjectsProvider db="firebase">
+    <BlocksProvider db="firebase">
       <AppDND />
     </BlocksProvider>
   </ProjectsProvider>,
