@@ -25,8 +25,8 @@ class AppDND extends React.Component<Props, State> {
     if (!result.destination) return;
 
     // TODO: reset item order...
-    // from index: result.source.index
-    // to index: result.destination.index
+    // console.log('from', result.source.index);
+    // console.log('to', result.destination.index);
   };
 
   render() {

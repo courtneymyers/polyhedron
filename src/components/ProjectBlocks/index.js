@@ -27,14 +27,14 @@ class ProjectBlocks extends React.Component<Props, State> {
             ref={provided.innerRef}
             style={{ background: snapshot.isDraggingOver && 'lightblue' }}
           >
-            {blocks.map((block) => (
-              <Draggable key={block.id} draggableId={block.id}>
+            {blocks.map((block, index) => (
+              <Draggable key={block.id} draggableId={block.id} index={index}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
-                    style={provided.draggableProps.style}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    style={provided.draggableProps.style}
                   >
                     <Block
                       id={block.id}
