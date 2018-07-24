@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import Field from 'components/Field';
-import Block from 'components/Block/container.js';
+import ProjectBlocks from 'components/ProjectBlocks';
 import BlockButton from 'components/BlockButton';
 // types
 import type { ProjectProps } from 'contexts/projects';
@@ -81,19 +81,11 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          {projectBlocks.map((block) => (
-            <Block
-              key={block.id}
-              id={block.id}
-              time={block.time}
-              title={block.title}
-              desc={block.desc}
-              body={block.body}
-              removeBlock={(blockId) =>
-                props.removeBlockIdFromProject(project.id, blockId)
-              }
-            />
-          ))}
+          <ProjectBlocks
+            blocks={projectBlocks}
+            projectId={project.id}
+            removeBlockIdFromProject={props.removeBlockIdFromProject}
+          />
 
           <AddButton
             text="+"
