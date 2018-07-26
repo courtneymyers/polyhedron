@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 // components
 import LibraryItem from 'components/LibraryItem';
@@ -22,20 +23,41 @@ type Props = {
 
 const BlockLibrary = (props: Props) => (
   <Container {...props}>
-    {props.blocks.map((block) => (
-      <LibraryItem
-        key={block.id}
-        id={block.id}
-        label="Block"
-        title={block.title}
-        desc={block.desc}
-        removeItem={(blockId) => {
-          props.removeBlock(blockId);
-          props.removeBlockIdFromAllProjects(blockId);
-        }}
-        setActiveItem={(blockId) => console.log(`Block "${blockId}" clicked`)}
-      />
-    ))}
+    <Droppable droppableId={`block-library`}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          style={{ background: snapshot.isDraggingOver && 'lightblue' }}
+        >
+          {props.blocks.map((block, index) => (
+            <Draggable key={block.id} draggableId={block.id} index={index}>
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  style={provided.draggableProps.style}
+                >
+                  <LibraryItem
+                    id={block.id}
+                    label="Block"
+                    title={block.title}
+                    desc={block.desc}
+                    removeItem={(blockId) => {
+                      props.removeBlock(blockId);
+                      props.removeBlockIdFromAllProjects(blockId);
+                    }}
+                    setActiveItem={(blockId) =>
+                      console.log(`Block "${blockId}" clicked`)
+                    }
+                  />
+                </div>
+              )}
+            </Draggable>
+          ))}
+        </div>
+      )}
+    </Droppable>
   </Container>
 );
 

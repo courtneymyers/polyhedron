@@ -12,7 +12,6 @@ const ProjectEditorContainer = (props) => (
       activeProjectId,
       updateProjectFieldText,
       addBlockIdToProject,
-      removeBlockIdFromProject,
     }) => (
       <BlocksContext.Consumer>
         {({ blocks, addBlock }) => (
@@ -22,7 +21,6 @@ const ProjectEditorContainer = (props) => (
             activeProjectId={activeProjectId}
             updateProjectFieldText={updateProjectFieldText}
             addBlockIdToProject={addBlockIdToProject}
-            removeBlockIdFromProject={removeBlockIdFromProject}
             blocks={blocks}
             addBlock={addBlock}
           />

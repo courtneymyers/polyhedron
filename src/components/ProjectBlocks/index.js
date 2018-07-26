@@ -9,8 +9,9 @@ import type { BlockProps } from 'contexts/blocks';
 
 // --- components
 type Props = {
-  blocks: Array<BlockProps>,
   projectId: string,
+  blocks: Array<BlockProps>,
+  // context props
   removeBlockIdFromProject: (string, string) => void,
 };
 

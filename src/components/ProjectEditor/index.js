@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import Field from 'components/Field';
-import ProjectBlocks from 'components/ProjectBlocks';
+import ProjectBlocks from 'components/ProjectBlocks/container.js';
 import BlockButton from 'components/BlockButton';
 // types
 import type { ProjectProps } from 'contexts/projects';
@@ -43,7 +43,6 @@ type Props = {
   activeProjectId: string,
   updateProjectFieldText: (string, string, string) => void,
   addBlockIdToProject: (string, string) => void,
-  removeBlockIdFromProject: (string, string) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
 };
@@ -81,11 +80,7 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          <ProjectBlocks
-            blocks={projectBlocks}
-            projectId={project.id}
-            removeBlockIdFromProject={props.removeBlockIdFromProject}
-          />
+          <ProjectBlocks blocks={projectBlocks} projectId={project.id} />
 
           <AddButton
             text="+"
