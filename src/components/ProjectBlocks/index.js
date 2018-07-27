@@ -32,13 +32,14 @@ class ProjectBlocks extends React.Component<Props, State> {
     const { blocks, projectId, removeBlockIdFromProject } = this.props;
 
     return (
-      <Droppable droppableId={`project-${projectId}`}>
+      <Droppable droppableId={`project-blocks`}>
         {(provided, snapshot) => (
           <DropContainer
             innerRef={provided.innerRef}
             style={{ background: snapshot.isDraggingOver && '#9b88c1' }}
             {...provided.droppableProps}
           >
+            {provided.placeholder}
             {blocks.map((block, index) => (
               <Draggable
                 key={block.id}

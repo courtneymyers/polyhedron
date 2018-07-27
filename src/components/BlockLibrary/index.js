@@ -37,6 +37,7 @@ const BlockLibrary = (props: Props) => (
           innerRef={provided.innerRef}
           {...provided.droppableProps}
         >
+          {provided.placeholder}
           {props.blocks.map((block, index) => (
             <Draggable key={block.id} draggableId={block.id} index={index}>
               {(provided, snapshot) => (
