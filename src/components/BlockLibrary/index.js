@@ -13,6 +13,14 @@ const Container = styled.div`
   /* */
 `;
 
+const DropContainer = styled.div`
+  /* */
+`;
+
+const DragContainer = styled.div`
+  /* */
+`;
+
 // --- components
 type Props = {
   // context props
@@ -25,12 +33,15 @@ const BlockLibrary = (props: Props) => (
   <Container {...props}>
     <Droppable droppableId={`block-library`} isDropDisabled>
       {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
+        <DropContainer
+          innerRef={provided.innerRef}
+          {...provided.droppableProps}
+        >
           {props.blocks.map((block, index) => (
             <Draggable key={block.id} draggableId={block.id} index={index}>
               {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
+                <DragContainer
+                  innerRef={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
@@ -47,11 +58,11 @@ const BlockLibrary = (props: Props) => (
                       console.log(`Block "${blockId}" clicked`)
                     }
                   />
-                </div>
+                </DragContainer>
               )}
             </Draggable>
           ))}
-        </div>
+        </DropContainer>
       )}
     </Droppable>
   </Container>

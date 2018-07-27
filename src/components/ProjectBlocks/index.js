@@ -2,10 +2,20 @@
 
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 // components
 import Block from 'components/Block/container.js';
 // types
 import type { BlockProps } from 'contexts/blocks';
+
+// --- styled components
+const DropContainer = styled.div`
+  /* */
+`;
+
+const DragContainer = styled.div`
+  /* */
+`;
 
 // --- components
 type Props = {
@@ -24,8 +34,8 @@ class ProjectBlocks extends React.Component<Props, State> {
     return (
       <Droppable droppableId={`project-${projectId}`}>
         {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
+          <DropContainer
+            innerRef={provided.innerRef}
             style={{ background: snapshot.isDraggingOver && '#9b88c1' }}
             {...provided.droppableProps}
           >
@@ -36,8 +46,8 @@ class ProjectBlocks extends React.Component<Props, State> {
                 index={index}
               >
                 {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
+                  <DragContainer
+                    innerRef={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
@@ -51,11 +61,11 @@ class ProjectBlocks extends React.Component<Props, State> {
                         removeBlockIdFromProject(projectId, blockId)
                       }
                     />
-                  </div>
+                  </DragContainer>
                 )}
               </Draggable>
             ))}
-          </div>
+          </DropContainer>
         )}
       </Droppable>
     );
