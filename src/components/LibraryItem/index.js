@@ -92,8 +92,9 @@ class Item extends React.Component<Props, State> {
     return (
       <Container
         {...this.props}
-        onMouseEnter={(ev) => this.showInfo()}
-        onMouseLeave={(ev) => this.hideInfo()}
+        // TODO: re-evaluate when to show and hide info
+        // onMouseEnter={(ev) => this.showInfo()}
+        // onMouseLeave={(ev) => this.hideInfo()}
         onClick={(ev) => this.props.setActiveItem(this.props.id)}
       >
         <Handle>
