@@ -8,7 +8,6 @@ import BlockButton from 'components/BlockButton';
 // --- styled components
 const Container = styled.div`
   display: flex;
-  margin-top: 0.5rem;
   border: 3px solid #e2ddef;
   border-radius: 3px;
   background-color: white;
