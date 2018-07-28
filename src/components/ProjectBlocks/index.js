@@ -10,7 +10,9 @@ import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const DropContainer = styled.div`
-  /* */
+  background-color: ${({ isDraggingOver }) =>
+    isDraggingOver ? '#9b88c1' : 'transparent'};
+  transition: background-color 0.2s ease;
 `;
 
 const DragContainer = styled.div`
@@ -36,10 +38,9 @@ class ProjectBlocks extends React.Component<Props, State> {
         {(provided, snapshot) => (
           <DropContainer
             innerRef={provided.innerRef}
-            style={{ background: snapshot.isDraggingOver && '#9b88c1' }}
             {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver} // custom prop for styling
           >
-            {provided.placeholder}
             {blocks.map((block, index) => (
               <Draggable
                 key={block.id}
@@ -66,6 +67,7 @@ class ProjectBlocks extends React.Component<Props, State> {
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
           </DropContainer>
         )}
       </Droppable>
