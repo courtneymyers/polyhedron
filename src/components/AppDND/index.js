@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-// components
-import App from 'components/App';
 // types
+import type { Node } from 'react';
 import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
 
 // --- components
-type Props = {};
+type Props = {
+  children?: Node,
+};
+
 type State = {};
 
 class AppDND extends React.Component<Props, State> {
@@ -51,7 +53,7 @@ class AppDND extends React.Component<Props, State> {
         onDragUpdate={this.onDragUpdate}
         onDragEnd={this.onDragEnd}
       >
-        <App />
+        {this.props.children}
       </DragDropContext>
     );
   }

@@ -8,15 +8,18 @@ import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
 import AppDND from 'components/AppDND';
+import App from 'components/App';
 
 const rootElement: any = document.getElementById('root');
 
 ReactDOM.render(
-  <ProjectsProvider db="firebase">
-    <BlocksProvider db="firebase">
-      <AppDND />
-    </BlocksProvider>
-  </ProjectsProvider>,
+  <AppDND>
+    <ProjectsProvider db="firebase">
+      <BlocksProvider db="firebase">
+        <App />
+      </BlocksProvider>
+    </ProjectsProvider>
+  </AppDND>,
   rootElement,
 );
 unregister();
