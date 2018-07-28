@@ -2,13 +2,17 @@
 
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+// contexts
+import { ProjectsProvider } from 'contexts/projects';
+import { BlocksProvider } from 'contexts/blocks';
+// components
+import AppUI from 'components/AppUI';
 // types
-import type { Node } from 'react';
 import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
 
 // --- components
 type Props = {
-  children?: Node,
+  db: 'memory' | 'firebase',
 };
 
 type State = {};
@@ -53,7 +57,11 @@ class App extends React.Component<Props, State> {
         onDragUpdate={this.onDragUpdate}
         onDragEnd={this.onDragEnd}
       >
-        {this.props.children}
+        <ProjectsProvider db={this.props.db}>
+          <BlocksProvider db={this.props.db}>
+            <AppUI />
+          </BlocksProvider>
+        </ProjectsProvider>
       </DragDropContext>
     );
   }
