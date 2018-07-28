@@ -5,7 +5,7 @@ import React from 'react';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
-import AppDND from 'components/AppDND';
+import AppDND from 'components/AppDND/container.js';
 
 // --- components
 export type Database = 'memory' | 'firebase';

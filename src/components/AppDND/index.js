@@ -6,9 +6,16 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import AppUI from 'components/AppUI';
 // types
 import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
+import type { ProjectProps } from 'contexts/projects';
+import type { BlockProps } from 'contexts/blocks';
 
 // --- components
-type Props = {};
+type Props = {
+  // context props
+  projects: Array<ProjectProps>,
+  blocks: Array<BlockProps>,
+};
+
 type State = {};
 
 class AppDND extends React.Component<Props, State> {
@@ -42,17 +49,6 @@ class AppDND extends React.Component<Props, State> {
       console.log('new block id', draggableId);
       console.log('to index', destination.index);
     }
-
-    // --- TODO: pass new order to react contexts ---
-    // 0. original data array
-    const oldBlocks = ['1', '2', '3'];
-    // 1. clone data array
-    const newBlocks = Array.from(oldBlocks);
-    // 2. remove item from list at source index
-    newBlocks.splice(source.index, 1);
-    // 3. insert item back into list at destination index
-    newBlocks.splice(destination.index, 0, draggableId);
-    //
   };
 
   render() {
