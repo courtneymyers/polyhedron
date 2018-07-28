@@ -21,20 +21,26 @@ class AppDND extends React.Component<Props, State> {
   };
 
   onDragEnd = (result: DropResult) => {
-    // dropped outside the list
-    if (!result.destination) return;
+    const { source, destination, draggableId } = result;
 
-    // TODO: pass new order to react contexts
+    // dropped outside of list
+    if (!destination) return;
+
     // reordered blocks inside project
-    if (result.source.droppableId === result.destination.droppableId) {
+    if (source.droppableId === destination.droppableId) {
+      // moved block back to original position
+      if (source.index === destination.index) return;
+
       console.log('--- reordered blocks inside project ---');
-      console.log('from index', result.source.index);
-      console.log('to index', result.destination.index);
-      // moved block from block library into project
-    } else {
+      console.log('from index', source.index);
+      console.log('to index', destination.index);
+    }
+
+    // moved block from block library into project
+    if (source.droppableId !== destination.droppableId) {
       console.log('--- block added to project from block library ---');
-      console.log('new block id', result.draggableId);
-      console.log('to index', result.destination.index);
+      console.log('new block id', draggableId);
+      console.log('to index', destination.index);
     }
   };
 
