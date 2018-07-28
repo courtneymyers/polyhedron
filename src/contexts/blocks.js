@@ -2,6 +2,7 @@
 
 import React from 'react';
 // types
+import type { Database } from 'components/App';
 import type { Node } from 'react';
 // databases
 import firebase from 'databases/firebase.js';
@@ -11,7 +12,7 @@ export const BlocksContext = React.createContext();
 
 // --- components
 type Props = {
-  db: 'memory' | 'firebase',
+  db: Database,
   children: Node,
 };
 
