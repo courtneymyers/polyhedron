@@ -7,19 +7,19 @@ import { unregister } from './registerServiceWorker';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
-import AppDND from 'components/AppDND';
 import App from 'components/App';
+import AppUI from 'components/AppUI';
 
 const rootElement: any = document.getElementById('root');
 
 ReactDOM.render(
-  <AppDND>
+  <App>
     <ProjectsProvider db="firebase">
       <BlocksProvider db="firebase">
-        <App />
+        <AppUI />
       </BlocksProvider>
     </ProjectsProvider>
-  </AppDND>,
+  </App>,
   rootElement,
 );
 unregister();
