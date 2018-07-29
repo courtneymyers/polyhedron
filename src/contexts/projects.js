@@ -36,7 +36,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   removeProject: (string) => void;
   updateProjectFieldText: (string, string, string) => void;
   setActiveProjectId: (string) => void;
-  addBlockIdToProject: (string, string) => void;
+  addBlockIdToProject: (string, string, ?number) => void;
   removeBlockIdFromProject: (string, string) => void;
   removeBlockIdFromAllProjects: (string) => void;
   reorderBlocksInProject: (string, number, number) => void;
@@ -121,12 +121,16 @@ export class ProjectsProvider extends React.Component<Props, State> {
       }
     };
 
-    this.addBlockIdToProject = (projectId, blockId) => {
+    this.addBlockIdToProject = (projectId, blockId, toIndex) => {
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
           const project = projects.filter((p) => p.id === projectId)[0];
-          project.blockIds.push(blockId);
+          // if toIndex (third argumnet) isn't passed to method,
+          // set toIndex so block will be added to the end
+          if (!toIndex) toIndex = project.blockIds.length;
+          // insert block at toIndex
+          project.blockIds.splice(toIndex, 0, blockId);
 
           return {
             projects: projects,
@@ -135,6 +139,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
       }
 
       if (this.props.db === 'firebase') {
+        // TODO: update method to work with toIndex
         this.dbProjects.child(`${projectId}/blockIds`).push(blockId);
       }
     };

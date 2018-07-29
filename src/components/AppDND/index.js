@@ -13,7 +13,7 @@ type Props = {
   // context props
   projects: Array<ProjectProps>,
   activeProjectId: string,
-  addBlockIdToProject: (string, string) => void,
+  addBlockIdToProject: (string, string, ?number) => void,
   reorderBlocksInProject: (string, number, number) => void,
 };
 
@@ -49,13 +49,9 @@ class AppDND extends React.Component<Props, State> {
     }
 
     // moved block from block library into project editor
-    // INFO: (draggableId === block.id)
     if (source.droppableId !== destination.droppableId) {
-      // TODO:
-      // addBlockIdToProject(activeProjectId, draggableId);
-
-      console.log('new block id', draggableId);
-      console.log('to index', destination.index);
+      // INFO: draggableId === block.id
+      addBlockIdToProject(activeProjectId, draggableId, destination.index);
     }
   };
 

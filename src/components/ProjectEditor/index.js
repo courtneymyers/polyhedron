@@ -42,7 +42,7 @@ type Props = {
   projects: Array<ProjectProps>,
   activeProjectId: string,
   updateProjectFieldText: (string, string, string) => void,
-  addBlockIdToProject: (string, string) => void,
+  addBlockIdToProject: (string, string, ?number) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
 };
