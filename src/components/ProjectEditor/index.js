@@ -52,7 +52,9 @@ const ProjectEditor = (props: Props) => {
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project
     ? []
-    : blocks.filter((block) => project.blockIds.indexOf(block.id) !== -1);
+    : project.blockIds.map(
+        (blockId) => blocks.filter((block) => block.id === blockId)[0],
+      );
 
   return (
     <React.Fragment>

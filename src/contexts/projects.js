@@ -39,6 +39,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
   addBlockIdToProject: (string, string) => void;
   removeBlockIdFromProject: (string, string) => void;
   removeBlockIdFromAllProjects: (string) => void;
+  reorderBlocksInProject: (string, number, number) => void;
 
   constructor(props: Props) {
     super(props);
@@ -192,6 +193,26 @@ export class ProjectsProvider extends React.Component<Props, State> {
         });
       }
     };
+
+    this.reorderBlocksInProject = (projectId, fromIndex, toIndex) => {
+      if (this.props.db === 'memory') {
+        this.setState((prevState) => {
+          const projects = [...prevState.projects];
+          const project = projects.filter((p) => p.id === projectId)[0];
+          // remove block at fromIndex, and re-insert back at toIndex
+          const blockId = project.blockIds.splice(fromIndex, 1)[0];
+          project.blockIds.splice(toIndex, 0, blockId);
+
+          return {
+            projects: projects,
+          };
+        });
+      }
+
+      if (this.props.db === 'firebase') {
+        // TODO:
+      }
+    };
   }
 
   componentDidMount() {
@@ -246,6 +267,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           addBlockIdToProject: this.addBlockIdToProject,
           removeBlockIdFromProject: this.removeBlockIdFromProject,
           removeBlockIdFromAllProjects: this.removeBlockIdFromAllProjects,
+          reorderBlocksInProject: this.reorderBlocksInProject,
         }}
       >
         {this.props.children}

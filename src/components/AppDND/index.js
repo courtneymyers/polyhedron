@@ -7,13 +7,14 @@ import AppUI from 'components/AppUI';
 // types
 import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
 import type { ProjectProps } from 'contexts/projects';
-import type { BlockProps } from 'contexts/blocks';
 
 // --- components
 type Props = {
   // context props
   projects: Array<ProjectProps>,
-  blocks: Array<BlockProps>,
+  activeProjectId: string,
+  addBlockIdToProject: (string, string) => void,
+  reorderBlocksInProject: (string, number, number) => void,
 };
 
 type State = {};
@@ -30,22 +31,29 @@ class AppDND extends React.Component<Props, State> {
   onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
 
-    // dropped outside of list
+    const {
+      activeProjectId,
+      reorderBlocksInProject,
+      addBlockIdToProject,
+    } = this.props;
+
+    // dropped block outside of project editor
     if (!destination) return;
 
-    // reordered blocks inside project
+    // reordered block inside project editor
     if (source.droppableId === destination.droppableId) {
       // moved block back to original position
       if (source.index === destination.index) return;
 
-      console.log('--- reordered blocks inside project ---');
-      console.log('from index', source.index);
-      console.log('to index', destination.index);
+      reorderBlocksInProject(activeProjectId, source.index, destination.index);
     }
 
-    // moved block from block library into project
+    // moved block from block library into project editor
+    // INFO: (draggableId === block.id)
     if (source.droppableId !== destination.droppableId) {
-      console.log('--- block added to project from block library ---');
+      // TODO:
+      // addBlockIdToProject(activeProjectId, draggableId);
+
       console.log('new block id', draggableId);
       console.log('to index', destination.index);
     }
