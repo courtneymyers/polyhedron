@@ -158,11 +158,9 @@ export class ProjectsProvider extends React.Component<Props, State> {
         // remove blockId from end, and re-insert back at toIndex
         blockIdsArray.splice(-1, 1);
         blockIdsArray.splice(toIndex, 0, blockId);
-
-        // TODO: store re-ordered blockIds in firebase
-        console.log(blockIdsArray);
-        // blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId))
-        // dbBlockIds.set(blockIdsArray);
+        // store re-ordered blockIds in firebase
+        dbBlockIds.remove();
+        blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId));
       }
     };
 
@@ -214,7 +212,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
             .child(`${project.id}/blockIds`)
             .orderByValue()
             .equalTo(blockId)
-            .on('child_added', (snapshot) => {
+            .once('child_added', (snapshot) => {
               snapshot.ref.remove();
             });
         });
