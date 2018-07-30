@@ -156,7 +156,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
           }
         });
         // null/undefined check for flow (toIndex will always be a number here)
-        if (toIndex != undefined) {
+        if (toIndex !== null && toIndex !== undefined) {
           // remove blockId from end, and re-insert back at toIndex
           blockIdsArray.splice(-1, 1);
           blockIdsArray.splice(toIndex, 0, blockId);
