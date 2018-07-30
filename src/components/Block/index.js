@@ -31,7 +31,7 @@ const Handle = styled.div`
   justify-content: center;
   flex-basis: 1.75rem;
   background-color: #ccbee4;
-  cursor: move;
+  /* cursor: move; */
 `;
 
 const RemoveButton = styled(BlockButton)`

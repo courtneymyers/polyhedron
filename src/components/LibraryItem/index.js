@@ -8,7 +8,6 @@ import BlockButton from 'components/BlockButton';
 // --- styled components
 const Container = styled.div`
   display: flex;
-  margin-top: 0.5rem;
   border: 3px solid #e2ddef;
   border-radius: 3px;
   background-color: white;
@@ -93,8 +92,9 @@ class Item extends React.Component<Props, State> {
     return (
       <Container
         {...this.props}
-        onMouseEnter={(ev) => this.showInfo()}
-        onMouseLeave={(ev) => this.hideInfo()}
+        // TODO: re-evaluate when to show and hide info
+        // onMouseEnter={(ev) => this.showInfo()}
+        // onMouseLeave={(ev) => this.hideInfo()}
         onClick={(ev) => this.props.setActiveItem(this.props.id)}
       >
         <Handle>

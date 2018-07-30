@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import Field from 'components/Field';
-import Block from 'components/Block/container.js';
+import ProjectBlocks from 'components/ProjectBlocks/container.js';
 import BlockButton from 'components/BlockButton';
 // types
 import type { ProjectProps } from 'contexts/projects';
@@ -42,8 +42,7 @@ type Props = {
   projects: Array<ProjectProps>,
   activeProjectId: string,
   updateProjectFieldText: (string, string, string) => void,
-  addBlockIdToProject: (string, string) => void,
-  removeBlockIdFromProject: (string, string) => void,
+  addBlockIdToProject: (string, string, ?number) => void,
   blocks: Array<BlockProps>,
   addBlock: () => void,
 };
@@ -53,7 +52,9 @@ const ProjectEditor = (props: Props) => {
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project
     ? []
-    : blocks.filter((block) => project.blockIds.indexOf(block.id) !== -1);
+    : project.blockIds.map(
+        (blockId) => blocks.filter((block) => block.id === blockId)[0],
+      );
 
   return (
     <React.Fragment>
@@ -81,19 +82,7 @@ const ProjectEditor = (props: Props) => {
 
           <Heading>Blocks</Heading>
 
-          {projectBlocks.map((block) => (
-            <Block
-              key={block.id}
-              id={block.id}
-              time={block.time}
-              title={block.title}
-              desc={block.desc}
-              body={block.body}
-              removeBlock={(blockId) =>
-                props.removeBlockIdFromProject(project.id, blockId)
-              }
-            />
-          ))}
+          <ProjectBlocks blocks={projectBlocks} projectId={project.id} />
 
           <AddButton
             text="+"
