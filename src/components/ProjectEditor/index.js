@@ -12,8 +12,7 @@ import type { BlockProps } from 'contexts/blocks';
 
 // --- styled components
 const ProjectField = styled(Field)`
-  margin-top: 1rem;
-  padding: 0;
+  margin: 1rem 0 0;
 
   :first-of-type {
     margin-top: 0;
