@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 // --- styled components
 const Container = styled.div`
-  padding: 0.5rem;
+  margin: 0.5rem;
 `;
 
 const Label = styled.label`
@@ -21,6 +21,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   box-sizing: border-box;
+  display: block;
   padding: 0.5rem;
   border: 1px solid #ccbee4;
   width: 100%;
