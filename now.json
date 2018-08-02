@@ -2,5 +2,6 @@
   "alias": "polyhedron",
   "env": {
     "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key"
-  }
+  },
+  "type": "docker"
 }

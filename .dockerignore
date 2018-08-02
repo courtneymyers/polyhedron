@@ -1,0 +1,6 @@
+*
+!.env
+!public
+!src
+!package-lock.json
+!package.json
