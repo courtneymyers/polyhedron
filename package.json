@@ -6,13 +6,13 @@
     "firebase": "5.5.2",
     "flow-bin": "0.82.0",
     "husky": "1.1.0",
-    "lint-staged": "7.2.0",
-    "prettier": "1.13.6",
+    "lint-staged": "7.3.0",
+    "prettier": "1.14.3",
     "react": "16.4.1",
-    "react-beautiful-dnd": "8.0.5",
+    "react-beautiful-dnd": "9.0.2",
     "react-dom": "16.4.1",
     "react-scripts": "1.1.4",
-    "styled-components": "3.3.3"
+    "styled-components": "3.4.9"
   },
   "husky": {
     "hooks": {
