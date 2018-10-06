@@ -32,6 +32,7 @@ type Props = {
 };
 
 const ProjectPreview = (props: Props) => {
+  // TODO: abstract the following 7 lines, as its also used in ProjectEditor
   const { projects, activeProjectId, blocks } = props;
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project
