@@ -43,7 +43,7 @@ type Props = {
   updateProjectFieldText: (string, string, string) => void,
   addBlockIdToProject: (string, string, ?number) => void,
   blocks: Array<BlockProps>,
-  addBlock: () => void,
+  addBlock: () => string,
 };
 
 const ProjectEditor = (props: Props) => {
