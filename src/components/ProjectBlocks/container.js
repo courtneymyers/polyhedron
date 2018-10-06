@@ -2,12 +2,12 @@ import React from 'react';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
 // components
-import BlockLibrary from './index.js';
+import ProjectBlocks from './index.js';
 
-const BlockLibraryContainer = (props) => (
+const ProjectBlocksContainer = (props) => (
   <ProjectsContext.Consumer>
     {({ removeBlockIdFromProject }) => (
-      <BlockLibrary
+      <ProjectBlocks
         {...props}
         removeBlockIdFromProject={removeBlockIdFromProject}
       />
@@ -15,4 +15,4 @@ const BlockLibraryContainer = (props) => (
   </ProjectsContext.Consumer>
 );
 
-export default BlockLibraryContainer;
+export default ProjectBlocksContainer;

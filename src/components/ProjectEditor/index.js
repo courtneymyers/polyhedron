@@ -43,10 +43,11 @@ type Props = {
   updateProjectFieldText: (string, string, string) => void,
   addBlockIdToProject: (string, string, ?number) => void,
   blocks: Array<BlockProps>,
-  addBlock: () => void,
+  addBlock: () => string,
 };
 
 const ProjectEditor = (props: Props) => {
+  // TODO: abstract the following 7 lines, as its also used in ProjectPreview
   const { projects, activeProjectId, blocks } = props;
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project
@@ -56,11 +57,11 @@ const ProjectEditor = (props: Props) => {
       );
 
   return (
-    <React.Fragment>
+    <>
       {!project ? (
         <p>No project selected. Select a project or create a new one!</p>
       ) : (
-        <React.Fragment>
+        <>
           <ProjectField
             type="text"
             label="Project Title"
@@ -93,9 +94,9 @@ const ProjectEditor = (props: Props) => {
               if (blockId) props.addBlockIdToProject(project.id, blockId);
             }}
           />
-        </React.Fragment>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
