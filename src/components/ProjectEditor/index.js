@@ -56,11 +56,11 @@ const ProjectEditor = (props: Props) => {
       );
 
   return (
-    <React.Fragment>
+    <>
       {!project ? (
         <p>No project selected. Select a project or create a new one!</p>
       ) : (
-        <React.Fragment>
+        <>
           <ProjectField
             type="text"
             label="Project Title"
@@ -93,9 +93,9 @@ const ProjectEditor = (props: Props) => {
               if (blockId) props.addBlockIdToProject(project.id, blockId);
             }}
           />
-        </React.Fragment>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
