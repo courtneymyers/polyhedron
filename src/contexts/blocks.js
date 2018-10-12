@@ -2,8 +2,10 @@
 
 import React from 'react';
 // types
-import type { Database } from 'components/App';
 import type { Node } from 'react';
+import type { Database } from 'components/App';
+// utilities
+import { setKeyValue } from 'utilities';
 // databases
 import firebase from 'databases/firebase.js';
 
@@ -102,18 +104,11 @@ export class BlocksProvider extends React.Component<Props, State> {
     this.updateBlockFieldText = (blockId, field, text) => {
       const fields = field.split('.'); // 'meta.title' -> ['meta', 'title']
 
-      // utility function to set (possibly) nested key's value in an object
-      function setObjectKeyValue(obj: Object, keys: Array<string>, value: any) {
-        const index = keys[0];
-        if (keys.length === 1) return (obj[index] = value);
-        return setObjectKeyValue(obj[index], keys.slice(1), value);
-      }
-
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const blocks = [...prevState.blocks];
           const block = blocks.filter((block) => block.id === blockId)[0];
-          setObjectKeyValue(block, fields, text);
+          setKeyValue(block, fields, text);
 
           return {
             blocks: blocks,

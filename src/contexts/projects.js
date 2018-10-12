@@ -2,8 +2,10 @@
 
 import React from 'react';
 // types
-import type { Database } from 'components/App';
 import type { Node } from 'react';
+import type { Database } from 'components/App';
+// utilities
+import { setKeyValue } from 'utilities';
 // databases
 import firebase from 'databases/firebase.js';
 
@@ -16,11 +18,15 @@ type Props = {|
   children: Node,
 |};
 
-export type ProjectProps = {|
-  id: string,
+type ProjectMeta = {|
   time: number,
   title: string,
   desc: string,
+|};
+
+export type ProjectProps = {|
+  id: string,
+  meta: ProjectMeta,
   blockIds: Array<string>,
 |};
 
@@ -58,9 +64,11 @@ export class ProjectsProvider extends React.Component<Props, State> {
         this.setState((prevState) => ({
           projects: prevState.projects.concat({
             id: currentTime.toString(),
-            time: currentTime,
-            title: '',
-            desc: '',
+            meta: {
+              time: currentTime,
+              title: '',
+              desc: '',
+            },
             blockIds: [],
           }),
           activeProjectId: currentTime.toString(),
@@ -69,9 +77,11 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
       if (this.props.db === 'firebase') {
         const newProject = this.dbProjects.push({
-          time: currentTime,
-          title: '',
-          desc: '',
+          meta: {
+            time: currentTime,
+            title: '',
+            desc: '',
+          },
         });
 
         this.dbActiveProject.set(newProject.key);
@@ -91,12 +101,14 @@ export class ProjectsProvider extends React.Component<Props, State> {
       }
     };
 
-    this.updateProjectFieldText = (projectId, fieldName, text) => {
+    this.updateProjectFieldText = (projectId, field, text) => {
+      const fields = field.split('.'); // 'meta.title' -> ['meta', 'title']
+
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const projects = [...prevState.projects];
           const project = projects.filter((p) => p.id === projectId)[0];
-          project[fieldName] = text;
+          setKeyValue(project, fields, text);
 
           return {
             projects: projects,
@@ -105,7 +117,8 @@ export class ProjectsProvider extends React.Component<Props, State> {
       }
 
       if (this.props.db === 'firebase') {
-        this.dbProjects.child(`${projectId}/${fieldName}`).set(text);
+        const path = fields.join('/'); // ['meta', 'title'] -> 'meta/title'
+        this.dbProjects.child(`${projectId}/${path}`).set(text);
       }
     };
 
@@ -279,9 +292,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
           updatedProjects.push({
             id: projectsKey,
-            time: project.time,
-            title: project.title,
-            desc: project.desc,
+            meta: project.meta,
             blockIds: blockIds,
           });
         }

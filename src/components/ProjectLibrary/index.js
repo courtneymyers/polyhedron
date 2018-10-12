@@ -34,8 +34,8 @@ const ProjectLibrary = (props: Props) => (
         key={project.id}
         id={project.id}
         label="Project"
-        title={project.title}
-        desc={project.desc}
+        title={project.meta.title}
+        desc={project.meta.desc}
         removeItem={props.removeProject}
         setActiveItem={props.setActiveProjectId}
         style={{

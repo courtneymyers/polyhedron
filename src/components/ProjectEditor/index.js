@@ -65,18 +65,18 @@ const ProjectEditor = (props: Props) => {
           <ProjectField
             type="text"
             label="Project Title"
-            text={project.title}
+            text={project.meta.title}
             updateText={(text) =>
-              props.updateProjectFieldText(project.id, 'title', text)
+              props.updateProjectFieldText(project.id, 'meta.title', text)
             }
           />
 
           <ProjectField
             type="text"
             label="Project Description"
-            text={project.desc}
+            text={project.meta.desc}
             updateText={(text) =>
-              props.updateProjectFieldText(project.id, 'desc', text)
+              props.updateProjectFieldText(project.id, 'meta.desc', text)
             }
           />
 
