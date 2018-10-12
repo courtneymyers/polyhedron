@@ -55,9 +55,7 @@ class ProjectBlocks extends React.Component<Props, State> {
                   >
                     <Block
                       id={block.id}
-                      time={block.time}
-                      title={block.title}
-                      desc={block.desc}
+                      meta={block.meta}
                       body={block.body}
                       removeBlock={(blockId) =>
                         removeBlockIdFromProject(projectId, blockId)

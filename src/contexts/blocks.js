@@ -2,8 +2,10 @@
 
 import React from 'react';
 // types
-import type { Database } from 'components/App';
 import type { Node } from 'react';
+import type { Database } from 'components/App';
+// utilities
+import { setKeyValue } from 'utilities';
 // databases
 import firebase from 'databases/firebase.js';
 
@@ -11,22 +13,29 @@ import firebase from 'databases/firebase.js';
 export const BlocksContext = React.createContext();
 
 // --- components
-type Props = {
+type Props = {|
   db: Database,
   children: Node,
-};
+|};
 
-export type BlockProps = {|
-  id: string,
+type BlockMeta = {|
   time: number,
   title: string,
   desc: string,
+|};
+
+type BlockType = 'plainText' | 'richText';
+
+export type BlockProps = {|
+  id: string,
+  meta: BlockMeta,
+  type: BlockType,
   body: string,
 |};
 
-type State = {
+type State = {|
   blocks: Array<BlockProps>,
-};
+|};
 
 export class BlocksProvider extends React.Component<Props, State> {
   dbBlocks: Object; // firebase database reference
@@ -49,9 +58,12 @@ export class BlocksProvider extends React.Component<Props, State> {
         this.setState((prevState) => ({
           blocks: prevState.blocks.concat({
             id: currentTime.toString(),
-            time: currentTime,
-            title: '',
-            desc: '',
+            meta: {
+              time: currentTime,
+              title: '',
+              desc: '',
+            },
+            type: 'plainText',
             body: '',
           }),
         }));
@@ -61,9 +73,12 @@ export class BlocksProvider extends React.Component<Props, State> {
 
       if (this.props.db === 'firebase') {
         const newBlock = this.dbBlocks.push({
-          time: currentTime,
-          title: '',
-          desc: '',
+          meta: {
+            time: currentTime,
+            title: '',
+            desc: '',
+          },
+          type: 'plainText',
           body: '',
         });
 
@@ -86,12 +101,14 @@ export class BlocksProvider extends React.Component<Props, State> {
       }
     };
 
-    this.updateBlockFieldText = (blockId, fieldName, text) => {
+    this.updateBlockFieldText = (blockId, field, text) => {
+      const fields = field.split('.'); // 'meta.title' -> ['meta', 'title']
+
       if (this.props.db === 'memory') {
         this.setState((prevState) => {
           const blocks = [...prevState.blocks];
           const block = blocks.filter((block) => block.id === blockId)[0];
-          block[fieldName] = text;
+          setKeyValue(block, fields, text);
 
           return {
             blocks: blocks,
@@ -100,7 +117,8 @@ export class BlocksProvider extends React.Component<Props, State> {
       }
 
       if (this.props.db === 'firebase') {
-        this.dbBlocks.child(`${blockId}/${fieldName}`).set(text);
+        const path = fields.join('/'); // ['meta', 'title'] -> 'meta/title'
+        this.dbBlocks.child(`${blockId}/${path}`).set(text);
       }
     };
   }
@@ -118,9 +136,8 @@ export class BlocksProvider extends React.Component<Props, State> {
 
           updatedBlocks.push({
             id: blocksKey,
-            time: block.time,
-            title: block.title,
-            desc: block.desc,
+            meta: block.meta,
+            type: block.type,
             body: block.body,
           });
         }
