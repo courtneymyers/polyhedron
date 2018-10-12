@@ -53,18 +53,18 @@ const Block = (props: Props) => (
       <Field
         type="text"
         label="Title"
-        text={props.title}
+        text={props.meta.title}
         updateText={(text) =>
-          props.updateBlockFieldText(props.id, 'title', text)
+          props.updateBlockFieldText(props.id, 'meta.title', text)
         }
       />
 
       <Field
         type="text"
         label="Description"
-        text={props.desc}
+        text={props.meta.desc}
         updateText={(text) =>
-          props.updateBlockFieldText(props.id, 'desc', text)
+          props.updateBlockFieldText(props.id, 'meta.desc', text)
         }
       />
 

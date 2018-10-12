@@ -11,10 +11,10 @@ import firebase from 'databases/firebase.js';
 export const ProjectsContext = React.createContext();
 
 // --- components
-type Props = {
+type Props = {|
   db: Database,
   children: Node,
-};
+|};
 
 export type ProjectProps = {|
   id: string,
@@ -24,10 +24,10 @@ export type ProjectProps = {|
   blockIds: Array<string>,
 |};
 
-type State = {
+type State = {|
   projects: Array<ProjectProps>,
   activeProjectId: string,
-};
+|};
 
 export class ProjectsProvider extends React.Component<Props, State> {
   dbProjects: Object; // firebase database reference

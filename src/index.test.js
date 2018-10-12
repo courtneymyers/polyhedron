@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom';
 import App from 'components/App';
 
 it('renders without crashing', () => {
-  const rootElement: any = document.createElement('div');
+  const rootElement: HTMLDivElement = document.createElement('div');
+
   ReactDOM.render(<App db="firebase" />, rootElement);
   ReactDOM.unmountComponentAtNode(rootElement);
 });

@@ -48,8 +48,8 @@ const BlockLibrary = (props: Props) => (
                   <LibraryItem
                     id={block.id}
                     label="Block"
-                    title={block.title}
-                    desc={block.desc}
+                    title={block.meta.title}
+                    desc={block.meta.desc}
                     removeItem={(blockId) => {
                       props.removeBlock(blockId);
                       props.removeBlockIdFromAllProjects(blockId);
