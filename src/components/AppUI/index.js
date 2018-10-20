@@ -22,28 +22,51 @@ injectGlobal`
 `;
 
 // --- styled components
+const buttonHeight = 1.5;
+const headerPadding = 1;
+const headerHeight = buttonHeight + 2 * headerPadding;
+
 const Container = styled.div`
   margin: 0 auto;
   max-width: 80rem;
 `;
 
 const Header = styled.header`
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: ${headerHeight}rem;
   display: flex;
-  padding: 1rem;
+  align-items: center;
+  padding: ${headerPadding}rem;
   background-color: #360a80;
 `;
 
 const ToggleButton = styled(BlockButton)`
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
+  width: ${buttonHeight}rem;
+  height: ${buttonHeight}rem;
+  line-height: ${buttonHeight}rem;
   background-color: #60449a;
 
   :hover,
   :focus {
     background-color: #60449a;
   }
+`;
+
+const UserButton = styled(ToggleButton)`
+  margin-left: 1rem;
+  padding: 0 0.625rem;
+  width: auto;
+  font-size: 0.8125rem;
+`;
+
+const ButtonLabel = styled.p`
+  margin: 0;
+  padding: 0 0.625rem;
+  font-size: 0.875rem;
+  color: #9a87c2;
 `;
 
 const Heading = styled.h1`
@@ -57,6 +80,7 @@ const Heading = styled.h1`
 
 const Main = styled.main`
   display: flex;
+  margin-top: ${headerHeight}rem;
   border: 1px solid #ccbee4;
   border-top: none;
 `;
@@ -139,7 +163,9 @@ class AppUI extends React.Component<Props, State> {
               this.toggleLeftPanel();
             }}
           />
+          <ButtonLabel>Library</ButtonLabel>
           <Heading>Polyhedron</Heading>
+          <ButtonLabel>Preview</ButtonLabel>
           <ToggleButton
             text="☰"
             href="#preview"
@@ -147,6 +173,14 @@ class AppUI extends React.Component<Props, State> {
             onClick={(ev) => {
               ev.preventDefault();
               this.toggleRightPanel();
+            }}
+          />
+          <UserButton
+            text="Login"
+            href="#user"
+            title="User Menu"
+            onClick={(ev) => {
+              ev.preventDefault();
             }}
           />
         </Header>
