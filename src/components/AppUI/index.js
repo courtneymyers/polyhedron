@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+import UserLoginButton from 'components/UserLoginButton';
 import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
@@ -55,11 +56,21 @@ const ToggleButton = styled(BlockButton)`
   }
 `;
 
-const UserButton = styled(ToggleButton)`
+// TODO: figure out how to extend ToggleButton styles,
+// so they don't need to be duplicated in UserButton
+const UserButton = styled(UserLoginButton)`
   margin-left: 1rem;
   padding: 0 0.625rem;
   width: auto;
+  height: ${buttonHeight}rem;
   font-size: 0.8125rem;
+  line-height: ${buttonHeight}rem;
+  background-color: #60449a;
+
+  :hover,
+  :focus {
+    background-color: #60449a;
+  }
 `;
 
 const ButtonLabel = styled.p`
@@ -175,14 +186,7 @@ class AppUI extends React.Component<Props, State> {
               this.toggleRightPanel();
             }}
           />
-          <UserButton
-            text="Login"
-            href="#user"
-            title="User Menu"
-            onClick={(ev) => {
-              ev.preventDefault();
-            }}
-          />
+          <UserButton />
         </Header>
 
         <Main>
