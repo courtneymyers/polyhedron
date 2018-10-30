@@ -12,6 +12,7 @@ export default class Auth {
   logout: () => void;
   handleAuthentication: () => void;
   setSession: (any) => void;
+  getProfile: (Function) => void;
   isAuthenticated: () => void;
 
   auth0 = new auth0.WebAuth({
@@ -19,7 +20,7 @@ export default class Auth {
     clientID: auth0CliendId,
     redirectUri: auth0CallbackUrl,
     responseType: 'token id_token',
-    scope: 'openid',
+    scope: 'openid profile',
   });
 
   constructor() {
@@ -53,6 +54,18 @@ export default class Auth {
       localStorage.setItem('auth0_id_token', result.idToken);
       localStorage.setItem('auth0_expiration', expiration);
       navigate('/');
+    };
+
+    this.getProfile = (callbackFn) => {
+      const accessToken = localStorage.getItem('auth0_access_token');
+      if (!accessToken) {
+        callbackFn(null);
+        return;
+      }
+
+      this.auth0.client.userInfo(accessToken, (err, profile) => {
+        callbackFn(profile);
+      });
     };
 
     this.isAuthenticated = () => {

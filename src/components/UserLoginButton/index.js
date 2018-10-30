@@ -8,28 +8,53 @@ import Auth from 'authentication/auth0.js';
 
 // --- components
 type Props = {};
-type State = {};
+type State = {
+  profile: Object,
+};
 
 class UserLoginButton extends React.Component<Props, State> {
   auth: Object; // auth0 class instance
+  login: () => void;
+  logout: () => void;
 
   constructor(props: Props) {
     super(props);
     this.auth = new Auth();
+    this.state = { profile: {} };
+
+    this.login = () => {
+      this.auth.login();
+    };
+
+    this.logout = () => {
+      this.auth.logout();
+      this.setState({ profile: {} });
+    };
+  }
+
+  componentWillMount() {
+    this.auth.getProfile((profile) => {
+      if (profile === null) {
+        this.setState({ profile: {} });
+        return;
+      }
+
+      this.setState({ profile });
+    });
   }
 
   render() {
-    const { isAuthenticated, login, logout } = this.auth;
+    const { isAuthenticated } = this.auth;
 
     return (
       <BlockButton
         {...this.props}
-        text={isAuthenticated() ? 'Log Out' : 'Log In'}
+        text={isAuthenticated() ? this.state.profile.name : 'Log In'}
         href="#user"
         title="User Menu"
         onClick={(ev) => {
           ev.preventDefault();
-          isAuthenticated() ? logout() : login();
+          isAuthenticated() ? this.logout() : this.login();
         }}
       />
     );
