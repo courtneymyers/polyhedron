@@ -4,7 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
-import UserLoginButton from 'components/UserLoginButton';
+import UserLoginButton from 'components/UserLoginButton/container.js';
 import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
