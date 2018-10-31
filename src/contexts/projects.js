@@ -16,6 +16,8 @@ export const ProjectsContext = React.createContext();
 type Props = {|
   db: Database,
   children: Node,
+  // context props
+  userId: ?string,
 |};
 
 type ProjectMeta = {|
