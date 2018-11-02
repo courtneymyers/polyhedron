@@ -36,12 +36,6 @@ class UserLoginButton extends React.Component<Props, State> {
     };
   }
 
-  componentWillMount() {
-    this.auth.getProfile((profile) => {
-      this.props.storeUserProfile(profile);
-    });
-  }
-
   render() {
     const { isAuthenticated } = this.auth;
     const userName = this.props.userProfile ? this.props.userProfile.name : '';

@@ -17,4 +17,5 @@ firebase.initializeApp({
   messagingSenderId: firebaseMessagingId,
 });
 
+export const version = '01'; // database schema version
 export default firebase;

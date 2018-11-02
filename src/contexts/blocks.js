@@ -7,7 +7,7 @@ import type { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
-import firebase from 'databases/firebase.js';
+import firebase, { version } from 'databases/firebase.js';
 
 // --- contexts
 export const BlocksContext = React.createContext();
@@ -40,7 +40,7 @@ type State = {|
 |};
 
 export class BlocksProvider extends React.Component<Props, State> {
-  dbBlocks: Object; // firebase database reference
+  dbBlocks: Object; // firebase db reference to user's blocks
   addBlock: () => string;
   removeBlock: (string) => void;
   updateBlockFieldText: (string, string, string) => void;
@@ -51,7 +51,10 @@ export class BlocksProvider extends React.Component<Props, State> {
       blocks: [],
     };
 
-    this.dbBlocks = firebase.database().ref('blocks');
+    const dbUserPath = `version/${version}/users/${this.props.userId}`;
+    const dbUserRef = firebase.database().ref(dbUserPath);
+
+    this.dbBlocks = dbUserRef.child('blocks');
 
     this.addBlock = () => {
       const currentTime = new Date().getTime();

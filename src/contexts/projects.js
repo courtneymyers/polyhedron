@@ -7,7 +7,7 @@ import type { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
-import firebase from 'databases/firebase.js';
+import firebase, { version } from 'databases/firebase.js';
 
 // --- contexts
 export const ProjectsContext = React.createContext();
@@ -38,8 +38,8 @@ type State = {|
 |};
 
 export class ProjectsProvider extends React.Component<Props, State> {
-  dbProjects: Object; // firebase database reference
-  dbActiveProject: Object; // firebase database reference
+  dbProjects: Object; // firebase db reference to user's projects
+  dbActiveProject: Object; // firebase db reference to user's active project
   addProject: () => void;
   removeProject: (string) => void;
   updateProjectFieldText: (string, string, string) => void;
@@ -56,8 +56,11 @@ export class ProjectsProvider extends React.Component<Props, State> {
       activeProjectId: '',
     };
 
-    this.dbProjects = firebase.database().ref('projects');
-    this.dbActiveProject = firebase.database().ref('activeProject');
+    const dbUserPath = `version/${version}/users/${this.props.userId}`;
+    const dbUserRef = firebase.database().ref(dbUserPath);
+
+    this.dbProjects = dbUserRef.child('projects');
+    this.dbActiveProject = dbUserRef.child('activeProject');
 
     this.addProject = () => {
       const currentTime = new Date().getTime();
