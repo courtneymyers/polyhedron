@@ -6,6 +6,7 @@ import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
 import AppDND from 'components/AppDND/container.js';
+import AppIntro from 'components/AppIntro';
 // authentication
 import Auth from 'authentication/auth0.js';
 // types
@@ -46,7 +47,7 @@ class App extends React.Component<Props, State> {
         </BlocksProvider>
       </ProjectsProvider>
     ) : (
-      <p>[Login screen]</p>
+      <AppIntro />
     );
   }
 }
