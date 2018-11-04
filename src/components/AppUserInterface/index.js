@@ -137,7 +137,7 @@ type State = {
   rightPanelShown: boolean,
 };
 
-class AppUI extends React.Component<Props, State> {
+class AppUserInterface extends React.Component<Props, State> {
   toggleLeftPanel: () => void;
   toggleRightPanel: () => void;
 
@@ -217,4 +217,4 @@ class AppUI extends React.Component<Props, State> {
   }
 }
 
-export default AppUI;
+export default AppUserInterface;

@@ -61,7 +61,7 @@ const Main = styled.main`
 // --- components
 type Props = {};
 
-const AppIntro = (props: Props) => (
+const AppLoggedOut = (props: Props) => (
   <Container {...props}>
     <Header>
       <Heading>Polyhedron</Heading>
@@ -74,4 +74,4 @@ const AppIntro = (props: Props) => (
   </Container>
 );
 
-export default AppIntro;
+export default AppLoggedOut;

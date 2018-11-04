@@ -3,7 +3,7 @@
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 // components
-import AppUI from 'components/AppUI';
+import AppUserInterface from 'components/AppUserInterface';
 // types
 import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
 import type { ProjectProps } from 'contexts/projects';
@@ -19,7 +19,7 @@ type Props = {
 
 type State = {};
 
-class AppDND extends React.Component<Props, State> {
+class AppDragDrop extends React.Component<Props, State> {
   onDragStart = (start: DragStart) => {
     // console.log(start);
   };
@@ -62,10 +62,10 @@ class AppDND extends React.Component<Props, State> {
         onDragUpdate={this.onDragUpdate}
         onDragEnd={this.onDragEnd}
       >
-        <AppUI />
+        <AppUserInterface />
       </DragDropContext>
     );
   }
 }
 
-export default AppDND;
+export default AppDragDrop;

@@ -5,8 +5,8 @@ import React from 'react';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
-import AppDND from 'components/AppDND/container.js';
-import AppIntro from 'components/AppIntro';
+import AppDragDrop from 'components/AppDragDrop/container.js';
+import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
 import Auth from 'authentication/auth0.js';
 // types
@@ -40,14 +40,14 @@ class App extends React.Component<Props, State> {
 
   render() {
     const { userId, db } = this.props;
-    return userId ? (
+    return !userId ? (
+      <AppLoggedOut />
+    ) : (
       <ProjectsProvider userId={userId} db={db}>
         <BlocksProvider userId={userId} db={db}>
-          <AppDND />
+          <AppDragDrop />
         </BlocksProvider>
       </ProjectsProvider>
-    ) : (
-      <AppIntro />
     );
   }
 }
