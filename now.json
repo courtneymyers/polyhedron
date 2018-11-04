@@ -1,8 +1,6 @@
 {
   "alias": "polyhedron.app",
-  "env": {
-    "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key"
-  },
+  "dotenv": ".env.local",
   "scale": {
     "sfo1": {
       "min": 1,
