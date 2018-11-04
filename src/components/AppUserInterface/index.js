@@ -27,12 +27,12 @@ const buttonHeight = 1.5;
 const headerPadding = 1;
 const headerHeight = buttonHeight + 2 * headerPadding;
 
-const Container = styled.div`
+export const Container = styled.div`
   margin: 0 auto;
   max-width: 80rem;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -58,7 +58,7 @@ const ToggleButton = styled(BlockButton)`
 
 // TODO: figure out how to extend ToggleButton styles,
 // so they don't need to be duplicated in UserButton
-const UserButton = styled(UserLoginButton)`
+export const UserButton = styled(UserLoginButton)`
   margin-left: 1rem;
   padding: 0 0.625rem;
   width: auto;
@@ -80,7 +80,7 @@ const ButtonLabel = styled.p`
   color: #9a87c2;
 `;
 
-const Heading = styled.h1`
+export const Heading = styled.h1`
   flex: 1;
   margin: 0.1875rem 0.75rem 0;
   font-size: 1.3125rem;
@@ -89,7 +89,7 @@ const Heading = styled.h1`
   color: #fff;
 `;
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
   margin-top: ${headerHeight}rem;
   border: 1px solid #ccbee4;
