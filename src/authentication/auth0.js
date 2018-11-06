@@ -5,7 +5,6 @@ import { navigate } from '@reach/router';
 
 const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const auth0CliendId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-const auth0CallbackUrl = process.env.REACT_APP_AUTH0_CALLBACK_URL;
 
 export default class Auth {
   login: () => void;
@@ -18,7 +17,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: auth0Domain,
     clientID: auth0CliendId,
-    redirectUri: auth0CallbackUrl,
+    redirectUri: window.location.origin + '/auth',
     responseType: 'token id_token',
     scope: 'openid profile',
   });

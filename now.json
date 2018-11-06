@@ -7,8 +7,7 @@
       "REACT_APP_FIREBASE_PROJECT_ID": "@polyhedron-firebase-project-id",
       "REACT_APP_FIREBASE_MESSAGING_ID": "@polyhedron-firebase-messaging-id",
       "REACT_APP_AUTH0_DOMAIN": "@polyhedron-auth0-domain",
-      "REACT_APP_AUTH0_CLIENT_ID": "@polyhedron-auth0-client-id",
-      "REACT_APP_AUTH0_CALLBACK_URL": "@polyhedron-auth0-callback-url"
+      "REACT_APP_AUTH0_CLIENT_ID": "@polyhedron-auth0-client-id"
     }
   },
   "scale": {
