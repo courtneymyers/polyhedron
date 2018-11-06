@@ -1,18 +1,23 @@
 {
   "alias": "polyhedron.app",
-  "env": {
-    "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
-    "REACT_APP_FIREBASE_PROJECT_ID": "@polyhedron-firebase-project-id",
-    "REACT_APP_FIREBASE_MESSAGING_ID": "@polyhedron-firebase-messaging-id",
-    "REACT_APP_AUTH0_DOMAIN": "@polyhedron-auth0-domain",
-    "REACT_APP_AUTH0_CLIENT_ID": "@polyhedron-auth0-client-id",
-    "REACT_APP_AUTH0_CALLBACK_URL": "@polyhedron-auth0-callback-url"
+  "type": "static",
+  "features": {
+    "cloud": "v2"
+  },
+  "build": {
+    "env": {
+      "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
+      "REACT_APP_FIREBASE_PROJECT_ID": "@polyhedron-firebase-project-id",
+      "REACT_APP_FIREBASE_MESSAGING_ID": "@polyhedron-firebase-messaging-id",
+      "REACT_APP_AUTH0_DOMAIN": "@polyhedron-auth0-domain",
+      "REACT_APP_AUTH0_CLIENT_ID": "@polyhedron-auth0-client-id",
+      "REACT_APP_AUTH0_CALLBACK_URL": "@polyhedron-auth0-callback-url"
+    }
   },
   "scale": {
     "sfo1": {
       "min": 1,
       "max": 1
     }
-  },
-  "type": "npm"
+  }
 }
