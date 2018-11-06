@@ -1,9 +1,6 @@
 {
   "alias": "polyhedron.app",
   "type": "static",
-  "features": {
-    "cloud": "v2"
-  },
   "build": {
     "env": {
       "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
