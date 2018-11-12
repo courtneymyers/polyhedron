@@ -44,7 +44,7 @@ const Paragraph = styled.p`
   }
 `;
 
-const Title = Paragraph.extend`
+const Title = styled(Paragraph)`
   font-weight: bold;
   color: #360a80;
 `;

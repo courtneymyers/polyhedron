@@ -112,18 +112,18 @@ const SubHeading = styled.h2`
   }
 `;
 
-const LeftPanel = Panel.extend`
+const LeftPanel = styled(Panel)`
   flex: 0 0 15rem;
   border-right: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
 
-const MiddlePanel = Panel.extend`
+const MiddlePanel = styled(Panel)`
   flex: 1;
   background-color: #edeaf3;
 `;
 
-const RightPanel = Panel.extend`
+const RightPanel = styled(Panel)`
   flex: 1;
   border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
