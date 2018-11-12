@@ -2,9 +2,9 @@ import React from 'react';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
 // components
-import AppDND from './index.js';
+import AppDragDrop from './index.js';
 
-const AppDNDContainer = (props) => (
+const AppDragDropContainer = (props) => (
   <ProjectsContext.Consumer>
     {({
       projects,
@@ -12,7 +12,7 @@ const AppDNDContainer = (props) => (
       addBlockIdToProject,
       reorderBlocksInProject,
     }) => (
-      <AppDND
+      <AppDragDrop
         {...props}
         projects={projects}
         activeProjectId={activeProjectId}
@@ -23,4 +23,4 @@ const AppDNDContainer = (props) => (
   </ProjectsContext.Consumer>
 );
 
-export default AppDNDContainer;
+export default AppDragDropContainer;

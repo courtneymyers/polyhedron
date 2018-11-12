@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { unregister } from './registerServiceWorker';
-// components
-import App from 'components/App';
+// routes
+import { setupRoutes } from './routes';
 
+const routes = setupRoutes();
 const rootElement: any = document.getElementById('root');
 
-ReactDOM.render(<App db="firebase" />, rootElement);
+ReactDOM.render(routes, rootElement);
 unregister();

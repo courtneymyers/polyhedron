@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { injectGlobal } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
+import UserLoginButton from 'components/UserLoginButton/container.js';
 import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
@@ -22,22 +23,31 @@ injectGlobal`
 `;
 
 // --- styled components
-const Container = styled.div`
+const buttonHeight = 1.5;
+const headerPadding = 1;
+const headerHeight = buttonHeight + 2 * headerPadding;
+
+export const Container = styled.div`
   margin: 0 auto;
   max-width: 80rem;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: ${headerHeight}rem;
   display: flex;
-  padding: 1rem;
+  align-items: center;
+  padding: ${headerPadding}rem;
   background-color: #360a80;
 `;
 
 const ToggleButton = styled(BlockButton)`
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
+  width: ${buttonHeight}rem;
+  height: ${buttonHeight}rem;
+  line-height: ${buttonHeight}rem;
   background-color: #60449a;
 
   :hover,
@@ -46,7 +56,31 @@ const ToggleButton = styled(BlockButton)`
   }
 `;
 
-const Heading = styled.h1`
+// TODO: figure out how to extend ToggleButton styles,
+// so they don't need to be duplicated in UserButton
+export const UserButton = styled(UserLoginButton)`
+  margin-left: 1rem;
+  padding: 0 0.625rem;
+  width: auto;
+  height: ${buttonHeight}rem;
+  font-size: 0.8125rem;
+  line-height: ${buttonHeight}rem;
+  background-color: #60449a;
+
+  :hover,
+  :focus {
+    background-color: #60449a;
+  }
+`;
+
+const ButtonLabel = styled.p`
+  margin: 0;
+  padding: 0 0.625rem;
+  font-size: 0.875rem;
+  color: #9a87c2;
+`;
+
+export const Heading = styled.h1`
   flex: 1;
   margin: 0.1875rem 0.75rem 0;
   font-size: 1.3125rem;
@@ -55,8 +89,9 @@ const Heading = styled.h1`
   color: #fff;
 `;
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
+  margin-top: ${headerHeight}rem;
   border: 1px solid #ccbee4;
   border-top: none;
 `;
@@ -102,7 +137,7 @@ type State = {
   rightPanelShown: boolean,
 };
 
-class AppUI extends React.Component<Props, State> {
+class AppUserInterface extends React.Component<Props, State> {
   toggleLeftPanel: () => void;
   toggleRightPanel: () => void;
 
@@ -139,7 +174,9 @@ class AppUI extends React.Component<Props, State> {
               this.toggleLeftPanel();
             }}
           />
+          <ButtonLabel>Library</ButtonLabel>
           <Heading>Polyhedron</Heading>
+          <ButtonLabel>Preview</ButtonLabel>
           <ToggleButton
             text="☰"
             href="#preview"
@@ -149,6 +186,7 @@ class AppUI extends React.Component<Props, State> {
               this.toggleRightPanel();
             }}
           />
+          <UserButton />
         </Header>
 
         <Main>
@@ -179,4 +217,4 @@ class AppUI extends React.Component<Props, State> {
   }
 }
 
-export default AppUI;
+export default AppUserInterface;
