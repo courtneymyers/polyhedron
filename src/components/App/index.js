@@ -8,7 +8,8 @@ import { BlocksProvider } from 'contexts/blocks';
 import AppDragDrop from 'components/AppDragDrop/container.js';
 import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
-import Auth from 'authentication/auth0.js';
+import AuthClient from 'authentication/auth0-auth.js';
+import MgtClient from 'authentication/auth0-mgt.js';
 // types
 import type { Profile } from 'contexts/user';
 
@@ -25,14 +26,18 @@ type Props = {
 type State = {};
 
 class App extends React.Component<Props, State> {
-  auth: Object; // auth0 class instance
+  auth: Object; // auth0 authentication class instance
+  authMgt: Object; // auth0 management class instance
 
   constructor(props: Props) {
     super(props);
-    this.auth = new Auth();
+    this.auth = new AuthClient();
+    this.authMgt = new MgtClient();
   }
 
   componentWillMount() {
+    this.authMgt.getAccessToken();
+
     this.auth.getProfile((profile) => {
       this.props.storeUserProfile(profile);
     });

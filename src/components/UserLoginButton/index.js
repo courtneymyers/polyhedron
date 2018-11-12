@@ -4,7 +4,7 @@ import React from 'react';
 // components
 import BlockButton from 'components/BlockButton';
 // authentication
-import Auth from 'authentication/auth0.js';
+import AuthClient from 'authentication/auth0-auth.js';
 // types
 import type { Profile } from 'contexts/user';
 
@@ -24,7 +24,7 @@ class UserLoginButton extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.auth = new Auth();
+    this.auth = new AuthClient();
 
     this.login = () => {
       this.auth.login();

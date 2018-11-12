@@ -3,10 +3,11 @@
 import auth0 from 'auth0-js';
 import { navigate } from '@reach/router';
 
-const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const auth0CliendId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+export const redirectUri = window.location.origin + '/auth';
 
-export default class Auth {
+export default class AuthClient {
   login: () => void;
   logout: () => void;
   handleAuthentication: () => void;
@@ -15,9 +16,9 @@ export default class Auth {
   isAuthenticated: () => void;
 
   auth0 = new auth0.WebAuth({
-    domain: auth0Domain,
-    clientID: auth0CliendId,
-    redirectUri: window.location.origin + '/auth',
+    domain: domain,
+    clientID: clientId,
+    redirectUri: redirectUri,
     responseType: 'token id_token',
     scope: 'openid profile',
   });

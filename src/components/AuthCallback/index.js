@@ -2,11 +2,11 @@
 
 import React from 'react';
 // authentication
-import Auth from 'authentication/auth0.js';
+import AuthClient from 'authentication/auth0-auth.js';
 
 const handleAuthentication = (location: Object) => {
   if (/access_token|id_token|error/.test(location.hash)) {
-    const auth = new Auth();
+    const auth = new AuthClient();
     auth.handleAuthentication();
   }
 };
