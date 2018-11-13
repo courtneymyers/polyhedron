@@ -37,7 +37,7 @@ class ProjectBlocks extends React.Component<Props, State> {
       <Droppable droppableId={`project-blocks`}>
         {(provided, snapshot) => (
           <DropContainer
-            innerRef={provided.innerRef}
+            ref={provided.innerRef}
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver} // custom prop for styling
           >
@@ -49,7 +49,7 @@ class ProjectBlocks extends React.Component<Props, State> {
               >
                 {(provided, snapshot) => (
                   <DragContainer
-                    innerRef={provided.innerRef}
+                    ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
