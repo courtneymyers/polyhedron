@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 import UserLoginButton from 'components/UserLoginButton/container.js';
@@ -32,8 +32,7 @@ export const Header = styled.header`
   background-color: #360a80;
 `;
 
-const ToggleButton = styled(BlockButton)`
-  width: ${buttonHeight}rem;
+const headerButtonStyles = css`
   height: ${buttonHeight}rem;
   line-height: ${buttonHeight}rem;
   background-color: #60449a;
@@ -44,21 +43,17 @@ const ToggleButton = styled(BlockButton)`
   }
 `;
 
-// TODO: figure out how to extend ToggleButton styles,
-// so they don't need to be duplicated in UserButton
+const ToggleButton = styled(BlockButton)`
+  ${headerButtonStyles};
+  width: ${buttonHeight}rem;
+`;
+
 export const UserButton = styled(UserLoginButton)`
+  ${headerButtonStyles};
   margin-left: 1rem;
   padding: 0 0.625rem;
   width: auto;
-  height: ${buttonHeight}rem;
   font-size: 0.8125rem;
-  line-height: ${buttonHeight}rem;
-  background-color: #60449a;
-
-  :hover,
-  :focus {
-    background-color: #60449a;
-  }
 `;
 
 const ButtonLabel = styled.p`
