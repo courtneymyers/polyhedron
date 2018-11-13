@@ -33,15 +33,12 @@ const BlockLibrary = (props: Props) => (
   <Container {...props}>
     <Droppable droppableId={`block-library`} isDropDisabled>
       {(provided, snapshot) => (
-        <DropContainer
-          innerRef={provided.innerRef}
-          {...provided.droppableProps}
-        >
+        <DropContainer ref={provided.innerRef} {...provided.droppableProps}>
           {props.blocks.map((block, index) => (
             <Draggable key={block.id} draggableId={block.id} index={index}>
               {(provided, snapshot) => (
                 <DragContainer
-                  innerRef={provided.innerRef}
+                  ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { createGlobalStyle } from 'styled-components';
 // contexts
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
@@ -12,6 +13,18 @@ import AuthClient from 'authentication/auth0-auth.js';
 import MgtClient from 'authentication/auth0-mgt.js';
 // types
 import type { Profile } from 'contexts/user';
+
+// --- styled components
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    color: #444;
+    background-color: #fff;
+  }
+`;
 
 // --- components
 export type Database = 'memory' | 'firebase';
@@ -45,14 +58,19 @@ class App extends React.Component<Props, State> {
 
   render() {
     const { userId, db } = this.props;
-    return !userId ? (
-      <AppLoggedOut />
-    ) : (
-      <ProjectsProvider userId={userId} db={db}>
-        <BlocksProvider userId={userId} db={db}>
-          <AppDragDrop />
-        </BlocksProvider>
-      </ProjectsProvider>
+    return (
+      <>
+        <GlobalStyle />
+        {!userId ? (
+          <AppLoggedOut />
+        ) : (
+          <ProjectsProvider userId={userId} db={db}>
+            <BlocksProvider userId={userId} db={db}>
+              <AppDragDrop />
+            </BlocksProvider>
+          </ProjectsProvider>
+        )}
+      </>
     );
   }
 }

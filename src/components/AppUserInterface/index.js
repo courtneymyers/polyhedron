@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { css } from 'styled-components';
 // components
 import BlockButton from 'components/BlockButton';
 import UserLoginButton from 'components/UserLoginButton/container.js';
@@ -9,18 +9,6 @@ import ProjectLibrary from 'components/ProjectLibrary/container.js';
 import BlockLibrary from 'components/BlockLibrary/container.js';
 import ProjectEditor from 'components/ProjectEditor/container.js';
 import ProjectPreview from 'components/ProjectPreview/container.js';
-
-// --- global stylesheet
-injectGlobal`
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 1;
-    color: #444;
-    background-color: #fff;
-  }
-`;
 
 // --- styled components
 const buttonHeight = 1.5;
@@ -44,8 +32,7 @@ export const Header = styled.header`
   background-color: #360a80;
 `;
 
-const ToggleButton = styled(BlockButton)`
-  width: ${buttonHeight}rem;
+const headerButtonStyles = css`
   height: ${buttonHeight}rem;
   line-height: ${buttonHeight}rem;
   background-color: #60449a;
@@ -56,21 +43,17 @@ const ToggleButton = styled(BlockButton)`
   }
 `;
 
-// TODO: figure out how to extend ToggleButton styles,
-// so they don't need to be duplicated in UserButton
+const ToggleButton = styled(BlockButton)`
+  ${headerButtonStyles};
+  width: ${buttonHeight}rem;
+`;
+
 export const UserButton = styled(UserLoginButton)`
+  ${headerButtonStyles};
   margin-left: 1rem;
   padding: 0 0.625rem;
   width: auto;
-  height: ${buttonHeight}rem;
   font-size: 0.8125rem;
-  line-height: ${buttonHeight}rem;
-  background-color: #60449a;
-
-  :hover,
-  :focus {
-    background-color: #60449a;
-  }
 `;
 
 const ButtonLabel = styled.p`
@@ -112,18 +95,18 @@ const SubHeading = styled.h2`
   }
 `;
 
-const LeftPanel = Panel.extend`
+const LeftPanel = styled(Panel)`
   flex: 0 0 15rem;
   border-right: 1px solid #ccbee4;
   background-color: #e2ddef;
 `;
 
-const MiddlePanel = Panel.extend`
+const MiddlePanel = styled(Panel)`
   flex: 1;
   background-color: #edeaf3;
 `;
 
-const RightPanel = Panel.extend`
+const RightPanel = styled(Panel)`
   flex: 1;
   border-left: 1px solid #ccbee4;
   background-color: #e2ddef;
