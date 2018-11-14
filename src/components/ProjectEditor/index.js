@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 // components
 import Field from 'components/Field';
-import ProjectBlocks from 'components/ProjectBlocks/container.js';
+import ProjectBlocks from 'components/ProjectBlocks';
 import BlockButton from 'components/BlockButton';
 // types
 import type { ProjectProps } from 'contexts/projects';
