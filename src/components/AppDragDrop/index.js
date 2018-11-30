@@ -4,22 +4,16 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 // components
 import AppUserInterface from 'components/AppUserInterface';
-// types
-import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
-import type { ProjectProps } from 'contexts/projects';
+// contexts
+import { ProjectsContext } from 'contexts/projects';
 
 // --- components
-type Props = {
-  // context props
-  projects: Array<ProjectProps>,
-  activeProjectId: string,
-  addBlockIdToProject: (string, string, ?number) => void,
-  reorderBlocksInProject: (string, number, number) => void,
-};
-
+type Props = {};
 type State = {};
 
 class AppDragDrop extends React.Component<Props, State> {
+  static contextType = ProjectsContext;
+
   onDragStart = (start: DragStart) => {
     // console.log(start);
   };
@@ -35,7 +29,7 @@ class AppDragDrop extends React.Component<Props, State> {
       activeProjectId,
       reorderBlocksInProject,
       addBlockIdToProject,
-    } = this.props;
+    } = this.context;
 
     // dropped block outside of project editor
     if (!destination) return;

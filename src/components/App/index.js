@@ -6,7 +6,7 @@ import { createGlobalStyle } from 'styled-components';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
-import AppDragDrop from 'components/AppDragDrop/container.js';
+import AppDragDrop from 'components/AppDragDrop';
 import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
 import AuthClient from 'authentication/auth0-auth.js';

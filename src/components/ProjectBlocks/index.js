@@ -5,6 +5,8 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 // components
 import Block from 'components/Block/container.js';
+// contexts
+import { ProjectsContext } from 'contexts/projects';
 // types
 import type { BlockProps } from 'contexts/blocks';
 
@@ -23,15 +25,16 @@ const DragContainer = styled.div`
 type Props = {
   projectId: string,
   blocks: Array<BlockProps>,
-  // context props
-  removeBlockIdFromProject: (string, string) => void,
 };
 
 type State = {};
 
 class ProjectBlocks extends React.Component<Props, State> {
+  static contextType = ProjectsContext;
+
   render() {
-    const { blocks, projectId, removeBlockIdFromProject } = this.props;
+    const { removeBlockIdFromProject } = this.context;
+    const { blocks, projectId } = this.props;
 
     return (
       <Droppable droppableId={`project-blocks`}>

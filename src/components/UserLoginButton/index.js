@@ -3,24 +3,21 @@
 import React from 'react';
 // components
 import BlockButton from 'components/BlockButton';
+// contexts
+import { UserContext } from 'contexts/user';
 // authentication
 import AuthClient from 'authentication/auth0-auth.js';
-// types
-import type { Profile } from 'contexts/user';
 
 // --- components
-type Props = {
-  // context props
-  userProfile: Profile,
-  storeUserProfile: (Profile) => void,
-};
-
+type Props = {};
 type State = {};
 
 class UserLoginButton extends React.Component<Props, State> {
   auth: Object; // auth0 class instance
   login: () => void;
   logout: () => void;
+
+  static contextType = UserContext;
 
   constructor(props: Props) {
     super(props);
@@ -32,13 +29,15 @@ class UserLoginButton extends React.Component<Props, State> {
 
     this.logout = () => {
       this.auth.logout();
-      this.props.storeUserProfile(null);
+      this.context.storeUserProfile(null);
     };
   }
 
   render() {
     const { isAuthenticated } = this.auth;
-    const userName = this.props.userProfile ? this.props.userProfile.name : '';
+    const userName = this.context.userProfile
+      ? this.context.userProfile.name
+      : '';
 
     return (
       <BlockButton
