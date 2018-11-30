@@ -1,6 +1,6 @@
 {
+  "version": 2,
   "alias": "polyhedron.app",
-  "type": "static",
   "build": {
     "env": {
       "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
@@ -12,18 +12,5 @@
       "REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET": "@polyhedron-auth0-mgt-client-secret"
     }
   },
-  "static": {
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "scale": {
-    "sfo1": {
-      "min": 1,
-      "max": 1
-    }
-  }
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }]
 }
