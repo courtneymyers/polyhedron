@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import type { RouteProps } from '@reach/router';
 // authentication
 import AuthClient from 'authentication/auth0-auth.js';
 
@@ -13,9 +14,7 @@ const handleAuthentication = (location: Object) => {
 
 // --- components
 type Props = {
-  // reach router props
-  navigate: Object,
-  location: Object,
+  ...RouteProps,
 };
 
 const AuthCallback = (props: Props) => (

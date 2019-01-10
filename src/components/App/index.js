@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import type { RouteProps } from '@reach/router';
 // contexts
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
@@ -30,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 export type Database = 'memory' | 'firebase';
 
 type Props = {
+  ...RouteProps,
   db: Database,
   // context props
   userId: string,
