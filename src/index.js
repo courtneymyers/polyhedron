@@ -1,12 +1,12 @@
 // @flow
 
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { unregister } from './registerServiceWorker';
-// routes
-import { setupRoutes } from './routes';
+// components
+import Routes from './routes';
 
-const routes = setupRoutes();
 const rootElement: any = document.getElementById('root');
 
-ReactDOM.render(routes, rootElement);
+ReactDOM.render(<Routes />, rootElement);
 unregister();
