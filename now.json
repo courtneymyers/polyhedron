@@ -13,9 +13,19 @@
       "REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET": "@polyhedron-auth0-mgt-client-secret"
     }
   },
-  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "useBuildUtils": "@now/build-utils@canary"
+      }
+    }
+  ],
   "routes": [
     { "src": "^/static/(.*)", "dest": "/static/$1" },
-    { "src": ".*", "dest": "/index.html" }
+    { "src": "^/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "^/manifest.json", "dest": "/manifest.json" },
+    { "src": "^/(.*)", "dest": "/index.html" }
   ]
 }
