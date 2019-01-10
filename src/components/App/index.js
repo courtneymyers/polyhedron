@@ -41,25 +41,18 @@ type Props = {
 type State = {};
 
 class App extends React.Component<Props, State> {
-  auth: Object; // auth0 authentication class instance
-  authMgt: Object; // auth0 management class instance
+  auth = new AuthClient();
+  authMgt = new MgtClient();
 
-  constructor(props: Props) {
-    super(props);
-    this.auth = new AuthClient();
-    this.authMgt = new MgtClient();
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.authMgt.getAccessToken();
 
-    this.auth.getProfile((profile) => {
-      this.props.storeUserProfile(profile);
-    });
+    this.auth.getProfile((profile) => this.props.storeUserProfile(profile));
   }
 
   render() {
     const { userId, db } = this.props;
+
     return (
       <>
         <GlobalStyle />

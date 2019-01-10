@@ -38,31 +38,31 @@ type Props = {
   updateText: (string) => void,
 };
 
-const Field = (props: Props) => {
-  const field = `field-${props.label
+const Field = ({ type, label, text, updateText, ...props }: Props) => {
+  const field = `field-${label
     .split(' ')
     .join('-')
     .toLowerCase()}`;
 
   return (
     <Container {...props}>
-      <Label htmlFor={field}>{props.label}</Label>
+      <Label htmlFor={field}>{label}</Label>
 
-      {props.type === 'text' && (
+      {type === 'text' && (
         <Input
           type="text"
           id={field}
-          value={props.text}
-          onChange={(ev) => props.updateText(ev.target.value)}
+          value={text}
+          onChange={(ev) => updateText(ev.target.value)}
         />
       )}
 
-      {props.type === 'textarea' && (
+      {type === 'textarea' && (
         <Textarea
           rows={5}
           id={field}
-          value={props.text}
-          onChange={(ev) => props.updateText(ev.target.value)}
+          value={text}
+          onChange={(ev) => updateText(ev.target.value)}
         />
       )}
     </Container>

@@ -46,35 +46,35 @@ type Props = {
   updateBlockFieldText: (string, string, string) => void,
 };
 
-const Block = (props: Props) => (
+const Block = ({
+  id,
+  meta,
+  removeBlock,
+  updateBlockFieldText,
+  ...props
+}: Props) => (
   <Container {...props}>
     <Fields>
       {/* TODO: user, tags */}
       <Field
         type="text"
         label="Title"
-        text={props.meta.title}
-        updateText={(text) =>
-          props.updateBlockFieldText(props.id, 'meta.title', text)
-        }
+        text={meta.title}
+        updateText={(text) => updateBlockFieldText(id, 'meta.title', text)}
       />
 
       <Field
         type="text"
         label="Description"
-        text={props.meta.desc}
-        updateText={(text) =>
-          props.updateBlockFieldText(props.id, 'meta.desc', text)
-        }
+        text={meta.desc}
+        updateText={(text) => updateBlockFieldText(id, 'meta.desc', text)}
       />
 
       <Field
         type="textarea"
         label="Body"
         text={props.body}
-        updateText={(text) =>
-          props.updateBlockFieldText(props.id, 'body', text)
-        }
+        updateText={(text) => updateBlockFieldText(id, 'body', text)}
       />
     </Fields>
 
@@ -85,7 +85,7 @@ const Block = (props: Props) => (
         title="Remove Block"
         onClick={(ev) => {
           ev.preventDefault();
-          props.removeBlock(props.id);
+          removeBlock(id);
         }}
       />
     </Handle>

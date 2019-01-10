@@ -27,20 +27,27 @@ type Props = {
   setActiveProjectId: (string) => void,
 };
 
-const ProjectLibrary = (props: Props) => (
+const ProjectLibrary = ({
+  projects,
+  activeProjectId,
+  addProject,
+  removeProject,
+  setActiveProjectId,
+  ...props
+}: Props) => (
   <Container {...props}>
-    {props.projects.map((project) => (
+    {projects.map((project) => (
       <LibraryItem
         key={project.id}
         id={project.id}
         label="Project"
         title={project.meta.title}
         desc={project.meta.desc}
-        removeItem={props.removeProject}
-        setActiveItem={props.setActiveProjectId}
+        removeItem={removeProject}
+        setActiveItem={setActiveProjectId}
         style={{
           // active project gets highlighted border
-          borderColor: project.id === props.activeProjectId && '#360a80',
+          borderColor: project.id === activeProjectId && '#360a80',
         }}
       />
     ))}
@@ -51,7 +58,7 @@ const ProjectLibrary = (props: Props) => (
       title="Add Project"
       onClick={(ev) => {
         ev.preventDefault();
-        props.addProject();
+        addProject();
       }}
     />
   </Container>

@@ -64,54 +64,60 @@ type State = {
 };
 
 class Item extends React.Component<Props, State> {
-  showInfo: () => void;
-  hideInfo: () => void;
+  state = {
+    infoShown: false,
+  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
+  showInfo = () => {
+    // only show info if description is set
+    if (!this.props.desc) return;
+    this.setState((prevState) => ({
+      infoShown: true,
+    }));
+  };
+
+  hideInfo = () => {
+    this.setState((prevState) => ({
       infoShown: false,
-    };
-
-    this.showInfo = () => {
-      // only show info if description is set
-      if (!this.props.desc) return;
-      this.setState((prevState) => ({
-        infoShown: true,
-      }));
-    };
-
-    this.hideInfo = () => {
-      this.setState((prevState) => ({
-        infoShown: false,
-      }));
-    };
-  }
+    }));
+  };
 
   render() {
+    const {
+      id,
+      label,
+      title,
+      desc,
+      removeItem,
+      setActiveItem,
+      ...props
+    } = this.props;
+
+    const { infoShown } = this.state;
+
     return (
       <Container
-        {...this.props}
+        {...props}
         // TODO: re-evaluate when to show and hide info
         // onMouseEnter={(ev) => this.showInfo()}
         // onMouseLeave={(ev) => this.hideInfo()}
-        onClick={(ev) => this.props.setActiveItem(this.props.id)}
+        onClick={(ev) => setActiveItem(id)}
       >
         <Handle>
           <RemoveButton
             text="–"
             href=""
-            title={`Remove ${this.props.label}`}
+            title={`Remove ${label}`}
             onClick={(ev) => {
               ev.preventDefault();
-              this.props.removeItem(this.props.id);
+              removeItem(id);
             }}
           />
         </Handle>
         <Text>
-          <Title>{this.props.title === '' ? '\u00A0' : this.props.title}</Title>
+          <Title>{title === '' ? '\u00A0' : title}</Title>
 
-          {this.state.infoShown && <Paragraph>{this.props.desc}</Paragraph>}
+          {infoShown && <Paragraph>{desc}</Paragraph>}
         </Text>
       </Container>
     );

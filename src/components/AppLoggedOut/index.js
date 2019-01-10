@@ -21,7 +21,7 @@ const Paragraph = styled.p`
 // --- components
 type Props = {};
 
-const AppLoggedOut = (props: Props) => (
+const AppLoggedOut = ({ ...props }: Props) => (
   <Container {...props}>
     <Header>
       <Heading>Polyhedron</Heading>

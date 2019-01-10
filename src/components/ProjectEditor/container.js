@@ -5,7 +5,7 @@ import { BlocksContext } from 'contexts/blocks';
 // components
 import ProjectEditor from './index.js';
 
-const ProjectEditorContainer = (props) => (
+const ProjectEditorContainer = ({ ...props }) => (
   <ProjectsContext.Consumer>
     {({
       projects,

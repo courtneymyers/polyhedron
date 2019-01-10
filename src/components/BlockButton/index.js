@@ -29,6 +29,8 @@ type Props = {
   text: string,
 };
 
-const BlockButton = (props: Props) => <Button {...props}>{props.text}</Button>;
+const BlockButton = ({ ...props }: Props) => (
+  <Button {...props}>{props.text}</Button>
+);
 
 export default BlockButton;

@@ -17,7 +17,7 @@ type Props = {
   ...RouteProps,
 };
 
-const AuthCallback = (props: Props) => (
+const AuthCallback = ({ ...props }: Props) => (
   <>
     {handleAuthentication(props.location)}
     <p>Authenticating...</p>
