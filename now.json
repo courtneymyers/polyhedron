@@ -4,6 +4,7 @@
   "alias": "polyhedron.app",
   "build": {
     "env": {
+      "NODE_PATH": "src",
       "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
       "REACT_APP_FIREBASE_PROJECT_ID": "@polyhedron-firebase-project-id",
       "REACT_APP_FIREBASE_MESSAGING_ID": "@polyhedron-firebase-messaging-id",
@@ -17,15 +18,40 @@
     {
       "src": "package.json",
       "use": "@now/static-build",
-      "config": {
-        "useBuildUtils": "@now/build-utils@canary"
-      }
+      "config": { "distDir": "build" }
     }
   ],
   "routes": [
-    { "src": "^/static/(.*)", "dest": "/static/$1" },
-    { "src": "^/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "^/manifest.json", "dest": "/manifest.json" },
-    { "src": "^/(.*)", "dest": "/index.html" }
+    {
+      "src": "^/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/asset-manifest.json",
+      "dest": "/asset-manifest.json"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "^/precache-manifest.(.*)",
+      "dest": "/precache-manifest.$1"
+    },
+    {
+      "src": "^/service-worker.js",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/service-worker.js"
+    },
+    {
+      "src": "^/(.*)",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/index.html"
+    }
   ]
 }
