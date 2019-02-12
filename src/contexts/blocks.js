@@ -52,7 +52,7 @@ export class BlocksProvider extends React.Component<Props, State> {
     },
   };
 
-  //
+  // firebase db reference to user's blocks
   dbBlocks: Object = firebase
     .database()
     .ref(`version/${version}/users/${this.props.userId}`)

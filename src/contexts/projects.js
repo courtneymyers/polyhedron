@@ -10,7 +10,7 @@ import { setKeyValue } from 'utilities';
 import firebase, { version } from 'databases/firebase.js';
 
 // --- contexts
-export const ProjectsContext = React.createContext();
+export const ProjectsContext: any = React.createContext();
 
 // --- components
 type Props = {|
@@ -20,262 +20,307 @@ type Props = {|
   userId: ?string,
 |};
 
-type ProjectMeta = {|
-  time: number,
-  title: string,
-  desc: string,
-|};
-
 export type ProjectProps = {|
   id: string,
-  meta: ProjectMeta,
+  meta: {|
+    time: number,
+    title: string,
+    desc: string,
+  |},
   blockIds: Array<string>,
 |};
 
 type State = {|
   projects: Array<ProjectProps>,
   activeProjectId: string,
+  addProject: () => void,
+  removeProject: (projectId: string) => void,
+  updateProjectFieldText: (
+    projectId: string,
+    field: string,
+    text: string,
+  ) => void,
+  setActiveProjectId: (projectId: string) => void,
+  addBlockIdToProject: (
+    projectId: string,
+    blockId: string,
+    toIndex: ?number,
+  ) => void,
+  removeBlockIdFromProject: (projectId: string, blockId: string) => void,
+  removeBlockIdFromAllProjects: (blockId: string) => void,
+  reorderBlocksInProject: (
+    projectId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => void,
 |};
 
 export class ProjectsProvider extends React.Component<Props, State> {
-  dbProjects: Object; // firebase db reference to user's projects
-  dbActiveProject: Object; // firebase db reference to user's active project
-  addProject: () => void;
-  removeProject: (string) => void;
-  updateProjectFieldText: (string, string, string) => void;
-  setActiveProjectId: (string) => void;
-  addBlockIdToProject: (string, string, ?number) => void;
-  removeBlockIdFromProject: (string, string) => void;
-  removeBlockIdFromAllProjects: (string) => void;
-  reorderBlocksInProject: (string, number, number) => void;
+  state: State = {
+    projects: [],
+    activeProjectId: '',
+    addProject: () => {
+      return this.addProject();
+    },
+    removeProject: (projectId) => {
+      return this.removeProject(projectId);
+    },
+    updateProjectFieldText: (projectId, field, text) => {
+      return this.updateProjectFieldText(projectId, field, text);
+    },
+    setActiveProjectId: (projectId) => {
+      return this.setActiveProjectId(projectId);
+    },
+    addBlockIdToProject: (projectId, blockId, toIndex) => {
+      return this.addBlockIdToProject(projectId, blockId, toIndex);
+    },
+    removeBlockIdFromProject: (projectId, blockId) => {
+      return this.removeBlockIdFromProject(projectId, blockId);
+    },
+    removeBlockIdFromAllProjects: (blockId) => {
+      return this.removeBlockIdFromAllProjects(blockId);
+    },
+    reorderBlocksInProject: (projectId, fromIndex, toIndex) => {
+      return this.reorderBlocksInProject(projectId, fromIndex, toIndex);
+    },
+  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      projects: [],
-      activeProjectId: '',
-    };
+  // firebase db reference to user
+  dbUserRef: Object = firebase
+    .database()
+    .ref(`version/${version}/users/${this.props.userId}`);
+  // firebase db reference to user's projects
+  dbProjects: Object = this.dbUserRef.child('projects');
+  // firebase db reference to user's active project
+  dbActiveProject: Object = this.dbUserRef.child('activeProject');
 
-    const dbUserPath = `version/${version}/users/${this.props.userId}`;
-    const dbUserRef = firebase.database().ref(dbUserPath);
+  addProject = () => {
+    const currentTime = new Date().getTime();
 
-    this.dbProjects = dbUserRef.child('projects');
-    this.dbActiveProject = dbUserRef.child('activeProject');
-
-    this.addProject = () => {
-      const currentTime = new Date().getTime();
-
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => ({
-          projects: prevState.projects.concat({
-            id: currentTime.toString(),
-            meta: {
-              time: currentTime,
-              title: '',
-              desc: '',
-            },
-            blockIds: [],
-          }),
-          activeProjectId: currentTime.toString(),
-        }));
-      }
-
-      if (this.props.db === 'firebase') {
-        const newProject = this.dbProjects.push({
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => ({
+        projects: prevState.projects.concat({
+          id: currentTime.toString(),
           meta: {
             time: currentTime,
             title: '',
             desc: '',
           },
-        });
+          blockIds: [],
+        }),
+        activeProjectId: currentTime.toString(),
+      }));
+    }
 
-        this.dbActiveProject.set(newProject.key);
-      }
-    };
+    if (this.props.db === 'firebase') {
+      const newProject = this.dbProjects.push({
+        meta: {
+          time: currentTime,
+          title: '',
+          desc: '',
+        },
+      });
 
-    this.removeProject = (projectId) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => ({
-          projects: prevState.projects.filter((p) => p.id !== projectId),
-        }));
-      }
+      this.dbActiveProject.set(newProject.key);
+    }
 
-      if (this.props.db === 'firebase') {
-        const dbProject = this.dbProjects.child(projectId);
-        dbProject.remove();
-      }
-    };
+    return;
+  };
 
-    this.updateProjectFieldText = (projectId, field, text) => {
-      const fields = field.split('.'); // 'meta.title' -> ['meta', 'title']
+  removeProject = (projectId: string) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => ({
+        projects: prevState.projects.filter((p) => p.id !== projectId),
+      }));
+    }
 
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => {
-          const projects = [...prevState.projects];
-          const project = projects.filter((p) => p.id === projectId)[0];
-          setKeyValue(project, fields, text);
+    if (this.props.db === 'firebase') {
+      const dbProject = this.dbProjects.child(projectId);
+      dbProject.remove();
+    }
 
-          return {
-            projects: projects,
-          };
-        });
-      }
+    return;
+  };
 
-      if (this.props.db === 'firebase') {
-        const path = fields.join('/'); // ['meta', 'title'] -> 'meta/title'
-        this.dbProjects.child(`${projectId}/${path}`).set(text);
-      }
-    };
+  updateProjectFieldText = (projectId: string, field: string, text: string) => {
+    const fields = field.split('.'); // 'meta.title' -> ['meta', 'title']
 
-    this.setActiveProjectId = (projectId) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => ({
-          activeProjectId: projectId,
-        }));
-      }
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        const project = projects.filter((p) => p.id === projectId)[0];
+        setKeyValue(project, fields, text);
 
-      if (this.props.db === 'firebase') {
-        this.dbActiveProject.set(projectId);
-      }
-    };
+        return {
+          projects: projects,
+        };
+      });
+    }
 
-    this.addBlockIdToProject = (projectId, blockId, toIndex) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => {
-          const projects = [...prevState.projects];
-          const project = projects.filter((p) => p.id === projectId)[0];
-          // if toIndex (third argument) isn't passed to method,
-          // set toIndex so block will be added to the end
-          if (!toIndex) toIndex = project.blockIds.length;
-          // insert block at toIndex
-          project.blockIds.splice(toIndex, 0, blockId);
+    if (this.props.db === 'firebase') {
+      const path = fields.join('/'); // ['meta', 'title'] -> 'meta/title'
+      this.dbProjects.child(`${projectId}/${path}`).set(text);
+    }
 
-          return {
-            projects: projects,
-          };
-        });
-      }
+    return;
+  };
 
-      if (this.props.db === 'firebase') {
-        const dbBlockIds = this.dbProjects.child(`${projectId}/blockIds`);
-        // add blockId to the end of the project's blockIds array
-        dbBlockIds.push(blockId);
-        // if toIndex (third argument) isn't passed to method, we're done
-        // else, we need to re-order the project's blockIds
-        if (toIndex === undefined) return;
-        // firebase stores everything as objects, so we need to convert the
-        // blockIds data back to an array by iterating over each object's key
-        // (blockIdsKey below is the key auto-generated by firebase)
-        let blockIdsArray = [];
-        dbBlockIds.on('value', (snapshot) => {
-          const blockIds = snapshot.val();
-          for (let blockIdsKey in blockIds) {
-            blockIdsArray.push(blockIds[blockIdsKey]);
-          }
-        });
-        // null/undefined check for flow (toIndex will always be a number here)
-        if (toIndex !== null && toIndex !== undefined) {
-          // remove blockId from end, and re-insert back at toIndex
-          blockIdsArray.splice(-1, 1);
-          blockIdsArray.splice(toIndex, 0, blockId);
+  setActiveProjectId = (projectId: string) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => ({
+        activeProjectId: projectId,
+      }));
+    }
+
+    if (this.props.db === 'firebase') {
+      this.dbActiveProject.set(projectId);
+    }
+
+    return;
+  };
+
+  addBlockIdToProject = (
+    projectId: string,
+    blockId: string,
+    toIndex: ?number,
+  ) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        const project = projects.filter((p) => p.id === projectId)[0];
+        // if toIndex (third argument) isn't passed to method,
+        // set toIndex so block will be added to the end
+        if (!toIndex) toIndex = project.blockIds.length;
+        // insert block at toIndex
+        project.blockIds.splice(toIndex, 0, blockId);
+
+        return {
+          projects: projects,
+        };
+      });
+    }
+
+    if (this.props.db === 'firebase') {
+      const dbBlockIds = this.dbProjects.child(`${projectId}/blockIds`);
+      // add blockId to the end of the project's blockIds array
+      dbBlockIds.push(blockId);
+      // if toIndex (third argument) isn't passed to method, we're done
+      // else, we need to re-order the project's blockIds
+      if (toIndex === undefined) return;
+      // firebase stores everything as objects, so we need to convert the
+      // blockIds data back to an array by iterating over each object's key
+      // (blockIdsKey below is the key auto-generated by firebase)
+      let blockIdsArray = [];
+      dbBlockIds.on('value', (snapshot) => {
+        const blockIds = snapshot.val();
+        for (let blockIdsKey in blockIds) {
+          blockIdsArray.push(blockIds[blockIdsKey]);
         }
-        // store re-ordered blockIds in firebase
-        dbBlockIds.remove();
-        blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId));
+      });
+      // null/undefined check for flow (toIndex will always be a number here)
+      if (toIndex !== null && toIndex !== undefined) {
+        // remove blockId from end, and re-insert back at toIndex
+        blockIdsArray.splice(-1, 1);
+        blockIdsArray.splice(toIndex, 0, blockId);
       }
-    };
+      // store re-ordered blockIds in firebase
+      dbBlockIds.remove();
+      blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId));
+    }
+  };
 
-    this.removeBlockIdFromProject = (projectId, blockId) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => {
-          const projects = [...prevState.projects];
-          const project = projects.filter((p) => p.id === projectId)[0];
-          const updatedBlockIds = project.blockIds.filter(
-            (id) => id !== blockId,
-          );
-          project.blockIds = updatedBlockIds;
+  removeBlockIdFromProject = (projectId: string, blockId: string) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        const project = projects.filter((p) => p.id === projectId)[0];
+        const updatedBlockIds = project.blockIds.filter((id) => id !== blockId);
+        project.blockIds = updatedBlockIds;
 
-          return {
-            projects: projects,
-          };
+        return {
+          projects: projects,
+        };
+      });
+    }
+
+    if (this.props.db === 'firebase') {
+      this.dbProjects
+        .child(`${projectId}/blockIds`)
+        .orderByValue()
+        .equalTo(blockId)
+        .once('child_added', (snapshot) => {
+          snapshot.ref.remove();
         });
-      }
+    }
+  };
 
-      if (this.props.db === 'firebase') {
+  removeBlockIdFromAllProjects = (blockId: string) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        projects.map((project) => {
+          project.blockIds = project.blockIds.filter((id) => id !== blockId);
+          return project;
+        });
+
+        return {
+          projects: projects,
+        };
+      });
+    }
+
+    if (this.props.db === 'firebase') {
+      this.state.projects.forEach((project) => {
         this.dbProjects
-          .child(`${projectId}/blockIds`)
+          .child(`${project.id}/blockIds`)
           .orderByValue()
           .equalTo(blockId)
           .once('child_added', (snapshot) => {
             snapshot.ref.remove();
           });
-      }
-    };
+      });
+    }
+  };
 
-    this.removeBlockIdFromAllProjects = (blockId) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => {
-          const projects = [...prevState.projects];
-          projects.map((project) => {
-            project.blockIds = project.blockIds.filter((id) => id !== blockId);
-            return project;
-          });
-
-          return {
-            projects: projects,
-          };
-        });
-      }
-
-      if (this.props.db === 'firebase') {
-        this.state.projects.forEach((project) => {
-          this.dbProjects
-            .child(`${project.id}/blockIds`)
-            .orderByValue()
-            .equalTo(blockId)
-            .once('child_added', (snapshot) => {
-              snapshot.ref.remove();
-            });
-        });
-      }
-    };
-
-    this.reorderBlocksInProject = (projectId, fromIndex, toIndex) => {
-      if (this.props.db === 'memory') {
-        this.setState((prevState) => {
-          const projects = [...prevState.projects];
-          const project = projects.filter((p) => p.id === projectId)[0];
-          // remove block at fromIndex, and re-insert back at toIndex
-          const blockId = project.blockIds.splice(fromIndex, 1)[0];
-          project.blockIds.splice(toIndex, 0, blockId);
-
-          return {
-            projects: projects,
-          };
-        });
-      }
-
-      if (this.props.db === 'firebase') {
-        const dbBlockIds = this.dbProjects.child(`${projectId}/blockIds`);
-        // firebase stores everything as objects, so we need to convert the
-        // blockIds data back to an array by iterating over each object's key
-        // (blockIdsKey below is the key auto-generated by firebase)
-        let blockIdsArray = [];
-        dbBlockIds.on('value', (snapshot) => {
-          const blockIds = snapshot.val();
-          for (let blockIdsKey in blockIds) {
-            blockIdsArray.push(blockIds[blockIdsKey]);
-          }
-        });
+  reorderBlocksInProject = (
+    projectId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => {
+    if (this.props.db === 'memory') {
+      this.setState((prevState) => {
+        const projects = [...prevState.projects];
+        const project = projects.filter((p) => p.id === projectId)[0];
         // remove block at fromIndex, and re-insert back at toIndex
-        const blockId = blockIdsArray.splice(fromIndex, 1)[0];
-        blockIdsArray.splice(toIndex, 0, blockId);
-        // store re-ordered blockIds in firebase
-        dbBlockIds.remove();
-        blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId));
-      }
-    };
-  }
+        const blockId = project.blockIds.splice(fromIndex, 1)[0];
+        project.blockIds.splice(toIndex, 0, blockId);
+
+        return {
+          projects: projects,
+        };
+      });
+    }
+
+    if (this.props.db === 'firebase') {
+      const dbBlockIds = this.dbProjects.child(`${projectId}/blockIds`);
+      // firebase stores everything as objects, so we need to convert the
+      // blockIds data back to an array by iterating over each object's key
+      // (blockIdsKey below is the key auto-generated by firebase)
+      let blockIdsArray = [];
+      dbBlockIds.on('value', (snapshot) => {
+        const blockIds = snapshot.val();
+        for (let blockIdsKey in blockIds) {
+          blockIdsArray.push(blockIds[blockIdsKey]);
+        }
+      });
+      // remove block at fromIndex, and re-insert back at toIndex
+      const blockId = blockIdsArray.splice(fromIndex, 1)[0];
+      blockIdsArray.splice(toIndex, 0, blockId);
+      // store re-ordered blockIds in firebase
+      dbBlockIds.remove();
+      blockIdsArray.forEach((blockId) => dbBlockIds.push(blockId));
+    }
+  };
 
   componentDidMount() {
     if (this.props.db === 'firebase') {
@@ -317,19 +362,7 @@ export class ProjectsProvider extends React.Component<Props, State> {
 
   render() {
     return (
-      <ProjectsContext.Provider
-        value={{
-          ...this.state,
-          addProject: this.addProject,
-          removeProject: this.removeProject,
-          updateProjectFieldText: this.updateProjectFieldText,
-          setActiveProjectId: this.setActiveProjectId,
-          addBlockIdToProject: this.addBlockIdToProject,
-          removeBlockIdFromProject: this.removeBlockIdFromProject,
-          removeBlockIdFromAllProjects: this.removeBlockIdFromAllProjects,
-          reorderBlocksInProject: this.reorderBlocksInProject,
-        }}
-      >
+      <ProjectsContext.Provider value={this.state}>
         {this.props.children}
       </ProjectsContext.Provider>
     );
