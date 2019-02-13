@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import type { RouteProps } from '@reach/router';
 // contexts
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
@@ -30,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 export type Database = 'memory' | 'firebase';
 
 type Props = {
+  ...RouteProps,
   db: Database,
   // context props
   userId: string,
@@ -39,25 +41,18 @@ type Props = {
 type State = {};
 
 class App extends React.Component<Props, State> {
-  auth: Object; // auth0 authentication class instance
-  authMgt: Object; // auth0 management class instance
+  auth = new AuthClient();
+  authMgt = new MgtClient();
 
-  constructor(props: Props) {
-    super(props);
-    this.auth = new AuthClient();
-    this.authMgt = new MgtClient();
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.authMgt.getAccessToken();
 
-    this.auth.getProfile((profile) => {
-      this.props.storeUserProfile(profile);
-    });
+    this.auth.getProfile((profile) => this.props.storeUserProfile(profile));
   }
 
   render() {
     const { userId, db } = this.props;
+
     return (
       <>
         <GlobalStyle />

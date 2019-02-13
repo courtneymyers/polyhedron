@@ -4,7 +4,7 @@ import { ProjectsContext } from 'contexts/projects';
 // components
 import ProjectLibrary from './index.js';
 
-const ProjectLibraryContainer = (props) => (
+const ProjectLibraryContainer = ({ ...props }) => (
   <ProjectsContext.Consumer>
     {({
       projects,

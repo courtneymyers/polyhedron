@@ -5,7 +5,7 @@ import { BlocksContext } from 'contexts/blocks';
 // components
 import ProjectPreview from './index.js';
 
-const ProjectPreviewContainer = (props) => (
+const ProjectPreviewContainer = ({ ...props }) => (
   <ProjectsContext.Consumer>
     {({ projects, activeProjectId }) => (
       <BlocksContext.Consumer>

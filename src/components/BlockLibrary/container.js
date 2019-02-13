@@ -5,7 +5,7 @@ import { ProjectsContext } from 'contexts/projects';
 // components
 import BlockLibrary from './index.js';
 
-const BlockLibraryContainer = (props) => (
+const BlockLibraryContainer = ({ ...props }) => (
   <BlocksContext.Consumer>
     {({ blocks, removeBlock }) => (
       <ProjectsContext.Consumer>

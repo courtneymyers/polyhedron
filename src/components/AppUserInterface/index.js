@@ -121,32 +121,28 @@ type State = {
 };
 
 class AppUserInterface extends React.Component<Props, State> {
-  toggleLeftPanel: () => void;
-  toggleRightPanel: () => void;
+  state = {
+    leftPanelShown: true,
+    rightPanelShown: true,
+  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      leftPanelShown: true,
-      rightPanelShown: true,
-    };
+  toggleLeftPanel = () => {
+    this.setState((prevState) => ({
+      leftPanelShown: !prevState.leftPanelShown,
+    }));
+  };
 
-    this.toggleLeftPanel = () => {
-      this.setState((prevState) => ({
-        leftPanelShown: !prevState.leftPanelShown,
-      }));
-    };
-
-    this.toggleRightPanel = () => {
-      this.setState((prevState) => ({
-        rightPanelShown: !prevState.rightPanelShown,
-      }));
-    };
-  }
+  toggleRightPanel = () => {
+    this.setState((prevState) => ({
+      rightPanelShown: !prevState.rightPanelShown,
+    }));
+  };
 
   render() {
+    const { ...props } = this.props;
+
     return (
-      <Container {...this.props}>
+      <Container {...props}>
         <Header>
           <ToggleButton
             text="☰"

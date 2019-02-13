@@ -5,7 +5,7 @@ import React from 'react';
 import type { Node } from 'react';
 
 // --- contexts
-export const UserContext = React.createContext();
+export const UserContext: any = React.createContext();
 
 // --- components
 type Props = {|
@@ -22,28 +22,26 @@ export type Profile = {|
 
 type State = {|
   userProfile: ?Profile,
+  storeUserProfile: (profile: Profile) => void,
 |};
 
 export class UserProvider extends React.Component<Props, State> {
-  storeUserProfile: (profile: Profile) => void;
+  state: State = {
+    userProfile: null,
+    storeUserProfile: (profile) => {
+      return this.storeUserProfile(profile);
+    },
+  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = { userProfile: null };
+  storeUserProfile = (profile: Profile) => {
+    this.setState({ userProfile: profile });
 
-    this.storeUserProfile = (profile) => {
-      this.setState({ userProfile: profile });
-    };
-  }
+    return;
+  };
 
   render() {
     return (
-      <UserContext.Provider
-        value={{
-          ...this.state,
-          storeUserProfile: this.storeUserProfile,
-        }}
-      >
+      <UserContext.Provider value={this.state}>
         {this.props.children}
       </UserContext.Provider>
     );

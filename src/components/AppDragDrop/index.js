@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
 // components
 import AppUserInterface from 'components/AppUserInterface';
 // contexts

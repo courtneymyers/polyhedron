@@ -29,12 +29,17 @@ type Props = {
   removeBlockIdFromAllProjects: (string) => void,
 };
 
-const BlockLibrary = (props: Props) => (
+const BlockLibrary = ({
+  blocks,
+  removeBlock,
+  removeBlockIdFromAllProjects,
+  ...props
+}: Props) => (
   <Container {...props}>
     <Droppable droppableId={`block-library`} isDropDisabled>
       {(provided, snapshot) => (
         <DropContainer ref={provided.innerRef} {...provided.droppableProps}>
-          {props.blocks.map((block, index) => (
+          {blocks.map((block, index) => (
             <Draggable key={block.id} draggableId={block.id} index={index}>
               {(provided, snapshot) => (
                 <DragContainer
@@ -48,8 +53,8 @@ const BlockLibrary = (props: Props) => (
                     title={block.meta.title}
                     desc={block.meta.desc}
                     removeItem={(blockId) => {
-                      props.removeBlock(blockId);
-                      props.removeBlockIdFromAllProjects(blockId);
+                      removeBlock(blockId);
+                      removeBlockIdFromAllProjects(blockId);
                     }}
                     setActiveItem={(blockId) =>
                       console.log(`Block "${blockId}" clicked`)

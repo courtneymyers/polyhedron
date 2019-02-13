@@ -4,7 +4,7 @@ import { UserProvider, UserContext } from 'contexts/user';
 // components
 import App from './index.js';
 
-const AppContainer = (props) => (
+const AppContainer = ({ ...props }) => (
   <UserProvider>
     <UserContext.Consumer>
       {({ userProfile, storeUserProfile }) => {

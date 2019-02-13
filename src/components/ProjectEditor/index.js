@@ -46,9 +46,16 @@ type Props = {
   addBlock: () => string,
 };
 
-const ProjectEditor = (props: Props) => {
+const ProjectEditor = ({
+  projects,
+  activeProjectId,
+  updateProjectFieldText,
+  addBlockIdToProject,
+  blocks,
+  addBlock,
+  ...props
+}: Props) => {
   // TODO: abstract the following 7 lines, as its also used in ProjectPreview
-  const { projects, activeProjectId, blocks } = props;
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project
     ? []
@@ -67,7 +74,7 @@ const ProjectEditor = (props: Props) => {
             label="Project Title"
             text={project.meta.title}
             updateText={(text) =>
-              props.updateProjectFieldText(project.id, 'meta.title', text)
+              updateProjectFieldText(project.id, 'meta.title', text)
             }
           />
 
@@ -76,7 +83,7 @@ const ProjectEditor = (props: Props) => {
             label="Project Description"
             text={project.meta.desc}
             updateText={(text) =>
-              props.updateProjectFieldText(project.id, 'meta.desc', text)
+              updateProjectFieldText(project.id, 'meta.desc', text)
             }
           />
 
@@ -90,8 +97,8 @@ const ProjectEditor = (props: Props) => {
             title="Add Block"
             onClick={(ev) => {
               ev.preventDefault();
-              const blockId = props.addBlock();
-              if (blockId) props.addBlockIdToProject(project.id, blockId);
+              const blockId = addBlock();
+              if (blockId) addBlockIdToProject(project.id, blockId);
             }}
           />
         </>
