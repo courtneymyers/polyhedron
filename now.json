@@ -1,9 +1,10 @@
 {
-  "version": 1,
+  "version": 2,
+  "name": "Polyhedron",
   "alias": "polyhedron.app",
-  "type": "static",
   "build": {
     "env": {
+      "NODE_PATH": "src",
       "REACT_APP_FIREBASE_API_KEY": "@polyhedron-firebase-api-key",
       "REACT_APP_FIREBASE_PROJECT_ID": "@polyhedron-firebase-project-id",
       "REACT_APP_FIREBASE_MESSAGING_ID": "@polyhedron-firebase-messaging-id",
@@ -13,18 +14,44 @@
       "REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET": "@polyhedron-auth0-mgt-client-secret"
     }
   },
-  "static": {
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "scale": {
-    "sfo1": {
-      "min": 1,
-      "max": 1
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "^/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/asset-manifest.json",
+      "dest": "/asset-manifest.json"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "^/precache-manifest.(.*)",
+      "dest": "/precache-manifest.$1"
+    },
+    {
+      "src": "^/service-worker.js",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/service-worker.js"
+    },
+    {
+      "src": "^/(.*)",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/index.html"
+    }
+  ]
 }
