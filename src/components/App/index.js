@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
     color: #444;
     background-color: #fff;
+    scroll-behavior: smooth;
   }
 `;
 
