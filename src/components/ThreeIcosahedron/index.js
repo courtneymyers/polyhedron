@@ -15,6 +15,8 @@ import {
 } from 'three';
 
 // --- components
+const headerHeight = 56;
+
 type Props = {};
 
 type State = {
@@ -39,7 +41,7 @@ class ThreeIcosahedron extends React.Component<Props, State> {
   setupRenderer() {
     const renderer = new WebGLRenderer({ antialias: true });
     renderer.setClearColor(0xefefef);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight - headerHeight);
 
     this.setState({ renderer }, this.setupScene());
   }
@@ -50,7 +52,7 @@ class ThreeIcosahedron extends React.Component<Props, State> {
 
   setupCamera() {
     const fov = 75; // vertical field of view in degrees
-    const aspectRatio = window.innerWidth / window.innerHeight;
+    const aspectRatio = window.innerWidth / (window.innerHeight - headerHeight);
     const nearPlane = 0.1;
     const farPlane = 1000;
     const camera = new PerspectiveCamera(fov, aspectRatio, nearPlane, farPlane);
@@ -132,8 +134,8 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     this.root.appendChild(renderer.domElement);
     // enable responsive renderer
     window.addEventListener('resize', function() {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
+      renderer.setSize(window.innerWidth, window.innerHeight - headerHeight);
+      camera.aspect = window.innerWidth / (window.innerHeight - headerHeight);
       camera.updateProjectionMatrix();
     });
     // start the animation loop
