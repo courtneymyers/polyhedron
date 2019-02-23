@@ -3,7 +3,7 @@
 import React from 'react';
 import type { RouteProps } from '@reach/router';
 // authentication
-import AuthClient from 'authentication/auth0-auth.js';
+import AuthClient from 'config/auth0-auth';
 
 const handleAuthentication = (location: Object) => {
   if (/access_token|id_token|error/.test(location.hash)) {

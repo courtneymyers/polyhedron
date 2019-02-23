@@ -10,8 +10,8 @@ import { BlocksProvider } from 'contexts/blocks';
 import AppDragDrop from 'components/AppDragDrop';
 import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
-import AuthClient from 'authentication/auth0-auth.js';
-import MgtClient from 'authentication/auth0-mgt.js';
+import AuthClient from 'config/auth0-auth';
+import MgtClient from 'config/auth0-mgt';
 // types
 import type { Profile } from 'contexts/user';
 

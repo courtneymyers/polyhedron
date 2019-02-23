@@ -6,7 +6,7 @@ import BlockButton from 'components/BlockButton';
 // contexts
 import { UserContext } from 'contexts/user';
 // authentication
-import AuthClient from 'authentication/auth0-auth.js';
+import AuthClient from 'config/auth0-auth';
 
 // --- components
 type Props = {};

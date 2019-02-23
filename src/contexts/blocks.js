@@ -7,7 +7,7 @@ import type { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
-import firebase, { version } from 'databases/firebase.js';
+import firebase, { version } from 'config/firebase';
 
 // --- contexts
 export const BlocksContext: any = React.createContext();
