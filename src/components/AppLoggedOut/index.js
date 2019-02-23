@@ -16,7 +16,6 @@ import {
 // --- styled components
 const LoggedOutHeader = styled(Header)`
   display: block;
-  position: relative;
 `;
 
 const LoginButton = styled(UserButton)`
