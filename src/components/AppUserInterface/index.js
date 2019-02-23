@@ -1,7 +1,8 @@
 // @flow
 
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled/macro';
+import { css } from '@emotion/core';
 // components
 import BlockButton from 'components/BlockButton';
 import UserLoginButton from 'components/UserLoginButton';

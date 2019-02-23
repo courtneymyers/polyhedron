@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled/macro';
 // types
 import type { ProjectProps } from 'contexts/projects';
 import type { BlockProps } from 'contexts/blocks';

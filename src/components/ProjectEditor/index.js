@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled/macro';
 // components
 import Field from 'components/Field';
 import ProjectBlocks from 'components/ProjectBlocks';
