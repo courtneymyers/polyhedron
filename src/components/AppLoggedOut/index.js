@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 // components
 import ThreeIcosahedron from 'components/ThreeIcosahedron';
 // styled components
@@ -12,15 +13,28 @@ import {
   Main,
 } from 'components/AppUserInterface';
 
+// --- styled components
+const LoggedOutHeader = styled(Header)`
+  display: block;
+  position: relative;
+`;
+
+const LoginButton = styled(UserButton)`
+  display: inline-block;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+`;
+
 // --- components
 type Props = {};
 
 const AppLoggedOut = ({ ...props }: Props) => (
   <Container {...props}>
-    <Header>
+    <LoggedOutHeader>
       <Heading>Polyhedron</Heading>
-      <UserButton />
-    </Header>
+      <LoginButton />
+    </LoggedOutHeader>
 
     <Main>
       <ThreeIcosahedron />
