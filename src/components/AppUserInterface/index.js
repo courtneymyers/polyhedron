@@ -1,14 +1,15 @@
 // @flow
 
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled/macro';
+import { css } from '@emotion/core';
 // components
 import BlockButton from 'components/BlockButton';
 import UserLoginButton from 'components/UserLoginButton';
-import ProjectLibrary from 'components/ProjectLibrary/container.js';
-import BlockLibrary from 'components/BlockLibrary/container.js';
-import ProjectEditor from 'components/ProjectEditor/container.js';
-import ProjectPreview from 'components/ProjectPreview/container.js';
+import ProjectLibrary from 'components/ProjectLibrary';
+import BlockLibrary from 'components/BlockLibrary';
+import ProjectEditor from 'components/ProjectEditor';
+import ProjectPreview from 'components/ProjectPreview';
 
 // --- styled components
 const buttonHeight = 1.5;

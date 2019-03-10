@@ -1,6 +1,6 @@
 // @flow
 
-import { redirectUri } from 'authentication/auth0-auth.js';
+import { redirectUri } from 'config/auth0-auth';
 const request = require('request');
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;

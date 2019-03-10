@@ -1,10 +1,12 @@
 // @flow
 
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
+// contexts
+import { BlocksContext } from 'contexts/blocks';
 // types
 import type { BlockProps } from 'contexts/blocks';
 
@@ -42,54 +44,50 @@ const RemoveButton = styled(BlockButton)`
 type Props = {
   ...BlockProps,
   removeBlock: (string) => void,
-  // context props
-  updateBlockFieldText: (string, string, string) => void,
 };
 
-const Block = ({
-  id,
-  meta,
-  removeBlock,
-  updateBlockFieldText,
-  ...props
-}: Props) => (
-  <Container {...props}>
-    <Fields>
-      {/* TODO: user, tags */}
-      <Field
-        type="text"
-        label="Title"
-        text={meta.title}
-        updateText={(text) => updateBlockFieldText(id, 'meta.title', text)}
-      />
+const Block = ({ id, meta, removeBlock, ...props }: Props) => {
+  const { updateBlockFieldText } = useContext(BlocksContext);
 
-      <Field
-        type="text"
-        label="Description"
-        text={meta.desc}
-        updateText={(text) => updateBlockFieldText(id, 'meta.desc', text)}
-      />
+  return (
+    <Container {...props}>
+      <Fields>
+        {/* TODO: user, tags */}
+        <Field
+          type="text"
+          label="Title"
+          text={meta.title}
+          updateText={(text) => updateBlockFieldText(id, 'meta.title', text)}
+        />
 
-      <Field
-        type="textarea"
-        label="Body"
-        text={props.body}
-        updateText={(text) => updateBlockFieldText(id, 'body', text)}
-      />
-    </Fields>
+        <Field
+          type="text"
+          label="Description"
+          text={meta.desc}
+          updateText={(text) => updateBlockFieldText(id, 'meta.desc', text)}
+        />
 
-    <Handle>
-      <RemoveButton
-        text="–"
-        href=""
-        title="Remove Block"
-        onClick={(ev) => {
-          ev.preventDefault();
-          removeBlock(id);
-        }}
-      />
-    </Handle>
-  </Container>
-);
+        <Field
+          type="textarea"
+          label="Body"
+          text={props.body}
+          updateText={(text) => updateBlockFieldText(id, 'body', text)}
+        />
+      </Fields>
+
+      <Handle>
+        <RemoveButton
+          text="–"
+          href=""
+          title="Remove Block"
+          onClick={(ev) => {
+            ev.preventDefault();
+            removeBlock(id);
+          }}
+        />
+      </Handle>
+    </Container>
+  );
+};
 
 export default Block;

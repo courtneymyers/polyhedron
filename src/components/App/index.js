@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import { Global, css } from '@emotion/core';
 import type { RouteProps } from '@reach/router';
 // contexts
 import { ProjectsProvider } from 'contexts/projects';
@@ -10,23 +10,10 @@ import { BlocksProvider } from 'contexts/blocks';
 import AppDragDrop from 'components/AppDragDrop';
 import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
-import AuthClient from 'authentication/auth0-auth.js';
-import MgtClient from 'authentication/auth0-mgt.js';
+import AuthClient from 'config/auth0-auth';
+import MgtClient from 'config/auth0-mgt';
 // types
 import type { Profile } from 'contexts/user';
-
-// --- styled components
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 1;
-    color: #444;
-    background-color: #fff;
-    scroll-behavior: smooth;
-  }
-`;
 
 // --- components
 export type Database = 'memory' | 'firebase';
@@ -56,7 +43,20 @@ class App extends React.Component<Props, State> {
 
     return (
       <>
-        <GlobalStyle />
+        <Global
+          styles={css`
+            body {
+              margin: 0;
+              font-family: sans-serif;
+              font-size: 16px;
+              line-height: 1;
+              color: #444;
+              background-color: #fff;
+              scroll-behavior: smooth;
+            }
+          `}
+        />
+
         {!userId ? (
           <AppLoggedOut />
         ) : (
