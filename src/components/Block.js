@@ -10,7 +10,6 @@ import { BlocksContext } from 'contexts/blocks';
 // types
 import type { BlockProps } from 'contexts/blocks';
 
-// --- styled components
 const Container = styled.div`
   display: flex;
   margin-top: 1rem;
@@ -36,17 +35,14 @@ const Handle = styled.div`
   /* cursor: move; */
 `;
 
-const RemoveButton = styled(BlockButton)`
-  /* */
-`;
+const RemoveButton = styled(BlockButton)``;
 
-// --- components
 type Props = {
   ...BlockProps,
   removeBlock: (string) => void,
 };
 
-const Block = ({ id, meta, removeBlock, ...props }: Props) => {
+function Block({ id, meta, body, removeBlock, ...props }: Props) {
   const { updateBlockFieldText } = useContext(BlocksContext);
 
   return (
@@ -70,7 +66,7 @@ const Block = ({ id, meta, removeBlock, ...props }: Props) => {
         <Field
           type="textarea"
           label="Body"
-          text={props.body}
+          text={body}
           updateText={(text) => updateBlockFieldText(id, 'body', text)}
         />
       </Fields>
@@ -88,6 +84,6 @@ const Block = ({ id, meta, removeBlock, ...props }: Props) => {
       </Handle>
     </Container>
   );
-};
+}
 
 export default Block;

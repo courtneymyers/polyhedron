@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-// --- styled components
 const Container = styled.div`
   margin: 0.5rem;
 `;
@@ -30,7 +29,6 @@ const Input = styled.input`
 
 const Textarea = Input.withComponent('textarea');
 
-// --- components
 type Props = {
   type: 'text' | 'textarea',
   label: string,
@@ -38,7 +36,7 @@ type Props = {
   updateText: (string) => void,
 };
 
-const Field = ({ type, label, text, updateText, ...props }: Props) => {
+function Field({ type, label, text, updateText, ...props }: Props) {
   const field = `field-${label
     .split(' ')
     .join('-')
@@ -67,6 +65,6 @@ const Field = ({ type, label, text, updateText, ...props }: Props) => {
       )}
     </Container>
   );
-};
+}
 
 export default Field;

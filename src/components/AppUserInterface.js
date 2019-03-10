@@ -11,7 +11,6 @@ import BlockLibrary from 'components/BlockLibrary';
 import ProjectEditor from 'components/ProjectEditor';
 import ProjectPreview from 'components/ProjectPreview';
 
-// --- styled components
 const buttonHeight = 1.5;
 const headerPadding = 1;
 const headerHeight = buttonHeight + 2 * headerPadding;
@@ -113,9 +112,7 @@ const RightPanel = styled(Panel)`
   background-color: #e2ddef;
 `;
 
-// --- components
 type Props = {};
-
 type State = {
   leftPanelShown: boolean,
   rightPanelShown: boolean,

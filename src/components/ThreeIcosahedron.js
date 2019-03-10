@@ -18,7 +18,6 @@ import {
 const headerHeight = 56;
 
 type Props = {};
-
 type State = {
   renderer: any,
   scene: any,

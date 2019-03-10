@@ -6,7 +6,6 @@ import styled from '@emotion/styled/macro';
 import { ProjectsContext } from 'contexts/projects';
 import { BlocksContext } from 'contexts/blocks';
 
-// --- styled components
 const Container = styled.div`
   background-color: white;
   padding: 1rem;
@@ -23,10 +22,7 @@ const Container = styled.div`
   }
 `;
 
-// --- components
-type Props = {};
-
-const ProjectPreview = ({ ...props }: Props) => {
+function ProjectPreview() {
   const { projects, activeProjectId } = useContext(ProjectsContext);
   const { blocks } = useContext(BlocksContext);
 
@@ -48,6 +44,6 @@ const ProjectPreview = ({ ...props }: Props) => {
       ))}
     </Container>
   );
-};
+}
 
 export default ProjectPreview;

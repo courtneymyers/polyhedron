@@ -15,7 +15,6 @@ import MgtClient from 'config/auth0-mgt';
 // types
 import type { Profile } from 'contexts/user';
 
-// --- components
 export type Database = 'memory' | 'firebase';
 
 type Props = {
@@ -25,7 +24,6 @@ type Props = {
   userId: string,
   storeUserProfile: (Profile) => void,
 };
-
 type State = {};
 
 class App extends React.Component<Props, State> {
@@ -34,7 +32,6 @@ class App extends React.Component<Props, State> {
 
   componentDidMount() {
     this.authMgt.getAccessToken();
-
     this.auth.getProfile((profile) => this.props.storeUserProfile(profile));
   }
 

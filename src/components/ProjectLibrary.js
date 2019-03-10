@@ -8,19 +8,13 @@ import LibraryItem from 'components/LibraryItem';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
 
-// --- styled components
-const Container = styled.div`
-  /* */
-`;
+const Container = styled.div``;
 
 const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
 
-// --- components
-type Props = {};
-
-const ProjectLibrary = ({ ...props }: Props) => {
+function ProjectLibrary() {
   const {
     projects,
     activeProjectId,
@@ -30,7 +24,7 @@ const ProjectLibrary = ({ ...props }: Props) => {
   } = useContext(ProjectsContext);
 
   return (
-    <Container {...props}>
+    <Container>
       {projects.map((project) => (
         <LibraryItem
           key={project.id}
@@ -58,6 +52,6 @@ const ProjectLibrary = ({ ...props }: Props) => {
       />
     </Container>
   );
-};
+}
 
 export default ProjectLibrary;

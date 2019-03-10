@@ -6,13 +6,13 @@ import { Router } from '@reach/router';
 import App from 'components/App/container.js';
 import AuthCallback from 'components/AuthCallback';
 
-type Props = {};
-
-const Routes = ({ ...props }: Props) => (
-  <Router>
-    <App path="/" db="firebase" />
-    <AuthCallback path="auth" />
-  </Router>
-);
+function Routes() {
+  return (
+    <Router>
+      <App path="/" db="firebase" />
+      <AuthCallback path="auth" />
+    </Router>
+  );
+}
 
 export default Routes;

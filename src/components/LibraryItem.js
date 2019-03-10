@@ -5,7 +5,6 @@ import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
 
-// --- styled components
 const Container = styled.div`
   display: flex;
   border: 3px solid #e2ddef;
@@ -22,9 +21,7 @@ const Handle = styled.div`
   background-color: #ccbee4;
 `;
 
-const RemoveButton = styled(BlockButton)`
-  /* */
-`;
+const RemoveButton = styled(BlockButton)``;
 
 const Text = styled.div`
   flex-grow: 1;
@@ -49,7 +46,6 @@ const Title = styled(Paragraph)`
   color: #360a80;
 `;
 
-// --- components
 type Props = {
   id: string,
   label: string,
@@ -58,7 +54,6 @@ type Props = {
   removeItem: (string) => void,
   setActiveItem: (string) => void,
 };
-
 type State = {
   infoShown: boolean,
 };
