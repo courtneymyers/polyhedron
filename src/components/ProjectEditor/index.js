@@ -1,14 +1,14 @@
 // @flow
 
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import Field from 'components/Field';
 import ProjectBlocks from 'components/ProjectBlocks';
 import BlockButton from 'components/BlockButton';
-// types
-import type { ProjectProps } from 'contexts/projects';
-import type { BlockProps } from 'contexts/blocks';
+// contexts
+import { ProjectsContext } from 'contexts/projects';
+import { BlocksContext } from 'contexts/blocks';
 
 // --- styled components
 const ProjectField = styled(Field)`
@@ -36,25 +36,18 @@ const AddButton = styled(BlockButton)`
 `;
 
 // --- components
-type Props = {
-  // context props
-  projects: Array<ProjectProps>,
-  activeProjectId: string,
-  updateProjectFieldText: (string, string, string) => void,
-  addBlockIdToProject: (string, string, ?number) => void,
-  blocks: Array<BlockProps>,
-  addBlock: () => string,
-};
+type Props = {};
 
-const ProjectEditor = ({
-  projects,
-  activeProjectId,
-  updateProjectFieldText,
-  addBlockIdToProject,
-  blocks,
-  addBlock,
-  ...props
-}: Props) => {
+const ProjectEditor = ({ ...props }: Props) => {
+  const {
+    projects,
+    activeProjectId,
+    updateProjectFieldText,
+    addBlockIdToProject,
+  } = useContext(ProjectsContext);
+
+  const { blocks, addBlock } = useContext(BlocksContext);
+
   // TODO: abstract the following 7 lines, as its also used in ProjectPreview
   const project = projects.filter((p) => p.id === activeProjectId)[0];
   const projectBlocks = !project

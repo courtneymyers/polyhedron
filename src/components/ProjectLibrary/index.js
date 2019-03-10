@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
 import LibraryItem from 'components/LibraryItem';
-// types
-import type { ProjectProps } from 'contexts/projects';
+// contexts
+import { ProjectsContext } from 'contexts/projects';
 
 // --- styled components
 const Container = styled.div`
@@ -18,50 +18,46 @@ const AddButton = styled(BlockButton)`
 `;
 
 // --- components
-type Props = {
-  // context props
-  projects: Array<ProjectProps>,
-  activeProjectId: string,
-  addProject: () => void,
-  removeProject: (string) => void,
-  setActiveProjectId: (string) => void,
-};
+type Props = {};
 
-const ProjectLibrary = ({
-  projects,
-  activeProjectId,
-  addProject,
-  removeProject,
-  setActiveProjectId,
-  ...props
-}: Props) => (
-  <Container {...props}>
-    {projects.map((project) => (
-      <LibraryItem
-        key={project.id}
-        id={project.id}
-        label="Project"
-        title={project.meta.title}
-        desc={project.meta.desc}
-        removeItem={removeProject}
-        setActiveItem={setActiveProjectId}
-        style={{
-          // active project gets highlighted border
-          borderColor: project.id === activeProjectId && '#360a80',
+const ProjectLibrary = ({ ...props }: Props) => {
+  const {
+    projects,
+    activeProjectId,
+    addProject,
+    removeProject,
+    setActiveProjectId,
+  } = useContext(ProjectsContext);
+
+  return (
+    <Container {...props}>
+      {projects.map((project) => (
+        <LibraryItem
+          key={project.id}
+          id={project.id}
+          label="Project"
+          title={project.meta.title}
+          desc={project.meta.desc}
+          removeItem={removeProject}
+          setActiveItem={setActiveProjectId}
+          style={{
+            // active project gets highlighted border
+            borderColor: project.id === activeProjectId && '#360a80',
+          }}
+        />
+      ))}
+
+      <AddButton
+        text="+"
+        href=""
+        title="Add Project"
+        onClick={(ev) => {
+          ev.preventDefault();
+          addProject();
         }}
       />
-    ))}
-
-    <AddButton
-      text="+"
-      href=""
-      title="Add Project"
-      onClick={(ev) => {
-        ev.preventDefault();
-        addProject();
-      }}
-    />
-  </Container>
-);
+    </Container>
+  );
+};
 
 export default ProjectLibrary;
