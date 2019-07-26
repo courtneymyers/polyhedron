@@ -3,23 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "10.0.7",
-    "@emotion/styled": "10.0.7",
+    "@emotion/core": "10.0.14",
+    "@emotion/styled": "10.0.14",
     "@reach/router": "1.2.1",
-    "auth0-js": "9.10.0",
-    "firebase": "5.8.4",
-    "react": "16.8.3",
-    "react-beautiful-dnd": "10.0.4",
-    "react-dom": "16.8.3",
-    "react-scripts": "2.1.5",
+    "auth0-js": "9.11.2",
+    "firebase": "6.3.2",
+    "react": "16.8.6",
+    "react-beautiful-dnd": "11.0.5",
+    "react-dom": "16.8.6",
+    "react-scripts": "3.0.1",
     "request": "2.88.0",
-    "three": "0.101.1"
+    "three": "0.106.2"
   },
   "devDependencies": {
-    "flow-bin": "0.93.0",
-    "husky": "1.3.1",
-    "lint-staged": "8.1.4",
-    "prettier": "1.16.4"
+    "flow-bin": "0.103.0",
+    "husky": "3.0.1",
+    "lint-staged": "9.2.1",
+    "prettier": "1.18.2"
   },
   "husky": {
     "hooks": {
@@ -40,10 +40,16 @@
     "flow": "flow",
     "now-build": "react-scripts build"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
