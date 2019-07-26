@@ -3,7 +3,7 @@
 import React from 'react';
 import { Router } from '@reach/router';
 // components
-import App from 'components/App/container.js';
+import App from 'components/App';
 import AuthCallback from 'components/AuthCallback';
 
 function Routes() {

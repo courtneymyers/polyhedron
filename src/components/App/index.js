@@ -4,6 +4,7 @@ import React from 'react';
 import { Global, css } from '@emotion/core';
 import type { RouteProps } from '@reach/router';
 // contexts
+import { UserProvider, UserContext } from 'contexts/user';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
@@ -21,7 +22,7 @@ type Props = {
   ...RouteProps,
   db: Database,
   // context props
-  userId: string,
+  userId: ?string,
   storeUserProfile: (Profile) => void,
 };
 type State = {};
@@ -68,4 +69,25 @@ class App extends React.Component<Props, State> {
   }
 }
 
-export default App;
+export default function AppContainer({ ...props }: Props) {
+  return (
+    <UserProvider>
+      <UserContext.Consumer>
+        {({ userProfile, storeUserProfile }) => {
+          // remove 'auth0|' prefix to set userId
+          const userId = userProfile
+            ? userProfile.sub.split('auth0|').pop()
+            : null;
+
+          return (
+            <App
+              {...props}
+              userId={userId}
+              storeUserProfile={storeUserProfile}
+            />
+          );
+        }}
+      </UserContext.Consumer>
+    </UserProvider>
+  );
+}
