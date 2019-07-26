@@ -8,7 +8,7 @@ const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const mgtClientId = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_ID;
 const mgtClientSecret = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET;
 
-export default class MgtClient {
+class MgtClient {
   getAccessToken: () => void;
   getCallbackUrls: (string) => void;
   addDomainToCallbackUrls: (string, Array<string>) => void;
@@ -77,3 +77,5 @@ export default class MgtClient {
     };
   }
 }
+
+export default MgtClient;

@@ -1,18 +1,15 @@
 // @flow
 
 import React from 'react';
-// types
 import type { Node } from 'react';
 
-// --- contexts
-export const UserContext: any = React.createContext();
+const UserContext: any = React.createContext();
 
-// --- components
 type Props = {|
   children: Node,
 |};
 
-export type Profile = {|
+type Profile = {|
   name: string,
   nickname: string,
   picture: string,
@@ -25,7 +22,7 @@ type State = {|
   storeUserProfile: (profile: Profile) => void,
 |};
 
-export class UserProvider extends React.Component<Props, State> {
+class UserProvider extends React.Component<Props, State> {
   state: State = {
     userProfile: null,
     storeUserProfile: (profile) => {
@@ -35,7 +32,6 @@ export class UserProvider extends React.Component<Props, State> {
 
   storeUserProfile = (profile: Profile) => {
     this.setState({ userProfile: profile });
-
     return;
   };
 
@@ -47,3 +43,6 @@ export class UserProvider extends React.Component<Props, State> {
     );
   }
 }
+
+export { UserContext, UserProvider };
+export type { Profile };

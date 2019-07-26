@@ -5,9 +5,9 @@ import { navigate } from '@reach/router';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-export const redirectUri = window.location.origin + '/auth';
+const redirectUri = window.location.origin + '/auth';
 
-export default class AuthClient {
+class AuthClient {
   login: () => void;
   logout: () => void;
   handleAuthentication: () => void;
@@ -75,3 +75,6 @@ export default class AuthClient {
     };
   }
 }
+
+export default AuthClient;
+export { redirectUri };
