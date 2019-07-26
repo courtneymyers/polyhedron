@@ -10,7 +10,6 @@ import BlockButton from 'components/BlockButton';
 import { ProjectsContext } from 'contexts/projects';
 import { BlocksContext } from 'contexts/blocks';
 
-// --- styled components
 const ProjectField = styled(Field)`
   margin: 1rem 0 0;
 
@@ -35,10 +34,7 @@ const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
 
-// --- components
-type Props = {};
-
-const ProjectEditor = ({ ...props }: Props) => {
+function ProjectEditor() {
   const {
     projects,
     activeProjectId,
@@ -98,6 +94,6 @@ const ProjectEditor = ({ ...props }: Props) => {
       )}
     </>
   );
-};
+}
 
 export default ProjectEditor;

@@ -8,7 +8,6 @@ import AppUserInterface from 'components/AppUserInterface';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
 
-// --- components
 type Props = {};
 type State = {};
 

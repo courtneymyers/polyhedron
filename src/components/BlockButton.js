@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-// --- styled components
 const Button = styled.a`
   display: block;
   width: 1.25rem;
@@ -24,13 +23,12 @@ const Button = styled.a`
   }
 `;
 
-// --- components
 type Props = {
   text: string,
 };
 
-const BlockButton = ({ ...props }: Props) => (
-  <Button {...props}>{props.text}</Button>
-);
+function BlockButton({ text, ...props }: Props) {
+  return <Button {...props}>{text}</Button>;
+}
 
 export default BlockButton;

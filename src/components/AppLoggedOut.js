@@ -13,7 +13,6 @@ import {
   Main,
 } from 'components/AppUserInterface';
 
-// --- styled components
 const LoggedOutHeader = styled(Header)`
   display: block;
 `;
@@ -25,20 +24,19 @@ const LoginButton = styled(UserButton)`
   right: 1rem;
 `;
 
-// --- components
-type Props = {};
+function AppLoggedOut() {
+  return (
+    <Container>
+      <LoggedOutHeader>
+        <Heading>Polyhedron</Heading>
+        <LoginButton />
+      </LoggedOutHeader>
 
-const AppLoggedOut = ({ ...props }: Props) => (
-  <Container {...props}>
-    <LoggedOutHeader>
-      <Heading>Polyhedron</Heading>
-      <LoginButton />
-    </LoggedOutHeader>
-
-    <Main>
-      <ThreeIcosahedron />
-    </Main>
-  </Container>
-);
+      <Main>
+        <ThreeIcosahedron />
+      </Main>
+    </Container>
+  );
+}
 
 export default AppLoggedOut;

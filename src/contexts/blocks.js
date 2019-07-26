@@ -1,18 +1,16 @@
 // @flow
 
 import React from 'react';
-// types
 import type { Node } from 'react';
+// types
 import type { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
 import firebase, { version } from 'config/firebase';
 
-// --- contexts
-export const BlocksContext: any = React.createContext();
+const BlocksContext: any = React.createContext();
 
-// --- components
 type Props = {|
   db: Database,
   children: Node,
@@ -20,7 +18,7 @@ type Props = {|
   userId: ?string,
 |};
 
-export type BlockProps = {|
+type BlockProps = {|
   id: string,
   meta: {|
     time: number,
@@ -38,7 +36,7 @@ type State = {|
   updateBlockFieldText: (blockId: string, field: string, text: string) => void,
 |};
 
-export class BlocksProvider extends React.Component<Props, State> {
+class BlocksProvider extends React.Component<Props, State> {
   state: State = {
     blocks: [],
     addBlock: () => {
@@ -167,3 +165,6 @@ export class BlocksProvider extends React.Component<Props, State> {
     );
   }
 }
+
+export { BlocksContext, BlocksProvider };
+export type { BlockProps };

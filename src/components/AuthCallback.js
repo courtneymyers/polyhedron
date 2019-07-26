@@ -12,16 +12,17 @@ const handleAuthentication = (location: Object) => {
   }
 };
 
-// --- components
 type Props = {
   ...RouteProps,
 };
 
-const AuthCallback = ({ ...props }: Props) => (
-  <>
-    {handleAuthentication(props.location)}
-    <p>Authenticating...</p>
-  </>
-);
+function AuthCallback({ ...props }: Props) {
+  return (
+    <>
+      {handleAuthentication(props.location)}
+      <p>Authenticating...</p>
+    </>
+  );
+}
 
 export default AuthCallback;

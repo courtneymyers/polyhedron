@@ -1,18 +1,16 @@
 // @flow
 
 import React from 'react';
-// types
 import type { Node } from 'react';
+// types
 import type { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
 import firebase, { version } from 'config/firebase';
 
-// --- contexts
-export const ProjectsContext: any = React.createContext();
+const ProjectsContext: any = React.createContext();
 
-// --- components
 type Props = {|
   db: Database,
   children: Node,
@@ -20,7 +18,7 @@ type Props = {|
   userId: ?string,
 |};
 
-export type ProjectProps = {|
+type ProjectProps = {|
   id: string,
   meta: {|
     time: number,
@@ -55,7 +53,7 @@ type State = {|
   ) => void,
 |};
 
-export class ProjectsProvider extends React.Component<Props, State> {
+class ProjectsProvider extends React.Component<Props, State> {
   state: State = {
     projects: [],
     activeProjectId: '',
@@ -370,3 +368,6 @@ export class ProjectsProvider extends React.Component<Props, State> {
     );
   }
 }
+
+export { ProjectsContext, ProjectsProvider };
+export type { ProjectProps };

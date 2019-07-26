@@ -10,23 +10,18 @@ import { ProjectsContext } from 'contexts/projects';
 // types
 import type { BlockProps } from 'contexts/blocks';
 
-// --- styled components
 const DropContainer = styled.div`
   background-color: ${({ isDraggingOver }) =>
     isDraggingOver ? '#9b88c1' : 'transparent'};
   transition: background-color 0.2s ease;
 `;
 
-const DragContainer = styled.div`
-  /* */
-`;
+const DragContainer = styled.div``;
 
-// --- components
 type Props = {
   projectId: string,
   blocks: Array<BlockProps>,
 };
-
 type State = {};
 
 class ProjectBlocks extends React.Component<Props, State> {

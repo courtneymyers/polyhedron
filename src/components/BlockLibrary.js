@@ -9,28 +9,16 @@ import LibraryItem from 'components/LibraryItem';
 import { BlocksContext } from 'contexts/blocks';
 import { ProjectsContext } from 'contexts/projects';
 
-// --- styled components
-const Container = styled.div`
-  /* */
-`;
+const Container = styled.div``;
+const DropContainer = styled.div``;
+const DragContainer = styled.div``;
 
-const DropContainer = styled.div`
-  /* */
-`;
-
-const DragContainer = styled.div`
-  /* */
-`;
-
-// --- components
-type Props = {};
-
-const BlockLibrary = ({ ...props }: Props) => {
+function BlockLibrary() {
   const { blocks, removeBlock } = useContext(BlocksContext);
   const { removeBlockIdFromAllProjects } = useContext(ProjectsContext);
 
   return (
-    <Container {...props}>
+    <Container>
       <Droppable droppableId={`block-library`} isDropDisabled>
         {(provided, snapshot) => (
           <DropContainer ref={provided.innerRef} {...provided.droppableProps}>
@@ -65,6 +53,6 @@ const BlockLibrary = ({ ...props }: Props) => {
       </Droppable>
     </Container>
   );
-};
+}
 
 export default BlockLibrary;
