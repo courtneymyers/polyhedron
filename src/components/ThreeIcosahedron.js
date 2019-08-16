@@ -37,6 +37,8 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     complete: false,
   };
 
+  rootEl = React.createRef<HTMLDivElement>();
+
   setupRenderer() {
     const renderer = new WebGLRenderer({ antialias: true });
     renderer.setClearColor(0xefefef);
@@ -103,6 +105,7 @@ class ThreeIcosahedron extends React.Component<Props, State> {
 
   animate = () => {
     const { renderer, scene, camera, mesh } = this.state;
+    if (!renderer || !mesh) return;
     // rotate mesh (in radians)
     mesh.rotation.x += 0.005;
     mesh.rotation.y += 0.005;
@@ -121,6 +124,7 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     if (this.state.complete) return;
 
     const { renderer, scene, camera, lights, mesh } = this.state;
+    if (!renderer || !scene || !camera || !lights) return;
     // add lights and mesh to scene
     scene.add(lights.top);
     scene.add(lights.right);
@@ -130,7 +134,9 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     scene.add(lights.near);
     scene.add(mesh);
     // append renderer to the rendered root element
-    this.root.appendChild(renderer.domElement);
+    if (this.rootEl.current) {
+      this.rootEl.current.appendChild(renderer.domElement);
+    }
     // enable responsive renderer
     window.addEventListener('resize', function() {
       renderer.setSize(window.innerWidth, window.innerHeight - headerHeight);
@@ -139,10 +145,13 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     });
     // start the animation loop
     this.animate();
+
+    // set the complete flag so above code only runs once
+    this.setState({ complete: true });
   }
 
   render() {
-    return <div className="icosahedron" ref={(el) => (this.root = el)} />;
+    return <div className="icosahedron" ref={this.rootEl} />;
   }
 }
 
