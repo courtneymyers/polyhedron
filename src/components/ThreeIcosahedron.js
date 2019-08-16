@@ -17,52 +17,54 @@ import {
 // --- components
 const headerHeight = 56;
 
-type Props = {};
-type State = {
-  renderer: any,
-  scene: any,
-  camera: any,
-  lights: any,
-  mesh: any,
-  complete: boolean,
-};
+function ThreeIcosahedron() {
+  const rootEl = React.createRef<HTMLDivElement>();
 
-class ThreeIcosahedron extends React.Component<Props, State> {
-  state = {
-    renderer: null,
-    scene: null,
-    camera: null,
-    lights: null,
-    mesh: null,
-    complete: false,
-  };
+  // setup renderer
+  const [renderer, setRenderer] = React.useState(null);
+  React.useEffect(() => {
+    if (renderer) return;
 
-  setupRenderer() {
-    const renderer = new WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xefefef);
-    renderer.setSize(window.innerWidth, window.innerHeight - headerHeight);
+    const _ = new WebGLRenderer({ antialias: true });
+    _.setClearColor(0xefefef);
+    _.setSize(window.innerWidth, window.innerHeight - headerHeight);
 
-    this.setState({ renderer }, this.setupScene());
-  }
+    setRenderer(_);
+  }, [renderer]);
 
-  setupScene() {
-    this.setState({ scene: new Scene() }, this.setupCamera());
-  }
+  // setup scene
+  const [scene, setScene] = React.useState(null);
+  React.useEffect(() => {
+    if (scene) return;
 
-  setupCamera() {
+    const _ = new Scene();
+
+    setScene(_);
+  }, [scene]);
+
+  // setup camera
+  const [camera, setCamera] = React.useState(null);
+  React.useEffect(() => {
+    if (camera) return;
+
     const fov = 75; // vertical field of view in degrees
     const aspectRatio = window.innerWidth / (window.innerHeight - headerHeight);
     const nearPlane = 0.1;
     const farPlane = 1000;
-    const camera = new PerspectiveCamera(fov, aspectRatio, nearPlane, farPlane);
-    camera.position.z = 4;
-    camera.lookAt(new Vector3(0, 0, 0));
 
-    this.setState({ camera }, this.setupLights());
-  }
+    const _ = new PerspectiveCamera(fov, aspectRatio, nearPlane, farPlane);
+    _.position.z = 4;
+    _.lookAt(new Vector3(0, 0, 0));
 
-  setupLights() {
-    const lights = {
+    setCamera(_);
+  }, [camera]);
+
+  // setup lights
+  const [lights, setLights] = React.useState(null);
+  React.useEffect(() => {
+    if (lights) return;
+
+    const _ = {
       top: new PointLight(0xffffff, 1, 1000, 2),
       right: new PointLight(0xffffff, 1, 1000, 2),
       bottom: new PointLight(0xffffff, 1, 1000, 2),
@@ -70,17 +72,21 @@ class ThreeIcosahedron extends React.Component<Props, State> {
       far: new PointLight(0xffffff, 1, 1000, 2),
       near: new PointLight(0xffffff, 1, 1000, 2),
     };
-    lights.top.position.set(0, 10, 0);
-    lights.right.position.set(10, 0, 0);
-    lights.bottom.position.set(0, -10, 0);
-    lights.left.position.set(-10, 0, 0);
-    lights.far.position.set(0, 0, -10);
-    lights.near.position.set(0, 0, 10);
+    _.top.position.set(0, 10, 0);
+    _.right.position.set(10, 0, 0);
+    _.bottom.position.set(0, -10, 0);
+    _.left.position.set(-10, 0, 0);
+    _.far.position.set(0, 0, -10);
+    _.near.position.set(0, 0, 10);
 
-    this.setState({ lights }, this.setupMesh());
-  }
+    setLights(_);
+  }, [lights]);
 
-  setupMesh() {
+  // setup mesh
+  const [mesh, setMesh] = React.useState(null);
+  React.useEffect(() => {
+    if (mesh) return;
+
     const geometry = new IcosahedronGeometry(1, 1);
     const phongMaterial = new MeshPhongMaterial({
       color: 0x360082,
@@ -93,34 +99,31 @@ class ThreeIcosahedron extends React.Component<Props, State> {
       transparent: true,
       opacity: 0.25,
     });
-
-    const mesh = new Mesh(geometry, phongMaterial);
     const wireframe = new Mesh(geometry, wireframeMaterial);
-    mesh.add(wireframe);
 
-    this.setState({ mesh });
-  }
+    const _ = new Mesh(geometry, phongMaterial);
+    _.add(wireframe);
 
-  animate = () => {
-    const { renderer, scene, camera, mesh } = this.state;
+    setMesh(_);
+  }, [mesh]);
+
+  // setup render loop
+  const animate = React.useCallback(() => {
+    if (!renderer || !mesh) return;
     // rotate mesh (in radians)
     mesh.rotation.x += 0.005;
     mesh.rotation.y += 0.005;
     // render
     renderer.render(scene, camera);
-    requestAnimationFrame(this.animate);
-  };
+    requestAnimationFrame(animate);
+  }, [renderer, scene, camera, mesh]);
 
-  componentDidMount() {
-    this.setupRenderer();
-  }
+  // initialize
+  const [initialized, setInitialized] = React.useState(false);
+  React.useEffect(() => {
+    if (initialized) return;
 
-  componentDidUpdate() {
-    // this.state.complete flag is set to true at the end of cDU(),
-    // ensuring the following code only runs once...
-    if (this.state.complete) return;
-
-    const { renderer, scene, camera, lights, mesh } = this.state;
+    if (!renderer || !scene || !camera || !lights) return;
     // add lights and mesh to scene
     scene.add(lights.top);
     scene.add(lights.right);
@@ -130,7 +133,7 @@ class ThreeIcosahedron extends React.Component<Props, State> {
     scene.add(lights.near);
     scene.add(mesh);
     // append renderer to the rendered root element
-    this.root.appendChild(renderer.domElement);
+    if (rootEl.current) rootEl.current.appendChild(renderer.domElement);
     // enable responsive renderer
     window.addEventListener('resize', function() {
       renderer.setSize(window.innerWidth, window.innerHeight - headerHeight);
@@ -138,12 +141,12 @@ class ThreeIcosahedron extends React.Component<Props, State> {
       camera.updateProjectionMatrix();
     });
     // start the animation loop
-    this.animate();
-  }
+    animate();
 
-  render() {
-    return <div className="icosahedron" ref={(el) => (this.root = el)} />;
-  }
+    setInitialized(true);
+  }, [initialized, renderer, scene, camera, lights, mesh, rootEl, animate]);
+
+  return <div className="icosahedron" ref={rootEl} />;
 }
 
 export default ThreeIcosahedron;
