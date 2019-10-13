@@ -113,85 +113,63 @@ const RightPanel = styled(Panel)`
 `;
 
 type Props = {};
-type State = {
-  leftPanelShown: boolean,
-  rightPanelShown: boolean,
-};
 
-class AppUserInterface extends React.Component<Props, State> {
-  state = {
-    leftPanelShown: true,
-    rightPanelShown: true,
-  };
+function AppUserInterface({ ...props }: Props) {
+  const [leftPanelShown, setLeftPanelShown] = React.useState(true);
+  const [rightPanelShown, setRightPanelShown] = React.useState(true);
 
-  toggleLeftPanel = () => {
-    this.setState((prevState) => ({
-      leftPanelShown: !prevState.leftPanelShown,
-    }));
-  };
+  return (
+    <Container>
+      <Header>
+        <ToggleButton
+          text="☰"
+          href="#library"
+          title="Toggle Library"
+          onClick={(ev) => {
+            ev.preventDefault();
+            setLeftPanelShown(!leftPanelShown);
+          }}
+        />
+        <ButtonLabel>Library</ButtonLabel>
+        <Heading>Polyhedron</Heading>
+        <ButtonLabel>Preview</ButtonLabel>
+        <ToggleButton
+          text="☰"
+          href="#preview"
+          title="Toggle Preview"
+          onClick={(ev) => {
+            ev.preventDefault();
+            setRightPanelShown(!rightPanelShown);
+          }}
+        />
+        <UserButton />
+      </Header>
 
-  toggleRightPanel = () => {
-    this.setState((prevState) => ({
-      rightPanelShown: !prevState.rightPanelShown,
-    }));
-  };
+      <Main>
+        {leftPanelShown && (
+          <LeftPanel>
+            <SubHeading>Project Library</SubHeading>
+            <ProjectLibrary />
 
-  render() {
-    const { ...props } = this.props;
+            <SubHeading>Block Library</SubHeading>
+            <BlockLibrary />
+          </LeftPanel>
+        )}
 
-    return (
-      <Container {...props}>
-        <Header>
-          <ToggleButton
-            text="☰"
-            href="#library"
-            title="Toggle Library"
-            onClick={(ev) => {
-              ev.preventDefault();
-              this.toggleLeftPanel();
-            }}
-          />
-          <ButtonLabel>Library</ButtonLabel>
-          <Heading>Polyhedron</Heading>
-          <ButtonLabel>Preview</ButtonLabel>
-          <ToggleButton
-            text="☰"
-            href="#preview"
-            title="Toggle Preview"
-            onClick={(ev) => {
-              ev.preventDefault();
-              this.toggleRightPanel();
-            }}
-          />
-          <UserButton />
-        </Header>
+        <MiddlePanel>
+          <SubHeading>Project Editor</SubHeading>
+          <ProjectEditor />
+        </MiddlePanel>
 
-        <Main>
-          {this.state.leftPanelShown && (
-            <LeftPanel>
-              <SubHeading>Project Library</SubHeading>
-              <ProjectLibrary />
-
-              <SubHeading>Block Library</SubHeading>
-              <BlockLibrary />
-            </LeftPanel>
-          )}
-
-          <MiddlePanel>
-            <SubHeading>Project Editor</SubHeading>
-            <ProjectEditor />
-          </MiddlePanel>
-
-          {this.state.rightPanelShown && (
-            <RightPanel>
-              <SubHeading>Project Preview</SubHeading>
-              <ProjectPreview />
-            </RightPanel>
-          )}
-        </Main>
-      </Container>
-    );
-  }
+        {rightPanelShown && (
+          <RightPanel>
+            <SubHeading>Project Preview</SubHeading>
+            <ProjectPreview />
+          </RightPanel>
+        )}
+      </Main>
+    </Container>
+  );
 }
 
 export default AppUserInterface;
