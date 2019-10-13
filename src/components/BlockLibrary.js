@@ -13,7 +13,9 @@ const Container = styled.div``;
 const DropContainer = styled.div``;
 const DragContainer = styled.div``;
 
-function BlockLibrary() {
+type Props = {};
+
+function BlockLibrary({ ...props }: Props) {
   const { blocks, removeBlock } = useContext(BlocksContext);
   const { removeBlockIdFromAllProjects } = useContext(ProjectsContext);
 

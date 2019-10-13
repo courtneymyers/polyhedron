@@ -22,7 +22,9 @@ const Container = styled.div`
   }
 `;
 
-function ProjectPreview() {
+type Props = {};
+
+function ProjectPreview({ ...props }: Props) {
   const { projects, activeProjectId } = useContext(ProjectsContext);
   const { blocks } = useContext(BlocksContext);
 
