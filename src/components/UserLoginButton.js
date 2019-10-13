@@ -9,42 +9,34 @@ import { UserContext } from 'contexts/user';
 import AuthClient from 'config/auth0-auth';
 
 type Props = {};
-type State = {};
 
-class UserLoginButton extends React.Component<Props, State> {
-  static contextType = UserContext;
+function UserLoginButton({ ...props }: Props) {
+  const { userProfile, setUserProfile } = React.useContext(UserContext);
 
-  auth = new AuthClient();
+  const auth = new AuthClient();
+  const userName = userProfile ? userProfile.name : '';
 
-  login = () => {
-    this.auth.login();
-  };
-
-  logout = () => {
-    this.auth.logout();
-    this.context.setUserProfile(null);
-  };
-
-  render() {
-    const { ...props } = this.props;
-    const { isAuthenticated } = this.auth;
-    const userName = this.context.userProfile
-      ? this.context.userProfile.name
-      : '';
-
-    return (
-      <BlockButton
-        {...props}
-        text={isAuthenticated() ? userName : 'Log In'}
-        href="#user"
-        title="User Menu"
-        onClick={(ev) => {
-          ev.preventDefault();
-          isAuthenticated() ? this.logout() : this.login();
-        }}
-      />
-    );
+  function login() {
+    auth.login();
   }
+
+  function logout() {
+    auth.logout();
+    setUserProfile(null);
+  }
+
+  return (
+    <BlockButton
+      {...props}
+      text={auth.isAuthenticated() ? userName : 'Log In'}
+      href="#user"
+      title="User Menu"
+      onClick={(ev) => {
+        ev.preventDefault();
+        auth.isAuthenticated() ? logout() : login();
+      }}
+    />
+  );
 }
 
 export default UserLoginButton;
