@@ -9,27 +9,24 @@ import AppUserInterface from 'components/AppUserInterface';
 import { ProjectsContext } from 'contexts/projects';
 
 type Props = {};
-type State = {};
 
-class AppDragDrop extends React.Component<Props, State> {
-  static contextType = ProjectsContext;
+function AppDragDrop({ ...props }: Props) {
+  const {
+    activeProjectId,
+    reorderBlocksInProject,
+    addBlockIdToProject,
+  } = React.useContext(ProjectsContext);
 
-  onDragStart = (start: DragStart) => {
+  function onDragStart(start: DragStart) {
     // console.log(start);
-  };
+  }
 
-  onDragUpdate = (update: DragUpdate) => {
+  function onDragUpdate(update: DragUpdate) {
     // console.log(update);
-  };
+  }
 
-  onDragEnd = (result: DropResult) => {
+  function onDragEnd(result: DropResult) {
     const { source, destination, draggableId } = result;
-
-    const {
-      activeProjectId,
-      reorderBlocksInProject,
-      addBlockIdToProject,
-    } = this.context;
 
     // dropped block outside of project editor
     if (!destination) return;
@@ -47,19 +44,17 @@ class AppDragDrop extends React.Component<Props, State> {
       // INFO: draggableId === block.id
       addBlockIdToProject(activeProjectId, draggableId, destination.index);
     }
-  };
-
-  render() {
-    return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}
-      >
-        <AppUserInterface />
-      </DragDropContext>
-    );
   }
+
+  return (
+    <DragDropContext
+      onDragStart={onDragStart}
+      onDragUpdate={onDragUpdate}
+      onDragEnd={onDragEnd}
+    >
+      <AppUserInterface />
+    </DragDropContext>
+  );
 }
 
 export default AppDragDrop;

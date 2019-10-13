@@ -14,7 +14,9 @@ const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
 
-function ProjectLibrary() {
+type Props = {};
+
+function ProjectLibrary({ ...props }: Props) {
   const {
     projects,
     activeProjectId,

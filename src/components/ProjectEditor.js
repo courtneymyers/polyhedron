@@ -34,7 +34,9 @@ const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
 `;
 
-function ProjectEditor() {
+type Props = {};
+
+function ProjectEditor({ ...props }: Props) {
   const {
     projects,
     activeProjectId,

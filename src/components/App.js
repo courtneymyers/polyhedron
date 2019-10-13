@@ -13,81 +13,58 @@ import AppLoggedOut from 'components/AppLoggedOut';
 // authentication
 import AuthClient from 'config/auth0-auth';
 import MgtClient from 'config/auth0-mgt';
-// types
-import type { Profile } from 'contexts/user';
 
 export type Database = 'memory' | 'firebase';
 
 type Props = {
   ...RouteProps,
   db: Database,
-  // context props
-  userId: ?string,
-  storeUserProfile: (Profile) => void,
 };
-type State = {};
 
-class App extends React.Component<Props, State> {
-  auth = new AuthClient();
-  authMgt = new MgtClient();
+function App({ db }: Props) {
+  const { userProfile, setUserProfile } = React.useContext(UserContext);
 
-  componentDidMount() {
-    this.authMgt.getAccessToken();
-    this.auth.getProfile((profile) => this.props.storeUserProfile(profile));
-  }
+  React.useEffect(() => {
+    new MgtClient().getAccessToken();
+    new AuthClient().getProfile((profile) => setUserProfile(profile));
+  }, [setUserProfile]);
 
-  render() {
-    const { userId, db } = this.props;
+  // remove 'auth0|' prefix to set userId
+  const userId = userProfile ? userProfile.sub.split('auth0|').pop() : null;
 
-    return (
-      <>
-        <Global
-          styles={css`
-            body {
-              margin: 0;
-              font-family: sans-serif;
-              font-size: 16px;
-              line-height: 1;
-              color: #444;
-              background-color: #fff;
-              scroll-behavior: smooth;
-            }
-          `}
-        />
+  return (
+    <>
+      <Global
+        styles={css`
+          body {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 16px;
+            line-height: 1;
+            color: #444;
+            background-color: #fff;
+            scroll-behavior: smooth;
+          }
+        `}
+      />
 
-        {!userId ? (
-          <AppLoggedOut />
-        ) : (
-          <ProjectsProvider userId={userId} db={db}>
-            <BlocksProvider userId={userId} db={db}>
-              <AppDragDrop />
-            </BlocksProvider>
-          </ProjectsProvider>
-        )}
-      </>
-    );
-  }
+      {!userId ? (
+        <AppLoggedOut />
+      ) : (
+        <ProjectsProvider userId={userId} db={db}>
+          <BlocksProvider userId={userId} db={db}>
+            <AppDragDrop />
+          </BlocksProvider>
+        </ProjectsProvider>
+      )}
+    </>
+  );
 }
 
 export default function AppContainer({ ...props }: Props) {
   return (
     <UserProvider>
-      <UserContext.Consumer>
-        {({ userProfile, storeUserProfile }) => {
-          // remove 'auth0|' prefix to set userId
-          const userId = userProfile
-            ? userProfile.sub.split('auth0|').pop()
-            : null;
-
-          return (
-            <App
-              {...props}
-              userId={userId}
-              storeUserProfile={storeUserProfile}
-            />
-          );
-        }}
-      </UserContext.Consumer>
+      <App {...props} />
     </UserProvider>
   );
 }
