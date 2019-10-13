@@ -6,7 +6,7 @@ import { unregister } from './registerServiceWorker';
 // components
 import Routes from './routes';
 
-const rootElement: HTMLElement = document.getElementById('root');
+const rootElement: ?HTMLElement = document.getElementById('root');
+if (rootElement) ReactDOM.render(<Routes />, rootElement);
 
-ReactDOM.render(<Routes />, rootElement);
 unregister();
