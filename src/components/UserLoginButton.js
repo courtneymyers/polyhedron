@@ -22,7 +22,7 @@ class UserLoginButton extends React.Component<Props, State> {
 
   logout = () => {
     this.auth.logout();
-    this.context.storeUserProfile(null);
+    this.context.setUserProfile(null);
   };
 
   render() {

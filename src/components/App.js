@@ -23,7 +23,7 @@ type Props = {
   db: Database,
   // context props
   userId: ?string,
-  storeUserProfile: (Profile) => void,
+  setUserProfile: (Profile) => void,
 };
 type State = {};
 
@@ -33,7 +33,7 @@ class App extends React.Component<Props, State> {
 
   componentDidMount() {
     this.authMgt.getAccessToken();
-    this.auth.getProfile((profile) => this.props.storeUserProfile(profile));
+    this.auth.getProfile((profile) => this.props.setUserProfile(profile));
   }
 
   render() {
@@ -73,18 +73,14 @@ export default function AppContainer({ ...props }: Props) {
   return (
     <UserProvider>
       <UserContext.Consumer>
-        {({ userProfile, storeUserProfile }) => {
+        {({ userProfile, setUserProfile }) => {
           // remove 'auth0|' prefix to set userId
           const userId = userProfile
             ? userProfile.sub.split('auth0|').pop()
             : null;
 
           return (
-            <App
-              {...props}
-              userId={userId}
-              storeUserProfile={storeUserProfile}
-            />
+            <App {...props} userId={userId} setUserProfile={setUserProfile} />
           );
         }}
       </UserContext.Consumer>

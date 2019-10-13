@@ -17,31 +17,13 @@ type Profile = {|
   updated_at: string,
 |};
 
-type State = {|
-  userProfile: ?Profile,
-  storeUserProfile: (profile: Profile) => void,
-|};
-
-class UserProvider extends React.Component<Props, State> {
-  state: State = {
-    userProfile: null,
-    storeUserProfile: (profile) => {
-      return this.storeUserProfile(profile);
-    },
-  };
-
-  storeUserProfile = (profile: Profile) => {
-    this.setState({ userProfile: profile });
-    return;
-  };
-
-  render() {
-    return (
-      <UserContext.Provider value={this.state}>
-        {this.props.children}
-      </UserContext.Provider>
-    );
-  }
+function UserProvider({ children }: Props) {
+  const [userProfile, setUserProfile] = React.useState(null);
+  return (
+    <UserContext.Provider value={{ userProfile, setUserProfile }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export { UserContext, UserProvider };
