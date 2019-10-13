@@ -54,69 +54,44 @@ type Props = {
   removeItem: (string) => void,
   setActiveItem: (string) => void,
 };
-type State = {
-  infoShown: boolean,
-};
 
-class Item extends React.Component<Props, State> {
-  state = {
-    infoShown: false,
-  };
+function Item({
+  id,
+  label,
+  title,
+  desc,
+  removeItem,
+  setActiveItem,
+  ...props
+}: Props) {
+  // const [infoShown, setInfoShown] = React.useState(false);
 
-  showInfo = () => {
-    // only show info if description is set
-    if (!this.props.desc) return;
-    this.setState((prevState) => ({
-      infoShown: true,
-    }));
-  };
-
-  hideInfo = () => {
-    this.setState((prevState) => ({
-      infoShown: false,
-    }));
-  };
-
-  render() {
-    const {
-      id,
-      label,
-      title,
-      desc,
-      removeItem,
-      setActiveItem,
-      ...props
-    } = this.props;
-
-    const { infoShown } = this.state;
-
-    return (
-      <Container
-        {...props}
-        // TODO: re-evaluate when to show and hide info
-        // onMouseEnter={(ev) => this.showInfo()}
-        // onMouseLeave={(ev) => this.hideInfo()}
-        onClick={(ev) => setActiveItem(id)}
-      >
-        <Handle>
-          <RemoveButton
-            text="–"
-            href=""
-            title={`Remove ${label}`}
-            onClick={(ev) => {
-              ev.preventDefault();
-              removeItem(id);
-            }}
-          />
-        </Handle>
-        <Text>
-          <Title>{title === '' ? '\u00A0' : title}</Title>
-
-          {infoShown && <Paragraph>{desc}</Paragraph>}
-        </Text>
-      </Container>
-    );
-  }
+  return (
+    <Container
+      {...props}
+      // TODO: re-evaluate when to show and hide info
+      // // only show info if description is set
+      // onMouseEnter={(ev) => desc && setInfoShown(true)}
+      // onMouseLeave={(ev) => setInfoShown(false)}
+      onClick={(ev) => setActiveItem(id)}
+    >
+      <Handle>
+        <RemoveButton
+          text="–"
+          href=""
+          title={`Remove ${label}`}
+          onClick={(ev) => {
+            ev.preventDefault();
+            removeItem(id);
+          }}
+        />
+      </Handle>
+      <Text>
+        <Title>{title === '' ? '\u00A0' : title}</Title>
+        {/* {infoShown && <Paragraph>{desc}</Paragraph>} */}
+      </Text>
+    </Container>
+  );
 }
 
 export default Item;
