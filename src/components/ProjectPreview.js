@@ -30,11 +30,12 @@ function ProjectPreview({ ...props }: Props) {
 
   // TODO: abstract the following 7 lines, as its also used in ProjectEditor
   const project = projects.filter((p) => p.id === activeProjectId)[0];
-  const projectBlocks = !project
-    ? []
-    : project.blockIds.map(
-        (blockId) => blocks.filter((block) => block.id === blockId)[0],
-      );
+  const projectBlocks =
+    !project || blocks.length === 0
+      ? []
+      : project.blockIds.map(
+          (blockId) => blocks.filter((block) => block.id === blockId)[0],
+        );
 
   return (
     <Container>
