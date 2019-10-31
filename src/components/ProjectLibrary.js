@@ -22,7 +22,7 @@ function ProjectLibrary({ ...props }: Props) {
     activeProjectId,
     addProject,
     removeProject,
-    setActiveProjectId,
+    assignActiveProjectId,
   } = useContext(ProjectsContext);
 
   return (
@@ -35,7 +35,7 @@ function ProjectLibrary({ ...props }: Props) {
           title={project.meta.title}
           desc={project.meta.desc}
           removeItem={removeProject}
-          setActiveItem={setActiveProjectId}
+          setActiveItem={assignActiveProjectId}
           style={{
             // active project gets highlighted border
             borderColor: project.id === activeProjectId && '#360a80',
