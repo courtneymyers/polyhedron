@@ -1,0 +1,13 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "comment-empty-line-before": null,
+    "declaration-colon-newline-after": null,
+    "declaration-empty-line-before": null,
+    "no-empty-source": null,
+    "no-eol-whitespace": null,
+    "no-extra-semicolons": null,
+    "no-missing-end-of-source-newline": null,
+    "value-list-comma-newline-after": null
+  }
+}
