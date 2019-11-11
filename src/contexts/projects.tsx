@@ -1,26 +1,23 @@
-// @flow
-
 import React from 'react';
-import type { Node } from 'react';
-// types
-import type { Database } from 'components/App';
+// components
+import { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
 import firebase, { version } from 'config/firebase';
 
-const ProjectsContext: any = React.createContext();
+const ProjectsContext = React.createContext();
 
 type Props = {
-  db: Database,
-  userId: ?string,
-  children: Node,
+  db: Database;
+  userId: string | null;
+  children: React.ReactNode;
 };
 
 type ProjectProps = {
-  id: string,
-  meta: { time: number, title: string, desc: string },
-  blockIds: string[],
+  id: string;
+  meta: { time: number; title: string; desc: string };
+  blockIds: string[];
 };
 
 function ProjectsProvider({ db, userId, children }: Props) {
@@ -121,7 +118,7 @@ function ProjectsProvider({ db, userId, children }: Props) {
   function addBlockIdToProject(
     projectId: string,
     blockId: string,
-    toIndex: ?number,
+    toIndex: number | null,
   ): void {
     if (db === 'memory') {
       setProjects((projects) => {
@@ -308,5 +305,4 @@ function ProjectsProvider({ db, userId, children }: Props) {
   );
 }
 
-export { ProjectsContext, ProjectsProvider };
-export type { ProjectProps };
+export { ProjectProps, ProjectsContext, ProjectsProvider };

@@ -1,6 +1,4 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import Field from 'components/Field';
@@ -42,9 +40,9 @@ function ProjectEditor({ ...props }: Props) {
     activeProjectId,
     updateProjectFieldText,
     addBlockIdToProject,
-  } = useContext(ProjectsContext);
+  } = React.useContext(ProjectsContext);
 
-  const { blocks, addBlock } = useContext(BlocksContext);
+  const { blocks, addBlock } = React.useContext(BlocksContext);
 
   // TODO: abstract the following 7 lines, as its also used in ProjectPreview
   const project = projects.filter((p) => p.id === activeProjectId)[0];

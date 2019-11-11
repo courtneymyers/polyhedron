@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import {
   WebGLRenderer,
@@ -14,7 +12,6 @@ import {
   Mesh,
 } from 'three';
 
-// --- components
 const headerHeight = 56;
 
 function ThreeIcosahedron() {

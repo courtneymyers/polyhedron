@@ -1,6 +1,4 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
@@ -25,8 +23,8 @@ const Container = styled.div`
 type Props = {};
 
 function ProjectPreview({ ...props }: Props) {
-  const { projects, activeProjectId } = useContext(ProjectsContext);
-  const { blocks } = useContext(BlocksContext);
+  const { projects, activeProjectId } = React.useContext(ProjectsContext);
+  const { blocks } = React.useContext(BlocksContext);
 
   // TODO: abstract the following 7 lines, as its also used in ProjectEditor
   const project = projects.filter((p) => p.id === activeProjectId)[0];

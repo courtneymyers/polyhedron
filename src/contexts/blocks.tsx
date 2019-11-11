@@ -1,27 +1,24 @@
-// @flow
-
 import React from 'react';
-import type { Node } from 'react';
-// types
-import type { Database } from 'components/App';
+// components
+import { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
 import firebase, { version } from 'config/firebase';
 
-const BlocksContext: any = React.createContext();
+const BlocksContext = React.createContext();
 
 type Props = {
-  db: Database,
-  userId: ?string,
-  children: Node,
+  db: Database;
+  userId: string | null;
+  children: React.ReactNode;
 };
 
 type BlockProps = {
-  id: string,
-  meta: { time: number, title: string, desc: string },
-  type: 'plainText' | 'richText',
-  body: string,
+  id: string;
+  meta: { time: number; title: string; desc: string };
+  type: 'plainText' | 'richText';
+  body: string;
 };
 
 function BlocksProvider({ db, userId, children }: Props) {
@@ -138,5 +135,4 @@ function BlocksProvider({ db, userId, children }: Props) {
   );
 }
 
-export { BlocksContext, BlocksProvider };
-export type { BlockProps };
+export { BlockProps, BlocksContext, BlocksProvider };

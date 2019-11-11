@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
@@ -47,12 +45,12 @@ const Title = styled(Paragraph)`
 `;
 
 type Props = {
-  id: string,
-  label: string,
-  title: string,
-  desc: string,
-  removeItem: (string) => void,
-  setActiveItem: (string) => void,
+  id: string;
+  label: string;
+  title: string;
+  desc: string;
+  removeItem: (string) => void;
+  setActiveItem: (string) => void;
 };
 
 function Item({

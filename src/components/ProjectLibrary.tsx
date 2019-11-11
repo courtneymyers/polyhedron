@@ -1,6 +1,4 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
@@ -23,7 +21,7 @@ function ProjectLibrary({ ...props }: Props) {
     addProject,
     removeProject,
     assignActiveProjectId,
-  } = useContext(ProjectsContext);
+  } = React.useContext(ProjectsContext);
 
   return (
     <Container>

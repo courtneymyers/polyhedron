@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
@@ -30,10 +28,10 @@ const Input = styled.input`
 const Textarea = Input.withComponent('textarea');
 
 type Props = {
-  type: 'text' | 'textarea',
-  label: string,
-  text: string,
-  updateText: (string) => void,
+  type: 'text' | 'textarea';
+  label: string;
+  text: string;
+  updateText: (string) => void;
 };
 
 function Field({ type, label, text, updateText, ...props }: Props) {

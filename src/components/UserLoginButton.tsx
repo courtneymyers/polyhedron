@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 // components
 import BlockButton from 'components/BlockButton';

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled/macro';
@@ -7,8 +5,7 @@ import styled from '@emotion/styled/macro';
 import Block from 'components/Block';
 // contexts
 import { ProjectsContext } from 'contexts/projects';
-// types
-import type { BlockProps } from 'contexts/blocks';
+import { BlockProps } from 'contexts/blocks';
 
 const DropContainer = styled.div`
   background-color: ${({ isDraggingOver }) =>
@@ -19,8 +16,8 @@ const DropContainer = styled.div`
 const DragContainer = styled.div``;
 
 type Props = {
-  projectId: string,
-  blocks: Array<BlockProps>,
+  projectId: string;
+  blocks: Array<BlockProps>;
 };
 
 function ProjectBlocks({ projectId, blocks }: Props) {

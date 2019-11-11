@@ -1,8 +1,6 @@
-// @flow
-
 import React from 'react';
 import { Global, css } from '@emotion/core';
-import type { RouteProps } from '@reach/router';
+import { RouteComponentProps } from '@reach/router';
 // contexts
 import { UserProvider, UserContext } from 'contexts/user';
 import { ProjectsProvider } from 'contexts/projects';
@@ -17,11 +15,10 @@ import MgtClient from 'config/auth0-mgt';
 export type Database = 'memory' | 'firebase';
 
 type Props = {
-  ...RouteProps,
-  db: Database,
+  db: Database;
 };
 
-function App({ db }: Props) {
+function App({ db }: Props & RouteComponentProps) {
   const { userProfile, setUserProfile } = React.useContext(UserContext);
 
   React.useEffect(() => {

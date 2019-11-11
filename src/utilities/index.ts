@@ -1,5 +1,3 @@
-// @flow
-
 // set possibly nested object key's value
 function setKeyValue(obj: Object, keys: Array<string>, value: any) {
   const index = keys[0];

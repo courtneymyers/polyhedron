@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import { css } from '@emotion/core';

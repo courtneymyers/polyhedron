@@ -1,5 +1,3 @@
-// @flow
-
 import { redirectUri } from 'config/auth0-auth';
 const request = require('request');
 
@@ -10,8 +8,11 @@ const mgtClientSecret = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET;
 
 class MgtClient {
   getAccessToken: () => void;
-  getCallbackUrls: (string) => void;
-  addDomainToCallbackUrls: (string, Array<string>) => void;
+  getCallbackUrls: (accessToken: string) => void;
+  addDomainToCallbackUrls: (
+    accessToken: string,
+    existingCallbacks: string[],
+  ) => void;
 
   constructor() {
     this.getAccessToken = () => {

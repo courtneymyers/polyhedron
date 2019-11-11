@@ -1,5 +1,3 @@
-// @flow
-
 import auth0 from 'auth0-js';
 import { navigate } from '@reach/router';
 

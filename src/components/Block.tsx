@@ -1,14 +1,10 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
 // contexts
-import { BlocksContext } from 'contexts/blocks';
-// types
-import type { BlockProps } from 'contexts/blocks';
+import { BlocksContext, BlockProps } from 'contexts/blocks';
 
 const Container = styled.div`
   display: flex;
@@ -38,12 +34,11 @@ const Handle = styled.div`
 const RemoveButton = styled(BlockButton)``;
 
 type Props = {
-  ...BlockProps,
-  removeBlock: (string) => void,
+  removeBlock: (string) => void;
 };
 
-function Block({ id, meta, body, removeBlock, ...props }: Props) {
-  const { updateBlockFieldText } = useContext(BlocksContext);
+function Block({ id, meta, body, removeBlock, ...props }: Props & BlockProps) {
+  const { updateBlockFieldText } = React.useContext(BlocksContext);
 
   return (
     <Container {...props}>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
@@ -24,7 +22,7 @@ const Button = styled.a`
 `;
 
 type Props = {
-  text: string,
+  text: string;
 };
 
 function BlockButton({ text, ...props }: Props) {
