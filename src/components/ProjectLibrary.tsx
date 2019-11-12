@@ -9,7 +9,7 @@ import { useProjectsContext } from 'contexts/projects';
 const Container = styled.div``;
 
 const Item = styled(LibraryItem)<{ isActive: boolean }>`
-  border-color: ${({ isActive }) => (isActive ? '#360a80' : 'transparent')};
+  border-color: ${({ isActive }) => isActive && '#360a80'};
 `;
 
 const AddButton = styled(BlockButton)`
