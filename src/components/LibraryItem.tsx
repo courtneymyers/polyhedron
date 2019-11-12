@@ -49,8 +49,8 @@ type Props = {
   label: string;
   title: string;
   desc: string;
-  removeItem: (id: string) => void;
-  setActiveItem: (id: string) => void;
+  removeItem(id: string): void;
+  setActiveItem(id: string): void;
 };
 
 function LibraryItem({

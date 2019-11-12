@@ -31,7 +31,7 @@ type Props = {
   type: 'text' | 'textarea';
   label: string;
   text: string;
-  updateText: (text: string) => void;
+  updateText(text: string): void;
 };
 
 function Field({ type, label, text, updateText, ...props }: Props) {

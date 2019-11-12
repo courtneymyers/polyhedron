@@ -34,7 +34,7 @@ const Handle = styled.div`
 const RemoveButton = styled(BlockButton)``;
 
 type Props = {
-  removeBlock: (blockId: string) => void;
+  removeBlock(blockId: string): void;
 };
 
 function Block({
