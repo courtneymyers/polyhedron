@@ -49,11 +49,11 @@ type Props = {
   label: string;
   title: string;
   desc: string;
-  removeItem: (string) => void;
-  setActiveItem: (string) => void;
+  removeItem: (id: string) => void;
+  setActiveItem: (id: string) => void;
 };
 
-function Item({
+function LibraryItem({
   id,
   label,
   title,
@@ -92,4 +92,4 @@ function Item({
   );
 }
 
-export default Item;
+export default LibraryItem;

@@ -14,11 +14,20 @@ import {
 
 const headerHeight = 56;
 
+type Lights = {
+  top: PointLight;
+  right: PointLight;
+  bottom: PointLight;
+  left: PointLight;
+  far: PointLight;
+  near: PointLight;
+};
+
 function ThreeIcosahedron() {
   const rootEl = React.createRef<HTMLDivElement>();
 
   // setup renderer
-  const [renderer, setRenderer] = React.useState(null);
+  const [renderer, setRenderer] = React.useState<WebGLRenderer | null>(null);
   React.useEffect(() => {
     if (renderer) return;
 
@@ -30,7 +39,7 @@ function ThreeIcosahedron() {
   }, [renderer]);
 
   // setup scene
-  const [scene, setScene] = React.useState(null);
+  const [scene, setScene] = React.useState<Scene | null>(null);
   React.useEffect(() => {
     if (scene) return;
 
@@ -40,7 +49,7 @@ function ThreeIcosahedron() {
   }, [scene]);
 
   // setup camera
-  const [camera, setCamera] = React.useState(null);
+  const [camera, setCamera] = React.useState<PerspectiveCamera | null>(null);
   React.useEffect(() => {
     if (camera) return;
 
@@ -57,7 +66,7 @@ function ThreeIcosahedron() {
   }, [camera]);
 
   // setup lights
-  const [lights, setLights] = React.useState(null);
+  const [lights, setLights] = React.useState<Lights | null>(null);
   React.useEffect(() => {
     if (lights) return;
 
@@ -80,7 +89,7 @@ function ThreeIcosahedron() {
   }, [lights]);
 
   // setup mesh
-  const [mesh, setMesh] = React.useState(null);
+  const [mesh, setMesh] = React.useState<Mesh | null>(null);
   React.useEffect(() => {
     if (mesh) return;
 
@@ -106,7 +115,7 @@ function ThreeIcosahedron() {
 
   // setup render loop
   const animate = React.useCallback(() => {
-    if (!renderer || !mesh) return;
+    if (!renderer || !scene || !camera || !mesh) return;
     // rotate mesh (in radians)
     mesh.rotation.x += 0.005;
     mesh.rotation.y += 0.005;
@@ -120,7 +129,7 @@ function ThreeIcosahedron() {
   React.useEffect(() => {
     if (initialized) return;
 
-    if (!renderer || !scene || !camera || !lights) return;
+    if (!renderer || !scene || !camera || !mesh || !lights) return;
     // add lights and mesh to scene
     scene.add(lights.top);
     scene.add(lights.right);

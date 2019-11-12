@@ -4,10 +4,10 @@ import styled from '@emotion/styled/macro';
 // components
 import Block from 'components/Block';
 // contexts
-import { ProjectsContext } from 'contexts/projects';
+import { useProjectsContext } from 'contexts/projects';
 import { BlockProps } from 'contexts/blocks';
 
-const DropContainer = styled.div`
+const DropContainer = styled.div<{ isDraggingOver: boolean }>`
   background-color: ${({ isDraggingOver }) =>
     isDraggingOver ? '#9b88c1' : 'transparent'};
   transition: background-color 0.2s ease;
@@ -21,7 +21,7 @@ type Props = {
 };
 
 function ProjectBlocks({ projectId, blocks }: Props) {
-  const { removeBlockIdFromProject } = React.useContext(ProjectsContext);
+  const { removeBlockIdFromProject } = useProjectsContext();
 
   return (
     <Droppable droppableId={`project-blocks`}>
@@ -46,6 +46,7 @@ function ProjectBlocks({ projectId, blocks }: Props) {
                   <Block
                     id={block.id}
                     meta={block.meta}
+                    type="plainText"
                     body={block.body}
                     removeBlock={(blockId) =>
                       removeBlockIdFromProject(projectId, blockId)

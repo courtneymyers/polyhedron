@@ -1,10 +1,11 @@
 import { redirectUri } from 'config/auth0-auth';
+import { Response } from 'request';
 const request = require('request');
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-const mgtClientId = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_ID;
-const mgtClientSecret = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET;
+const domain = process.env.REACT_APP_AUTH0_DOMAIN || '';
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
+const mgtClientId = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_ID || '';
+const mgtClientSec = process.env.REACT_APP_AUTH0_MANAGEMENT_CLIENT_SECRET || '';
 
 class MgtClient {
   getAccessToken: () => void;
@@ -23,18 +24,17 @@ class MgtClient {
         body: {
           grant_type: 'client_credentials',
           client_id: mgtClientId,
-          client_secret: mgtClientSecret,
+          client_secret: mgtClientSec,
           audience: `https://${domain}/api/v2/`,
         },
         json: true,
       };
 
-      /* prettier-ignore */
-      request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+      request(options, (err: any, res: Response, body: any) => {
+        if (err) throw new Error(err);
 
         this.getCallbackUrls(body.access_token);
-      }.bind(this));
+      });
     };
 
     this.getCallbackUrls = (accessToken) => {
@@ -47,12 +47,11 @@ class MgtClient {
         },
       };
 
-      /* prettier-ignore */
-      request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+      request(options, (err: any, res: Response, body: any) => {
+        if (err) throw new Error(err);
 
         this.addDomainToCallbackUrls(accessToken, JSON.parse(body).callbacks);
-      }.bind(this));
+      });
     };
 
     this.addDomainToCallbackUrls = (accessToken, existingCallbacks) => {
@@ -72,8 +71,8 @@ class MgtClient {
         body: updatedCallbacks,
       };
 
-      request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+      request(options, (err: any, res: Response, body: any) => {
+        if (err) throw new Error(err);
       });
     };
   }

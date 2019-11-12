@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 import BlockButton from 'components/BlockButton';
 import Field from 'components/Field';
 // contexts
-import { BlocksContext, BlockProps } from 'contexts/blocks';
+import { BlockProps, useBlocksContext } from 'contexts/blocks';
 
 const Container = styled.div`
   display: flex;
@@ -34,11 +34,18 @@ const Handle = styled.div`
 const RemoveButton = styled(BlockButton)``;
 
 type Props = {
-  removeBlock: (string) => void;
+  removeBlock: (blockId: string) => void;
 };
 
-function Block({ id, meta, body, removeBlock, ...props }: Props & BlockProps) {
-  const { updateBlockFieldText } = React.useContext(BlocksContext);
+function Block({
+  id,
+  meta,
+  type,
+  body,
+  removeBlock,
+  ...props
+}: Props & BlockProps) {
+  const { updateBlockFieldText } = useBlocksContext();
 
   return (
     <Container {...props}>
@@ -58,12 +65,14 @@ function Block({ id, meta, body, removeBlock, ...props }: Props & BlockProps) {
           updateText={(text) => updateBlockFieldText(id, 'meta.desc', text)}
         />
 
-        <Field
-          type="textarea"
-          label="Body"
-          text={body}
-          updateText={(text) => updateBlockFieldText(id, 'body', text)}
-        />
+        {type === 'plainText' && (
+          <Field
+            type="textarea"
+            label="Body"
+            text={body}
+            updateText={(text) => updateBlockFieldText(id, 'body', text)}
+          />
+        )}
       </Fields>
 
       <Handle>

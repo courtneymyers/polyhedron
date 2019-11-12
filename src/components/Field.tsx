@@ -31,7 +31,7 @@ type Props = {
   type: 'text' | 'textarea';
   label: string;
   text: string;
-  updateText: (string) => void;
+  updateText: (text: string) => void;
 };
 
 function Field({ type, label, text, updateText, ...props }: Props) {
@@ -58,7 +58,11 @@ function Field({ type, label, text, updateText, ...props }: Props) {
           rows={5}
           id={field}
           value={text}
-          onChange={(ev) => updateText(ev.target.value)}
+          /* TODO: remove 'any' type below once emotion.js updates and properly
+            supports withComponent with TypeScript
+            (see: https://github.com/emotion-js/emotion/pull/1501)
+          */
+          onChange={(ev: any) => updateText(ev.target.value)}
         />
       )}
     </Container>

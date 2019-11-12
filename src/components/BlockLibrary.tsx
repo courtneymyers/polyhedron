@@ -4,8 +4,8 @@ import styled from '@emotion/styled/macro';
 // components
 import LibraryItem from 'components/LibraryItem';
 // contexts
-import { BlocksContext } from 'contexts/blocks';
-import { ProjectsContext } from 'contexts/projects';
+import { useBlocksContext } from 'contexts/blocks';
+import { useProjectsContext } from 'contexts/projects';
 
 const Container = styled.div``;
 const DropContainer = styled.div``;
@@ -14,8 +14,8 @@ const DragContainer = styled.div``;
 type Props = {};
 
 function BlockLibrary({ ...props }: Props) {
-  const { blocks, removeBlock } = React.useContext(BlocksContext);
-  const { removeBlockIdFromAllProjects } = React.useContext(ProjectsContext);
+  const { blocks, removeBlock } = useBlocksContext();
+  const { removeBlockIdFromAllProjects } = useProjectsContext();
 
   return (
     <Container>
