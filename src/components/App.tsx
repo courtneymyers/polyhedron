@@ -19,6 +19,8 @@ export type Database = 'memory' | 'firebase';
 
 type Props = {
   db: Database;
+  // reach router props
+  path: string;
 };
 
 function App({ db }: Props & RouteComponentProps) {
