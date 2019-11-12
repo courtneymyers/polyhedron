@@ -1,9 +1,7 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-const Button = styled.a`
+const ButtonLink = styled.a`
   display: block;
   width: 1.25rem;
   height: 1.25rem;
@@ -24,11 +22,15 @@ const Button = styled.a`
 `;
 
 type Props = {
-  text: string,
+  text: string;
+  // anchor props
+  href: string;
+  title: string;
+  onClick(event: React.MouseEvent<HTMLAnchorElement>): void;
 };
 
 function BlockButton({ text, ...props }: Props) {
-  return <Button {...props}>{text}</Button>;
+  return <ButtonLink {...props}>{text}</ButtonLink>;
 }
 
 export default BlockButton;

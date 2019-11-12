@@ -1,13 +1,11 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled/macro';
 // components
 import LibraryItem from 'components/LibraryItem';
 // contexts
-import { BlocksContext } from 'contexts/blocks';
-import { ProjectsContext } from 'contexts/projects';
+import { useBlocksContext } from 'contexts/blocks';
+import { useProjectsContext } from 'contexts/projects';
 
 const Container = styled.div``;
 const DropContainer = styled.div``;
@@ -16,8 +14,8 @@ const DragContainer = styled.div``;
 type Props = {};
 
 function BlockLibrary({ ...props }: Props) {
-  const { blocks, removeBlock } = useContext(BlocksContext);
-  const { removeBlockIdFromAllProjects } = useContext(ProjectsContext);
+  const { blocks, removeBlock } = useBlocksContext();
+  const { removeBlockIdFromAllProjects } = useProjectsContext();
 
   return (
     <Container>

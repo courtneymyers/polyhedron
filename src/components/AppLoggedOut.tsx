@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
@@ -24,7 +22,9 @@ const LoginButton = styled(UserButton)`
   right: 1rem;
 `;
 
-function AppLoggedOut() {
+type Props = {};
+
+function AppLoggedOut({ ...props }: Props) {
   return (
     <Container>
       <LoggedOutHeader>

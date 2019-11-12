@@ -1,28 +1,40 @@
-// @flow
-
 import React from 'react';
-import type { Node } from 'react';
-// types
-import type { Database } from 'components/App';
+// components
+import { Database } from 'components/App';
 // utilities
 import { setKeyValue } from 'utilities';
 // databases
 import firebase, { version } from 'config/firebase';
 
-const BlocksContext: any = React.createContext();
-
 type Props = {
-  db: Database,
-  userId: ?string,
-  children: Node,
+  db: Database;
+  userId: string | null;
+  children: React.ReactNode;
 };
 
-type BlockProps = {
-  id: string,
-  meta: { time: number, title: string, desc: string },
-  type: 'plainText' | 'richText',
-  body: string,
+export type BlockProps = {
+  id: string;
+  meta: { time: number; title: string; desc: string };
+  type: 'plainText' | 'richText';
+  body: string;
 };
+
+type Context = {
+  blocks: BlockProps[];
+  addBlock(): string;
+  removeBlock(blockId: string): void;
+  updateBlockFieldText(blockId: string, field: string, text: string): void;
+};
+
+const BlocksContext = React.createContext<Context | undefined>(undefined);
+
+function useBlocksContext() {
+  const context = React.useContext(BlocksContext);
+  if (context === undefined) {
+    throw new Error('useBlocksContext must be used within a BlocksProvider');
+  }
+  return context;
+}
 
 function BlocksProvider({ db, userId, children }: Props) {
   const [blocks, setBlocks] = React.useState<BlockProps[]>([]);
@@ -52,6 +64,8 @@ function BlocksProvider({ db, userId, children }: Props) {
     }
 
     if (db === 'firebase') {
+      if (!dbBlocks) return blockId;
+
       const block = dbBlocks.push({
         // id: blockId,
         meta: { time, title: '', desc: '' },
@@ -59,7 +73,7 @@ function BlocksProvider({ db, userId, children }: Props) {
         body: '',
       });
 
-      blockId = block.key;
+      if (block.key) blockId = block.key;
     }
 
     return blockId;
@@ -73,11 +87,11 @@ function BlocksProvider({ db, userId, children }: Props) {
     }
 
     if (db === 'firebase') {
+      if (!dbBlocks) return;
+
       const block = dbBlocks.child(blockId);
       block.remove();
     }
-
-    return null;
   }
 
   function updateBlockFieldText(
@@ -97,11 +111,11 @@ function BlocksProvider({ db, userId, children }: Props) {
     }
 
     if (db === 'firebase') {
+      if (!dbBlocks) return;
+
       const path = fields.join('/'); // ['meta', 'title'] -> 'meta/title'
       dbBlocks.child(`${blockId}/${path}`).set(text);
     }
-
-    return null;
   }
 
   // initialize blocks from firebase databse after first render
@@ -109,6 +123,7 @@ function BlocksProvider({ db, userId, children }: Props) {
   React.useEffect(() => {
     if (db !== 'firebase') return;
     if (blocksInitialized) return;
+    if (!dbBlocks) return;
 
     dbBlocks.on('value', (snapshot) => {
       const blocksObject = snapshot.val();
@@ -138,5 +153,4 @@ function BlocksProvider({ db, userId, children }: Props) {
   );
 }
 
-export { BlocksContext, BlocksProvider };
-export type { BlockProps };
+export { BlocksProvider, useBlocksContext };

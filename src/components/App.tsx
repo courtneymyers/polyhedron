@@ -1,10 +1,11 @@
-// @flow
+/** @jsx jsx */
 
 import React from 'react';
-import { Global, css } from '@emotion/core';
-import type { RouteProps } from '@reach/router';
+import { Global, css, jsx } from '@emotion/core';
+import { RouteComponentProps } from '@reach/router';
+import { Auth0UserProfile } from 'auth0-js';
 // contexts
-import { UserProvider, UserContext } from 'contexts/user';
+import { UserProvider, useUserContext } from 'contexts/user';
 import { ProjectsProvider } from 'contexts/projects';
 import { BlocksProvider } from 'contexts/blocks';
 // components
@@ -17,23 +18,26 @@ import MgtClient from 'config/auth0-mgt';
 export type Database = 'memory' | 'firebase';
 
 type Props = {
-  ...RouteProps,
-  db: Database,
+  db: Database;
+  // reach router props
+  path: string;
 };
 
-function App({ db }: Props) {
-  const { userProfile, setUserProfile } = React.useContext(UserContext);
+function App({ db }: Props & RouteComponentProps) {
+  const { userProfile, setUserProfile } = useUserContext();
 
   React.useEffect(() => {
     new MgtClient().getAccessToken();
-    new AuthClient().getProfile((profile) => setUserProfile(profile));
+    new AuthClient().getProfile((profile: Auth0UserProfile | null) => {
+      setUserProfile(profile);
+    });
   }, [setUserProfile]);
 
   // remove 'auth0|' prefix to set userId
   const userId = userProfile ? userProfile.sub.split('auth0|').pop() : null;
 
   return (
-    <>
+    <React.Fragment>
       <Global
         styles={css`
           body {
@@ -57,7 +61,7 @@ function App({ db }: Props) {
           </BlocksProvider>
         </ProjectsProvider>
       )}
-    </>
+    </React.Fragment>
   );
 }
 

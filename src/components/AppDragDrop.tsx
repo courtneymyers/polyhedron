@@ -1,12 +1,14 @@
-// @flow
-
 import React from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import type { DragStart, DragUpdate, DropResult } from 'react-beautiful-dnd';
+import {
+  DragStart,
+  DragUpdate,
+  DropResult,
+  DragDropContext,
+} from 'react-beautiful-dnd';
 // components
 import AppUserInterface from 'components/AppUserInterface';
 // contexts
-import { ProjectsContext } from 'contexts/projects';
+import { useProjectsContext } from 'contexts/projects';
 
 type Props = {};
 
@@ -15,7 +17,7 @@ function AppDragDrop({ ...props }: Props) {
     activeProjectId,
     reorderBlocksInProject,
     addBlockIdToProject,
-  } = React.useContext(ProjectsContext);
+  } = useProjectsContext();
 
   function onDragStart(start: DragStart) {
     // console.log(start);

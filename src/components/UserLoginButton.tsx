@@ -1,17 +1,15 @@
-// @flow
-
 import React from 'react';
 // components
 import BlockButton from 'components/BlockButton';
 // contexts
-import { UserContext } from 'contexts/user';
+import { useUserContext } from 'contexts/user';
 // authentication
 import AuthClient from 'config/auth0-auth';
 
 type Props = {};
 
 function UserLoginButton({ ...props }: Props) {
-  const { userProfile, setUserProfile } = React.useContext(UserContext);
+  const { userProfile, setUserProfile } = useUserContext();
 
   const auth = new AuthClient();
   const userName = userProfile ? userProfile.name : '';

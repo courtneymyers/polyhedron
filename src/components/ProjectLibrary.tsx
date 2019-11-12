@@ -1,14 +1,16 @@
-// @flow
-
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
 import BlockButton from 'components/BlockButton';
 import LibraryItem from 'components/LibraryItem';
 // contexts
-import { ProjectsContext } from 'contexts/projects';
+import { useProjectsContext } from 'contexts/projects';
 
 const Container = styled.div``;
+
+const Item = styled(LibraryItem)<{ isActive: boolean }>`
+  border-color: ${({ isActive }) => isActive && '#360a80'};
+`;
 
 const AddButton = styled(BlockButton)`
   margin: 0.5rem auto 0;
@@ -23,12 +25,12 @@ function ProjectLibrary({ ...props }: Props) {
     addProject,
     removeProject,
     assignActiveProjectId,
-  } = useContext(ProjectsContext);
+  } = useProjectsContext();
 
   return (
     <Container>
       {projects.map((project) => (
-        <LibraryItem
+        <Item
           key={project.id}
           id={project.id}
           label="Project"
@@ -36,10 +38,8 @@ function ProjectLibrary({ ...props }: Props) {
           desc={project.meta.desc}
           removeItem={removeProject}
           setActiveItem={assignActiveProjectId}
-          style={{
-            // active project gets highlighted border
-            borderColor: project.id === activeProjectId && '#360a80',
-          }}
+          // active project gets highlighted border
+          isActive={project.id === activeProjectId}
         />
       ))}
 

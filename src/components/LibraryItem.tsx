@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from '@emotion/styled/macro';
 // components
@@ -47,15 +45,15 @@ const Title = styled(Paragraph)`
 `;
 
 type Props = {
-  id: string,
-  label: string,
-  title: string,
-  desc: string,
-  removeItem: (string) => void,
-  setActiveItem: (string) => void,
+  id: string;
+  label: string;
+  title: string;
+  desc: string;
+  removeItem(id: string): void;
+  setActiveItem(id: string): void;
 };
 
-function Item({
+function LibraryItem({
   id,
   label,
   title,
@@ -94,4 +92,4 @@ function Item({
   );
 }
 
-export default Item;
+export default LibraryItem;

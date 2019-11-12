@@ -1,8 +1,8 @@
-// @flow
+/** @jsx jsx */
 
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 // components
 import BlockButton from 'components/BlockButton';
 import UserLoginButton from 'components/UserLoginButton';
@@ -15,12 +15,12 @@ const buttonHeight = 1.5;
 const headerPadding = 1;
 const headerHeight = buttonHeight + 2 * headerPadding;
 
-export const Container = styled.div`
+const Container = styled.div`
   margin: 0 auto;
   max-width: 80rem;
 `;
 
-export const Header = styled.header`
+const Header = styled.header`
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -48,7 +48,7 @@ const ToggleButton = styled(BlockButton)`
   width: ${buttonHeight}rem;
 `;
 
-export const UserButton = styled(UserLoginButton)`
+const UserButton = styled(UserLoginButton)`
   ${headerButtonStyles};
   margin-left: 1rem;
   padding: 0 0.625rem;
@@ -63,7 +63,7 @@ const ButtonLabel = styled.p`
   color: #9a87c2;
 `;
 
-export const Heading = styled.h1`
+const Heading = styled.h1`
   flex: 1;
   margin: 0.1875rem 0.75rem 0;
   font-size: 1.3125rem;
@@ -72,7 +72,7 @@ export const Heading = styled.h1`
   color: #fff;
 `;
 
-export const Main = styled.main`
+const Main = styled.main`
   display: flex;
   margin-top: ${headerHeight}rem;
   border: 1px solid #ccbee4;
@@ -173,3 +173,4 @@ function AppUserInterface({ ...props }: Props) {
 }
 
 export default AppUserInterface;
+export { Container, Header, UserButton, Heading, Main };

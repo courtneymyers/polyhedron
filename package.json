@@ -7,7 +7,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "flow": "flow",
     "lint:css": "stylelint './src/**/*.{js,jsx,ts,tsx,css}'",
     "now-build": "react-scripts build"
   },
@@ -27,12 +26,20 @@
   "devDependencies": {
     "@testing-library/jest-dom": "4.2.2",
     "@testing-library/react": "9.3.1",
-    "flow-bin": "0.111.0",
+    "@types/auth0-js": "9.10.6",
+    "@types/jest": "24.0.21",
+    "@types/node": "12.12.5",
+    "@types/reach__router": "1.2.6",
+    "@types/react": "16.9.11",
+    "@types/react-beautiful-dnd": "11.0.3",
+    "@types/react-dom": "16.9.3",
+    "@types/request": "2.48.3",
     "husky": "3.0.9",
     "lint-staged": "9.4.2",
     "prettier": "1.18.2",
     "stylelint": "11.1.1",
-    "stylelint-config-standard": "19.0.0"
+    "stylelint-config-standard": "19.0.0",
+    "typescript": "3.6.4"
   },
   "husky": {
     "hooks": {
