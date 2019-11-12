@@ -183,12 +183,9 @@ function ProjectsProvider({ db, userId, children }: Props) {
           blockIds.push(blockIdsObject[key]);
         }
       });
-      // null/undefined check for flow (toIndex will always be a number here)
-      if (toIndex !== null && toIndex !== undefined) {
-        // remove blockId from end, and re-insert back at toIndex
-        blockIds.splice(-1, 1);
-        blockIds.splice(toIndex, 0, blockId);
-      }
+      // remove blockId from end, and re-insert back at toIndex
+      blockIds.splice(-1, 1);
+      blockIds.splice(toIndex, 0, blockId);
       // store re-ordered blockIds in firebase
       dbBlockIds.remove();
       blockIds.forEach((blockId) => dbBlockIds.push(blockId));
