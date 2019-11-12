@@ -17,7 +17,7 @@ const DragContainer = styled.div``;
 
 type Props = {
   projectId: string;
-  blocks: Array<BlockProps>;
+  blocks: BlockProps[];
 };
 
 function ProjectBlocks({ projectId, blocks }: Props) {
